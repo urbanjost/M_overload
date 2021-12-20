@@ -3,12 +3,13 @@
 
 NULL=
 PROGFILES = \
- ../example/demo_generate_overload.f90 \
+ ../example/demo_M_overload.f90 \
 $(NULL)
 
 TESTFILES = \
  ../test/test_suite_M_overload.f90 \
 $(NULL)
+
 TPROG = ${TESTFILES:.f90=}
 
 CPROGFILES = 
@@ -53,15 +54,17 @@ nagfor: F90FLAGS := -C all
 nagfor: all
 	@echo built with $(F90)
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
-all: $(PROG) $(CPROG) # $(TPROG)
+all: $(PROG) $(CPROG) $(TPROG)
 	@echo "That's all folks!"
 $(PROG): $(OBJS)
+	banner 'BUILD EXAMPLES'
 
 	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
 
-#$(TPROG): $(OBJS)
-#
-#	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
+$(TPROG): $(OBJS)
+	banner 'BUILD TESTS'
+
+	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
 
 .PHONY: clean
 clean:
@@ -96,11 +99,11 @@ run: $(PROG)
 #	echo $? | xargs -n 1  |xargs -iXX /bin/time XX  \</dev/null
 	echo $? | xargs -n 1  |(set +x;xargs -iXX env XX 2>&1)
 
-#.PHONY: test
-#test: $(TPROG)
-#	# run everything
-#	echo $? | xargs -n 1  
-#	echo $? | xargs -n 1  |(set +x;xargs -iXX env XX 2>&1)
+.PHONY: test
+test: $(TPROG)
+	banner TESTS
+	# run all tests
+	echo $? | xargs -n 1  |(set +x;xargs -iXX env XX 2>&1)
 
 .PHONY: doxygen
 doxygen: 
