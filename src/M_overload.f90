@@ -114,6 +114,9 @@
 !!      if(abs(dble('1234.5678901234567')- 1234.5678901234567d0).lt.epsilon(0.0d0)) &
 !!       & write(*,*)'dble("STRING") works '
 !!
+!!      write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
+!!      write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
+!!
 !!       if (.true. == .true. ) &
 !!       & write(*,*)'== works like .eqv. for LOGICAL values'
 !!      if (.true. /= .false. ) &

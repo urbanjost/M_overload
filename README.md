@@ -12,7 +12,6 @@
    Common examples of intrinsic and operator overloads available
    as an fpm(1) package.
 
-<!--
 ## BUILDING THE MODULE USING make(1) ![gmake](docs/images/gnu.gif)
      git clone https://github.com/urbanjost/M_overload.git
      cd M_overload/src
@@ -32,7 +31,6 @@
 
 This will compile the Fortran module and basic example
 program that exercise the routine.
--->
 
 ## BUILD and TEST with FPM ![-](docs/images/fpm_logo.gif)
 

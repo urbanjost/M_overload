@@ -57,14 +57,13 @@ nagfor: all
 all: $(PROG) $(CPROG) $(TPROG)
 	@echo "That's all folks!"
 $(PROG): $(OBJS)
-	banner 'BUILD EXAMPLES'
+	@echo 'build examples'
 
 	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
 
 $(TPROG): $(OBJS)
-	banner 'BUILD TESTS'
-
-	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
+	@echo 'build tests'
+#	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
 
 .PHONY: clean
 clean:
@@ -101,8 +100,7 @@ run: $(PROG)
 
 .PHONY: test
 test: $(TPROG)
-	banner TESTS
-	# run all tests
+	@echo run all tests
 	echo $? | xargs -n 1  |(set +x;xargs -iXX env XX 2>&1)
 
 .PHONY: doxygen
