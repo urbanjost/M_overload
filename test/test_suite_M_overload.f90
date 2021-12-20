@@ -1,7 +1,9 @@
 module M_test_suite_M_overload
+use, intrinsic :: iso_fortran_env, only : integer_kinds, int8, int16, int32, int64
+use, intrinsic :: iso_fortran_env, only : real32, real64, real128
 use M_msg
 use M_verify, only : unit_check_command, unit_check_keep_going, unit_check_level
-use M_overload, only : generate_overload
+use M_overload
 private
 public test_suite_m_overload
 contains
@@ -12,7 +14,7 @@ subroutine test_suite_M_overload()
 use M_verify,                 only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
 use M_verify,                 only : unit_check_level
 use M_verify,                 only : almost
-use M_compare_float_numbers, only : operator(.EqualTo.)
+!use M_compare_float_numbers, only : operator(.EqualTo.)
 implicit none
 character(len=:),allocatable :: cmd
 
@@ -28,12 +30,12 @@ character(len=:),allocatable :: cmd
       call test_real_s2v()
       call test_reals_s2v()
       call test_sign()
-$!      call get_command(cmd,realloc=.true.)
-$!      cmd=cmd//' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-$!      call execute_command_line(cmd)
-$!   else
-$!      call test_get_command()
-$!      call test_get_command_argument()
+!$!      call get_command(cmd,realloc=.true.)
+!$!      cmd=cmd//' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+!$!      call execute_command_line(cmd)
+!$!   else
+!$!      call test_get_command()
+!$!      call test_get_command_argument()
    endif
 !! teardown
 contains
@@ -109,7 +111,8 @@ subroutine test_dble_s2v()
          & ')
    if(dble('0.3570726221234567').eq. 0.3570726221234567d0)then
       call unit_check_good('dble_s2v')                                             ! string passed to dble
-   elseif(dble('0.3570726221234567') .EqualTo. 0.3570726221234567d0 )then
+!   elseif(dble('0.3570726221234567') .EqualTo. 0.3570726221234567d0 )then
+   elseif(dble('0.3570726221234567') .eq. 0.3570726221234567d0 )then
       call unit_check_good('dble_s2v')                                             ! string passed to real but not exactly
    else
       call unit_check_bad('dble_s2v')                                              ! returned value not equal to expected value
@@ -128,9 +131,16 @@ subroutine test_dbles_s2v()
          &  -ccall        n &
          &  -archive      GPF.a &
          & ')
+
+	 write(*,*)'GOT HERE A:'
+	 write(*,*)'GOT HERE A:',dble('10.0d0')
+	 write(*,*)'GOT HERE A:',dble(['10.0d0','20.0d0'])
+	 write(*,*)'GOT HERE A:',all(dble(['10.0d0','20.0d0']).eq.[10.0d0,20.0d0])
+
    if(all(dble(['10.0d0','20.0d0']).eq. [10.0d0,20.0d0]))then
       call unit_check_good('dbles_s2v')                                             ! string passed to dble
-   elseif(all(dble(['10.0d0','20.0d0']) .EqualTo. [10.0d0,20.0d0]))then
+!   elseif(all(dble(['10.0d0','20.0d0']) .EqualTo. [10.0d0,20.0d0]))then
+   elseif(all(dble(['10.0d0','20.0d0']) .eq. [10.0d0,20.0d0]))then
       call unit_check_good('dbles_s2v')                                             ! string passed to real but not exactly
    else
       call unit_check_bad('dbles_s2v')                                              ! returned value not equal to expected value
@@ -209,7 +219,8 @@ real,allocatable :: rbug(:)
    rbug=real(['0.357072622','200.0      '])
    if(all(rbug.eq. [0.357072622,200.0]))then
       call unit_check_good('reals_s2v')                                             ! string passed to int
-   elseif(all(real(['0.357072622','200.0      ']) .EqualTo. [0.357072622,200.0]))then
+!   elseif(all(real(['0.357072622','200.0      ']) .EqualTo. [0.357072622,200.0]))then
+   elseif(all(real(['0.357072622','200.0      ']) .eq. [0.357072622,200.0]))then
       call unit_check_good('reals_s2v')                                             ! string passed to real but not exactly
    else
       call unit_check_bad('reals_s2v')                                              ! returned value not equal to expected value
@@ -217,110 +228,110 @@ real,allocatable :: rbug(:)
 
 end subroutine test_reals_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-$!subroutine test_get_command()
-$!   call unit_check_start('get_command','&
-$!         & -description "overload GET_COMMAND() to take allocatable string" &
-$!         & -section 3                    &
-$!         & -library libGPF               &
-$!         & -filename `pwd`/M_overload.FF &
-$!         & -documentation y              &
-$!         &  -prep         y              &
-$!         &  -ccall        n              &
-$!         &  -archive      GPF.a          &
-$!         & ')
-$!   call unit_check_done('get_command',msg='')
-$!end subroutine test_get_command
+!$!subroutine test_get_command()
+!$!   call unit_check_start('get_command','&
+!$!         & -description "overload GET_COMMAND() to take allocatable string" &
+!$!         & -section 3                    &
+!$!         & -library libGPF               &
+!$!         & -filename `pwd`/M_overload.FF &
+!$!         & -documentation y              &
+!$!         &  -prep         y              &
+!$!         &  -ccall        n              &
+!$!         &  -archive      GPF.a          &
+!$!         & ')
+!$!   call unit_check_done('get_command',msg='')
+!$!end subroutine test_get_command
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-$!subroutine test_get_command_argument()
-$!integer                      :: istat, ilen, i
-$!character(len=:),allocatable :: argument, arguments
-$!character(len=10)            :: regular
-$!integer,allocatable          :: istats(:), ilens(:)
-$!! assuming called with cmd//' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-$!   call unit_check_start('get_command_argument','&
-$!    & -description "overload GET_command_argument() to take allocatable string" &
-$!    & -section 3                    &
-$!    & -library libGPF               &
-$!    & -filename `pwd`/M_overload.FF &
-$!    & -documentation y              &
-$!    &  -prep         y              &
-$!    &  -ccall        n              &
-$!    &  -archive      GPF.a          &
-$!    & ')
-$!   
-$!   ! unallocated allocatable variable and realloc=.true.
-$!   allocate(integer :: istats(0),ilens(0))
-$!   arguments=''
-$!   do i=1, command_argument_count()
-$!      call get_command_argument(i, argument, length=ilen, status=istat, realloc=.true.)
-$!      istats=[istats,istat]
-$!      ilens=[ilens,ilen]
-$!      arguments=arguments//argument//' '
-$!   enddo
-$!   write(*,*)'ISTATS=',istats
-$!   write(*,*)'ILENS=',ilens
-$!   write(*,*)'ARGUMENTS=',arguments
-$!   call unit_check('get_command_argument',all(istats.eq.0),'check if all status returns are zero')
-$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
-$!   call unit_check('get_command_argument',arguments.eq.'-x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-$!
-$!   ! allocated allocatable variable and realloc=.true.
-$!   if(allocated(istats))deallocate(istats)
-$!   if(allocated(ilens))deallocate(ilens)
-$!   if(allocated(argument))deallocate(argument)
-$!   allocate(integer :: istats(0),ilens(0))
-$!   argument='12345678901234'
-$!   arguments=''
-$!   do i=1, command_argument_count()
-$!      call get_command_argument(i, argument, length=ilen, status=istat, realloc=.true.)
-$!      istats=[istats,istat]
-$!      ilens=[ilens,ilen]
-$!      arguments=arguments//argument//' '
-$!   enddo
-$!   write(*,*)'ISTATS=',istats
-$!   write(*,*)'ILENS=',ilens
-$!   write(*,*)'ARGUMENTS=',arguments
-$!   call unit_check('get_command_argument',all(istats.eq.0),'check if all status returns are zero')
-$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
-$!   call unit_check('get_command_argument',arguments.eq.'-x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
-$!
-$!   ! allocatable variable already allocated and no realloc=.true.
-$!   deallocate(istats,ilens,argument)
-$!   allocate(integer :: istats(0),ilens(0))
-$!   arguments=''
-$!   allocate(character(len=10) :: argument)
-$!   do i=1, command_argument_count()
-$!      call get_command_argument(i, argument, length=ilen, status=istat)
-$!      istats=[istats,istat]
-$!      ilens=[ilens,ilen]
-$!      arguments=arguments//argument//' '
-$!   enddo
-$!   write(*,*)'ISTATS=',istats
-$!   write(*,*)'ILENS=',ilens
-$!   write(*,*)'ARGUMENTS=',arguments
-$!   call unit_check('get_command_argument',all(istats.eq.[0,0,-1,-1]),'check if get truncations as expected')
-$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
-$!   call unit_check('get_command_argument',arguments.eq.'-x         -y         hello ther xxxxxxxxxx')
-$!
-$!   ! regular
-$!   deallocate(istats,ilens)
-$!   allocate(integer :: istats(0),ilens(0))
-$!   arguments=''
-$!   do i=1, command_argument_count()
-$!      call get_command_argument(i, regular, length=ilen, status=istat)
-$!      istats=[istats,istat]
-$!      ilens=[ilens,ilen]
-$!      arguments=arguments//regular//' '
-$!   enddo
-$!   write(*,*)'ISTATS=',istats
-$!   write(*,*)'ILENS=',ilens
-$!   write(*,*)'ARGUMENTS=',arguments
-$!   call unit_check('get_command_argument',all(istats.eq.[0,0,-1,-1]),'check if get truncations as expected')
-$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
-$!   call unit_check('get_command_argument',arguments.eq.'-x         -y         hello ther xxxxxxxxxx')
-$!
-$!   call unit_check_done('get_command_argument',msg='')
-$!end subroutine test_get_command_argument
+!$!subroutine test_get_command_argument()
+!$!integer                      :: istat, ilen, i
+!$!character(len=:),allocatable :: argument, arguments
+!$!character(len=10)            :: regular
+!$!integer,allocatable          :: istats(:), ilens(:)
+!$!! assuming called with cmd//' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+!$!   call unit_check_start('get_command_argument','&
+!$!    & -description "overload GET_command_argument() to take allocatable string" &
+!$!    & -section 3                    &
+!$!    & -library libGPF               &
+!$!    & -filename `pwd`/M_overload.FF &
+!$!    & -documentation y              &
+!$!    &  -prep         y              &
+!$!    &  -ccall        n              &
+!$!    &  -archive      GPF.a          &
+!$!    & ')
+!$!   
+!$!   ! unallocated allocatable variable and realloc=.true.
+!$!   allocate(integer :: istats(0),ilens(0))
+!$!   arguments=''
+!$!   do i=1, command_argument_count()
+!$!      call get_command_argument(i, argument, length=ilen, status=istat, realloc=.true.)
+!$!      istats=[istats,istat]
+!$!      ilens=[ilens,ilen]
+!$!      arguments=arguments//argument//' '
+!$!   enddo
+!$!   write(*,*)'ISTATS=',istats
+!$!   write(*,*)'ILENS=',ilens
+!$!   write(*,*)'ARGUMENTS=',arguments
+!$!   call unit_check('get_command_argument',all(istats.eq.0),'check if all status returns are zero')
+!$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
+!$!   call unit_check('get_command_argument',arguments.eq.'-x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+!$!
+!$!   ! allocated allocatable variable and realloc=.true.
+!$!   if(allocated(istats))deallocate(istats)
+!$!   if(allocated(ilens))deallocate(ilens)
+!$!   if(allocated(argument))deallocate(argument)
+!$!   allocate(integer :: istats(0),ilens(0))
+!$!   argument='12345678901234'
+!$!   arguments=''
+!$!   do i=1, command_argument_count()
+!$!      call get_command_argument(i, argument, length=ilen, status=istat, realloc=.true.)
+!$!      istats=[istats,istat]
+!$!      ilens=[ilens,ilen]
+!$!      arguments=arguments//argument//' '
+!$!   enddo
+!$!   write(*,*)'ISTATS=',istats
+!$!   write(*,*)'ILENS=',ilens
+!$!   write(*,*)'ARGUMENTS=',arguments
+!$!   call unit_check('get_command_argument',all(istats.eq.0),'check if all status returns are zero')
+!$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
+!$!   call unit_check('get_command_argument',arguments.eq.'-x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+!$!
+!$!   ! allocatable variable already allocated and no realloc=.true.
+!$!   deallocate(istats,ilens,argument)
+!$!   allocate(integer :: istats(0),ilens(0))
+!$!   arguments=''
+!$!   allocate(character(len=10) :: argument)
+!$!   do i=1, command_argument_count()
+!$!      call get_command_argument(i, argument, length=ilen, status=istat)
+!$!      istats=[istats,istat]
+!$!      ilens=[ilens,ilen]
+!$!      arguments=arguments//argument//' '
+!$!   enddo
+!$!   write(*,*)'ISTATS=',istats
+!$!   write(*,*)'ILENS=',ilens
+!$!   write(*,*)'ARGUMENTS=',arguments
+!$!   call unit_check('get_command_argument',all(istats.eq.[0,0,-1,-1]),'check if get truncations as expected')
+!$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
+!$!   call unit_check('get_command_argument',arguments.eq.'-x         -y         hello ther xxxxxxxxxx')
+!$!
+!$!   ! regular
+!$!   deallocate(istats,ilens)
+!$!   allocate(integer :: istats(0),ilens(0))
+!$!   arguments=''
+!$!   do i=1, command_argument_count()
+!$!      call get_command_argument(i, regular, length=ilen, status=istat)
+!$!      istats=[istats,istat]
+!$!      ilens=[ilens,ilen]
+!$!      arguments=arguments//regular//' '
+!$!   enddo
+!$!   write(*,*)'ISTATS=',istats
+!$!   write(*,*)'ILENS=',ilens
+!$!   write(*,*)'ARGUMENTS=',arguments
+!$!   call unit_check('get_command_argument',all(istats.eq.[0,0,-1,-1]),'check if get truncations as expected')
+!$!   call unit_check('get_command_argument',all(ilens.eq.[2,2,11,36]),'check lengths')
+!$!   call unit_check('get_command_argument',arguments.eq.'-x         -y         hello ther xxxxxxxxxx')
+!$!
+!$!   call unit_check_done('get_command_argument',msg='')
+!$!end subroutine test_get_command_argument
 !===================================================================================================================================
 end subroutine test_suite_M_overload
 end module M_test_suite_M_overload
