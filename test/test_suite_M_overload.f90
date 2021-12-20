@@ -10,6 +10,10 @@ contains
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
+! BUG REPORTS: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103782
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
 subroutine test_suite_M_overload()
 use M_verify,                 only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
 use M_verify,                 only : unit_check_level
@@ -112,7 +116,7 @@ subroutine test_dble_s2v()
    if(dble('0.3570726221234567').eq. 0.3570726221234567d0)then
       call unit_check_good('dble_s2v')                                             ! string passed to dble
 !   elseif(dble('0.3570726221234567') .EqualTo. 0.3570726221234567d0 )then
-   elseif(dble('0.3570726221234567') .eq. 0.3570726221234567d0 )then
+   elseif(abs(dble('0.3570726221234567') - 0.3570726221234567d0 ).lt.2*epsilon(0.0d0))then
       call unit_check_good('dble_s2v')                                             ! string passed to real but not exactly
    else
       call unit_check_bad('dble_s2v')                                              ! returned value not equal to expected value
@@ -120,7 +124,7 @@ subroutine test_dble_s2v()
 end subroutine test_dble_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_dbles_s2v()
-!use M_overload,              only : int, real, dble
+doubleprecision,allocatable :: vals(:)
    call unit_check_start('dbles_s2v',' &
          & -description "overload dble() to take string arguments" &
          & -section 3  &
@@ -132,23 +136,28 @@ subroutine test_dbles_s2v()
          &  -archive      GPF.a &
          & ')
 
-	 write(*,*)'GOT HERE A:'
-	 write(*,*)'GOT HERE A:',dble('10.0d0')
-	 write(*,*)'GOT HERE A:',dble(['10.0d0','20.0d0'])
-	 write(*,*)'GOT HERE A:',all(dble(['10.0d0','20.0d0']).eq.[10.0d0,20.0d0])
-
-   if(all(dble(['10.0d0','20.0d0']).eq. [10.0d0,20.0d0]))then
+   vals=dble(['10.0d0','20.0d0'])
+   vals=vals-[10.0d0,20.0d0]
+   
+   if(all(vals.eq.0.0d0))then
       call unit_check_good('dbles_s2v')                                             ! string passed to dble
-!   elseif(all(dble(['10.0d0','20.0d0']) .EqualTo. [10.0d0,20.0d0]))then
-   elseif(all(dble(['10.0d0','20.0d0']) .eq. [10.0d0,20.0d0]))then
+   elseif(all(vals.lt.2*epsilon(0.0d0)))then
       call unit_check_good('dbles_s2v')                                             ! string passed to real but not exactly
    else
       call unit_check_bad('dbles_s2v')                                              ! returned value not equal to expected value
    endif
+!!   ENCOUNTERS GFORTRAN 10.3.0 BUG
+!!   if(all(abs(dble(['10.0d0','20.0d0']).eq.[10.0d0,20.0d0])))then
+!!      call unit_check_good('dbles_s2v')                                             ! string passed to dble
+!!!   elseif(all(dble(['10.0d0','20.0d0']) .EqualTo. [10.0d0,20.0d0]))then
+!!   elseif(all(abs(dble(['10.0d0','20.0d0']) - [10.0d0,20.0d0]).lt.2*epsilon(0.0d0)))then
+!!      call unit_check_good('dbles_s2v')                                             ! string passed to real but not exactly
+!!   else
+!!      call unit_check_bad('dbles_s2v')                                              ! returned value not equal to expected value
+!!   endif
 end subroutine test_dbles_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_int_s2v()
-!use M_overload,              only : int, real, dble
    call unit_check_start('int_s2v',' &
          & -description "overload INT() to take string arguments" &
          & -section 3  &
@@ -220,7 +229,7 @@ real,allocatable :: rbug(:)
    if(all(rbug.eq. [0.357072622,200.0]))then
       call unit_check_good('reals_s2v')                                             ! string passed to int
 !   elseif(all(real(['0.357072622','200.0      ']) .EqualTo. [0.357072622,200.0]))then
-   elseif(all(real(['0.357072622','200.0      ']) .eq. [0.357072622,200.0]))then
+   elseif(all(abs(real(['0.357072622','200.0      ']) - [0.357072622,200.0]).lt.2*epsilon(0.0d0)))then
       call unit_check_good('reals_s2v')                                             ! string passed to real but not exactly
    else
       call unit_check_bad('reals_s2v')                                              ! returned value not equal to expected value

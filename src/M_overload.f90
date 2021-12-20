@@ -85,7 +85,6 @@
 !!            & integer_kinds, int8, int16, int32, int64
 !!    use, intrinsic :: iso_fortran_env, only : &
 !!            & real32, real64, real128
-!!    use M_compare_float_numbers, only : operator(.EqualTo.)
 !!
 !!    ! allow strings to be converted to integers
 !!    use M_overload, only : int
@@ -110,9 +109,9 @@
 !!
 !!      if(int('1234')               .eq.1234) &
 !!       & write(*,*)'int("STRING") works '
-!!      if(real('1234.56789')        .EqualTo.1234.56789) &
+!!      if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
 !!       & write(*,*)'real("STRING") works '
-!!      if(dble('1234.5678901234567').EqualTo.1234.5678901234567d0) &
+!!      if(abs(dble('1234.5678901234567')- 1234.5678901234567d0).lt.epsilon(0.0d0)) &
 !!       & write(*,*)'dble("STRING") works '
 !!
 !!       if (.true. == .true. ) &
@@ -207,8 +206,6 @@
 !!    Public Domain
 module m_overload
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
-use M_strings,                    only : s2v, atleast
-use M_anything,                   only : anyscalar_to_real, anyscalar_to_double, anyscalar_to_int64
 implicit none
 ! ident_1="@(#)M_overload(3fm): overloads of standard operators and intrinsic procedures"
 private
@@ -463,7 +460,7 @@ character(len=:),allocatable :: line
 character(len=:),allocatable :: fmt_local
 integer                      :: ios
 character(len=255)           :: msg
-character(len=1),parameter   :: null=char(0)
+character(len=1),parameter   :: nill=char(0)
 integer                      :: ilen
    fmt_local=format
    ! add ",a" and print null and use position of null to find length of output
@@ -492,25 +489,199 @@ integer                      :: ilen
    allocate(character(len=256) :: line) ! cannot currently write into allocatable variable
    ios=0
    select type(generic)
-      type is (integer(kind=int8));     write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (integer(kind=int16));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (integer(kind=int32));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (integer(kind=int64));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (real(kind=real32));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (real(kind=real64));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (real(kind=real128));     write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (logical);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (character(len=*));       write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
-      type is (complex);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,null
+      type is (integer(kind=int8));     write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (integer(kind=int16));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (integer(kind=int32));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (integer(kind=int64));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (real(kind=real32));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (real(kind=real64));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (real(kind=real128));     write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (logical);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (character(len=*));       write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (complex);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
    end select
    if(ios.ne.0)then
       line='<ERROR>'//trim(msg)
    else
-      ilen=index(line,null,back=.true.)
+      ilen=index(line,nill,back=.true.)
       if(ilen.eq.0)ilen=len(line)
       line=line(:ilen-1)
    endif
 end function ffmt
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+subroutine sub_s2v(chars,valu,ierr,onerr)
+
+!$@(#) M_strings::sub_s2v(3fp): subroutine returns double value from string
+
+!     1989,2016 John S. Urban.
+!
+!  o works with any g-format input, including integer, real, and exponential.
+!  o if an error occurs in the read, iostat is returned in ierr and value is set to zero. If no error occurs, ierr=0.
+!  o onerr -- value to use if an error occurs
+
+character(len=*),intent(in)  :: chars                     ! input string
+character(len=:),allocatable :: local_chars
+doubleprecision,intent(out)  :: valu                      ! value read from input string
+integer,intent(out)          :: ierr                      ! error flag (0 == no error)
+class(*),optional,intent(in) :: onerr
+
+character(len=*),parameter   :: fmt="('(bn,g',i5,'.0)')"  ! format used to build frmt
+character(len=15)            :: frmt                      ! holds format built to read input string
+character(len=256)           :: msg                       ! hold message from I/O errors
+character(len=3),save        :: nan_string='NaN'
+
+   ierr=0                                                 ! initialize error flag to zero
+   local_chars=chars
+   msg=''
+   if(len(local_chars).eq.0)local_chars=' '
+   write(frmt,fmt)len(local_chars)                        ! build format of form '(BN,Gn.0)'
+   read(local_chars,fmt=frmt,iostat=ierr,iomsg=msg)valu   ! try to read value from string
+   if(ierr.ne.0)then                                      ! if an error occurred ierr will be non-zero.
+      if(present(onerr))then
+         select type(onerr)
+         type is (integer)
+            valu=onerr
+         type is (real)
+            valu=onerr
+         type is (doubleprecision)
+            valu=onerr
+         end select
+      else                                                      ! set return value to NaN
+         read(nan_string,'(g3.3)')valu
+      endif
+      write(*,*)'*s2v* - cannot produce number from string ['//trim(chars)//']'
+      if(msg.ne.'')then
+         write(*,*)'*s2v* - ['//trim(msg)//']'
+      endif
+   endif
+end subroutine sub_s2v
+!===================================================================================================================================
+function s2v(string) result (value)
+character(len=*),intent(in) :: string
+doubleprecision             :: value
+integer                     :: ierr, onerr
+   call sub_s2v(string,value,ierr)! , ierr, onerr)
+end function s2v
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+function atleast(line,length,pattern) result(strout)
+
+!$@(#) M_overload::atleast(3f): return string padded to at least specified length
+
+character(len=*),intent(in)                :: line
+integer,intent(in)                         :: length
+character(len=*),intent(in),optional       :: pattern
+character(len=max(length,len(trim(line)))) :: strout
+if(present(pattern))then
+   strout=line//repeat(pattern,len(strout)/len(pattern)+1)
+else
+   strout=line
+endif
+end function atleast
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+pure elemental function anyscalar_to_double(valuein) result(d_out)
+use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
+implicit none
+intrinsic dble
+
+! ident_6="@(#)M_anything::anyscalar_to_double(3f): convert integer or real parameter of any kind to doubleprecision"
+
+class(*),intent(in)       :: valuein
+doubleprecision           :: d_out
+doubleprecision,parameter :: big=huge(0.0d0)
+   select type(valuein)
+   type is (integer(kind=int8));   d_out=dble(valuein)
+   type is (integer(kind=int16));  d_out=dble(valuein)
+   type is (integer(kind=int32));  d_out=dble(valuein)
+   type is (integer(kind=int64));  d_out=dble(valuein)
+   type is (real(kind=real32));    d_out=dble(valuein)
+   type is (real(kind=real64));    d_out=dble(valuein)
+   Type is (real(kind=real128))
+      !!if(valuein.gt.big)then
+      !!   write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
+      !!endif
+      d_out=dble(valuein)
+   type is (logical);              d_out=merge(0.0d0,1.0d0,valuein)
+   type is (character(len=*));      read(valuein,*) d_out
+   !type is (real(kind=real128))
+   !   if(valuein.gt.big)then
+   !      write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
+   !   endif
+   !   d_out=dble(valuein)
+   class default
+     d_out=0.0d0
+     !!stop '*M_anything::anyscalar_to_double: unknown type'
+   end select
+end function anyscalar_to_double
+!===================================================================================================================================
+impure elemental function anyscalar_to_int64(valuein) result(ii38)
+use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
+implicit none
+intrinsic int
+
+! ident_7="@(#)M_anything::anyscalar_to_int64(3f): convert integer parameter of any kind to 64-bit integer"
+
+class(*),intent(in)    :: valuein
+   integer(kind=int64) :: ii38
+   integer             :: ios
+   character(len=256)  :: message
+   select type(valuein)
+   type is (integer(kind=int8));   ii38=int(valuein,kind=int64)
+   type is (integer(kind=int16));  ii38=int(valuein,kind=int64)
+   type is (integer(kind=int32));  ii38=valuein
+   type is (integer(kind=int64));  ii38=valuein
+   type is (real(kind=real32));    ii38=int(valuein,kind=int64)
+   type is (real(kind=real64));    ii38=int(valuein,kind=int64)
+   Type is (real(kind=real128));   ii38=int(valuein,kind=int64)
+   type is (logical);              ii38=merge(0_int64,1_int64,valuein)
+   type is (character(len=*))   ;
+      read(valuein,*,iostat=ios,iomsg=message)ii38
+      if(ios.ne.0)then
+         write(error_unit,*)'*anyscalar_to_int64* ERROR: '//trim(message)
+         stop 2
+      endif
+   class default
+      write(error_unit,*)'*anyscalar_to_int64* ERROR: unknown integer type'
+      stop 3
+   end select
+end function anyscalar_to_int64
+!===================================================================================================================================
+pure elemental function anyscalar_to_real(valuein) result(r_out)
+use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
+implicit none
+intrinsic real
+
+! ident_8="@(#)M_anything::anyscalar_to_real(3f): convert integer or real parameter of any kind to real"
+
+class(*),intent(in) :: valuein
+real                :: r_out
+real,parameter      :: big=huge(0.0)
+   select type(valuein)
+   type is (integer(kind=int8));   r_out=real(valuein)
+   type is (integer(kind=int16));  r_out=real(valuein)
+   type is (integer(kind=int32));  r_out=real(valuein)
+   type is (integer(kind=int64));  r_out=real(valuein)
+   type is (real(kind=real32));    r_out=real(valuein)
+   type is (real(kind=real64))
+      !!if(valuein.gt.big)then
+      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
+      !!endif
+      r_out=real(valuein)
+   type is (real(kind=real128))
+      !!if(valuein.gt.big)then
+      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
+      !!endif
+      r_out=real(valuein)
+   type is (logical);              r_out=merge(0.0d0,1.0d0,valuein)
+   type is (character(len=*));     read(valuein,*) r_out
+   !type is (real(kind=real128));  r_out=real(valuein)
+   end select
+end function anyscalar_to_real
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================

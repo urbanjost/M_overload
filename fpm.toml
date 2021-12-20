@@ -19,9 +19,9 @@ auto-examples = true
 name = "demo_M_overload"
 source-dir = "example/"
 main = "demo_M_overload.f90"
-[example.dependencies]
+#[example.dependencies]
 #M_compare_float_numbers  = { git = "https://github.com/urbanjost/M_Compare_Float_Numbers.git" }
-M_anything  = { git = "https://github.com/urbanjost/M_anything.git" }
+#M_anything  = { git = "https://github.com/urbanjost/M_anything.git" }
 
 [[test]]
 name="test_suite_M_overload"
@@ -29,4 +29,4 @@ source-dir="test"
 main="test_suite_M_overload.f90"
 [test.dependencies]
 M_msg = { git = "https://github.com/urbanjost/M_msg.git" }
-M_strings = { git = "https://github.com/urbanjost/M_strings.git" }
+#M_strings = { git = "https://github.com/urbanjost/M_strings.git" }
