@@ -117,31 +117,31 @@
 !!      write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
 !!      write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
 !!
-!!       if (.true. == .true. ) &
-!!       & write(*,*)'== works like .eqv. for LOGICAL values'
+!!      if (.true. == .true. ) &
+!!      & write(*,*)'== works like .eqv. for LOGICAL values'
 !!      if (.true. /= .false. ) &
-!!       & write(*,*)'/= works like .neqv. for LOGICAL values'
+!!      & write(*,*)'/= works like .neqv. for LOGICAL values'
 !!
-!!       write(*,*)' The value is '//10//' which is less than '//20.2
+!!      write(*,*)' The value is '//10//' which is less than '//20.2
 !!
 !!
 !!      write(*,*) merge('sign works','sign fails',&
-!!             & sign(10_int8).eq.1 &
+!!       & sign(10_int8).eq.1 &
 !!       & .and. sign(-10_int8).eq.-1 )
 !!      write(*,*) merge('sign works','sign fails',&
-!!             & sign(10_int16).eq.1 &
+!!       & sign(10_int16).eq.1 &
 !!       & .and. sign(-10_int16).eq.-1 )
 !!      write(*,*) merge('sign works','sign fails',&
-!!             & sign(10_int32).eq.1 &
+!!       & sign(10_int32).eq.1 &
 !!       & .and. sign(-10_int32).eq.-1 )
 !!      write(*,*) merge('sign works','sign fails',&
-!!             & sign(10_int64).eq.1 &
+!!       & sign(10_int64).eq.1 &
 !!       & .and. sign(-10_int64).eq.-1 )
 !!      write(*,*) merge('sign works','sign fails',&
-!!             & sign(10.0_real32).eq.1.0 &
+!!       & sign(10.0_real32).eq.1.0 &
 !!       & .and. sign(-10.0_real32).eq.-1.0 )
 !!      write(*,*) merge('sign works','sign fails',&
-!!             & sign(10.0_real64).eq.1.0 &
+!!       & sign(10.0_real64).eq.1.0 &
 !!       & .and. sign(-10.0_real64).eq.-1.0 )
 !!      write(*,*) merge('sign works','sign fails',&
 !!       & sign(10.0_real128).eq.1.0&
