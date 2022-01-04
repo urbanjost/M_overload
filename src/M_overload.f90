@@ -1,6 +1,6 @@
 !>
 !!##NAME
-!!    M_overload(3fm) - [M_overload] overloads of standard operators and intrinsic procedures
+!!    M_overload(3fm) - [M_overload::INTRO] overloads of standard operators and intrinsic procedures
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!
