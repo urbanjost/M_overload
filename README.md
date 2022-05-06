@@ -40,8 +40,8 @@ program that exercise the routine.
    ```bash
         git clone https://github.com/urbanjost/M_overload.git
         cd M_overload
-        fpm run
-        fpm run --example
+        fpm run "*"
+        fpm run --example "*"
         fpm test
    ```
 
@@ -52,10 +52,10 @@ program that exercise the routine.
         M_overload        = { git = "https://github.com/urbanjost/M_overload.git" }
 ```
 
-## DOCUMENTATION
+## DOCUMENTATION   ![docs](docs/images/docs.gif)
 
 ### USER
-![manpages](docs/images/manpages.gif)
+![man-pages](docs/images/manpages.gif)
    - There are man-pages in the repository download in the docs/ directory
      that may be installed on ULS (Unix-Like Systems).
 
