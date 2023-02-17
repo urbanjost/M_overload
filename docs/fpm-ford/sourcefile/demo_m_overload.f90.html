@@ -88,7 +88,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title=" 4.9% of total for source files.">33 statements</a>
+               title=" 4.6% of total for source files.">33 statements</a>
           </li>
 
             <li id="source-file">
@@ -125,7 +125,7 @@
       </div>
       <div id="progs-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../program/demo_m_overload.html">demo_M_overload</a>
+            <a class="list-group-item" href="../program/demo_m_overload~2.html">demo_M_overload</a>
         </div>
       </div>
     </div>
@@ -173,7 +173,7 @@
       </div>
       <div id="progs-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../program/demo_m_overload.html">demo_M_overload</a>
+            <a class="list-group-item" href="../program/demo_m_overload~2.html">demo_M_overload</a>
         </div>
       </div>
     </div>
@@ -269,12 +269,14 @@
 <a id="ln-62" name="ln-62" href="#ln-62"></a><span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,&amp;</span><span class="w"></span>
 <a id="ln-63" name="ln-63" href="#ln-63"></a><span class="w">        </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.0</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
 <a id="ln-64" name="ln-64" href="#ln-64"></a><span class="w">        </span><span class="p">&amp;</span><span class="w"> </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mf">1.0</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<a id="ln-65" name="ln-65" href="#ln-65"></a><span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,&amp;</span><span class="w"></span>
-<a id="ln-66" name="ln-66" href="#ln-66"></a><span class="w">        </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.0</span><span class="p">&amp;</span><span class="w"></span>
-<a id="ln-67" name="ln-67" href="#ln-67"></a><span class="w">        </span><span class="p">&amp;</span><span class="w"> </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mf">1.0</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<a id="ln-68" name="ln-68" href="#ln-68"></a><span class="w">     </span><span class="k">contains</span>
-<a id="ln-69" name="ln-69" href="#ln-69"></a>
-<a id="ln-70" name="ln-70" href="#ln-70"></a><span class="k">     end program </span><span class="n">demo_M_overload</span><span class="w"></span>
+<a id="ln-65" name="ln-65" href="#ln-65"></a><span class="cp">#ifdef HAS_REAL128</span>
+<a id="ln-66" name="ln-66" href="#ln-66"></a><span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<a id="ln-67" name="ln-67" href="#ln-67"></a><span class="w">        </span><span class="p">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.0</span><span class="p">&amp;</span><span class="w"></span>
+<a id="ln-68" name="ln-68" href="#ln-68"></a><span class="w">        </span><span class="p">&amp;</span><span class="w"> </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mf">1.0</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
+<a id="ln-69" name="ln-69" href="#ln-69"></a><span class="cp">#endif</span>
+<a id="ln-70" name="ln-70" href="#ln-70"></a><span class="w">     </span><span class="k">contains</span>
+<a id="ln-71" name="ln-71" href="#ln-71"></a>
+<a id="ln-72" name="ln-72" href="#ln-72"></a><span class="k">     end program </span><span class="n">demo_M_overload</span><span class="w"></span>
 </pre></div>
 
     </section>
@@ -293,7 +295,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-02-17 02:30            </p>
+ on 2023-02-17 03:19            </p>
         </div>
       </div>
       <br>

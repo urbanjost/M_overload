@@ -1,3 +1,8 @@
+#ifdef __NVCOMPILER
+#undef HAS_REAL128
+#else
+#define HAS_REAL128
+#endif
 !>
 !!##NAME
 !!    M_overload(3fm) - [M_overload::INTRO] overloads of standard operators and intrinsic procedures
@@ -142,10 +147,12 @@
 !!       & .and. sign(-10.0_real32).eq.-1.0 )
 !!      write(*,*) merge('sign works','sign fails',&
 !!       & sign(10.0_real64).eq.1.0 &
+!!    #ifdef HAS_REAL128
 !!       & .and. sign(-10.0_real64).eq.-1.0 )
 !!      write(*,*) merge('sign works','sign fails',&
 !!       & sign(10.0_real128).eq.1.0&
 !!       & .and. sign(-10.0_real128).eq.-1.0 )
+!!    #endif
 !!    contains
 !!
 !!    end program demo_M_overload
@@ -252,7 +259,9 @@ interface sign;    module procedure sign_int32;           end interface
 interface sign;    module procedure sign_int64;           end interface
 interface sign;    module procedure sign_real32;          end interface
 interface sign;    module procedure sign_real64;          end interface
+#ifdef HAS_REAL128
 interface sign;    module procedure sign_real128;         end interface
+#endif
 
 interface adjustl; module procedure adjustl_atleast;      end interface
 
@@ -407,12 +416,14 @@ character(len=max(length,len(trim(line)))) :: strout
 end function adjustr_atleast
 !-----------------------------------------------------------------------------------------------------------------------------------
 
+#ifdef HAS_REAL128
 elemental function sign_real128(value)
 real(kind=real128),intent(in) :: value
 real(kind=real128)            :: sign_real128
 intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
    sign_real128=sign(1.0_real128,value)
 end function sign_real128
+#endif
 elemental function sign_real64(value)
 real(kind=real64),intent(in) :: value
 real(kind=real64)            :: sign_real64
@@ -564,7 +575,9 @@ integer                      :: ilen
          type is (integer(kind=int64));    fmt_local='(i0,a)'
          type is (real(kind=real32));      fmt_local='(1pg0,a)'
          type is (real(kind=real64));      fmt_local='(1pg0,a)'
+#ifdef HAS_REAL128
          type is (real(kind=real128));     fmt_local='(1pg0,a)'
+#endif
          type is (logical);                fmt_local='(l1,a)'
          type is (character(len=*));       fmt_local='(a,a)'
          type is (complex);                fmt_local='("(",1pg0,",",1pg0,")",a)'
@@ -585,7 +598,9 @@ integer                      :: ilen
       type is (integer(kind=int64));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
       type is (real(kind=real32));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
       type is (real(kind=real64));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+#ifdef HAS_REAL128
       type is (real(kind=real128));     write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+#endif
       type is (logical);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
       type is (character(len=*));       write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
       type is (complex);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
@@ -691,18 +706,15 @@ doubleprecision,parameter :: big=huge(0.0d0)
    type is (integer(kind=int64));  d_out=dble(valuein)
    type is (real(kind=real32));    d_out=dble(valuein)
    type is (real(kind=real64));    d_out=dble(valuein)
+#ifdef HAS_REAL128
    Type is (real(kind=real128))
       !!if(valuein.gt.big)then
       !!   write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
       !!endif
       d_out=dble(valuein)
+#endif
    type is (logical);              d_out=merge(0.0d0,1.0d0,valuein)
    type is (character(len=*));      read(valuein,*) d_out
-   !type is (real(kind=real128))
-   !   if(valuein.gt.big)then
-   !      write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
-   !   endif
-   !   d_out=dble(valuein)
    class default
      d_out=0.0d0
      !!stop '*M_anything::anyscalar_to_double: unknown type'
@@ -727,7 +739,9 @@ class(*),intent(in)    :: valuein
    type is (integer(kind=int64));  ii38=valuein
    type is (real(kind=real32));    ii38=int(valuein,kind=int64)
    type is (real(kind=real64));    ii38=int(valuein,kind=int64)
+#ifdef HAS_REAL128
    Type is (real(kind=real128));   ii38=int(valuein,kind=int64)
+#endif
    type is (logical);              ii38=merge(0_int64,1_int64,valuein)
    type is (character(len=*))   ;
       read(valuein,*,iostat=ios,iomsg=message)ii38
@@ -762,14 +776,15 @@ real,parameter      :: big=huge(0.0)
       !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
       !!endif
       r_out=real(valuein)
+#ifdef HAS_REAL128
    type is (real(kind=real128))
       !!if(valuein.gt.big)then
       !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
       !!endif
       r_out=real(valuein)
+#endif
    type is (logical);              r_out=merge(0.0d0,1.0d0,valuein)
    type is (character(len=*));     read(valuein,*) r_out
-   !type is (real(kind=real128));  r_out=real(valuein)
    end select
 end function anyscalar_to_real
 !===================================================================================================================================
