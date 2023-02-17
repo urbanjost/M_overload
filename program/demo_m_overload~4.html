@@ -87,16 +87,16 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="10.9% of total for programs.">10 statements</a>
+               title="14.1% of total for programs.">13 statements</a>
           </li>
 
             <li id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/show_overload_merge.f90"> Source File</a>
+              <a href="../src/show_overload_sign.f90"> Source File</a>
             </li>
         </ul>
         <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/show_overload_merge.f90.html'>show_overload_merge.f90</a></li>
+              <li><a href='../sourcefile/show_overload_sign.f90.html'>show_overload_sign.f90</a></li>
           <li class="active">demo_M_overload</li>
         </ol>
       </div>
@@ -115,19 +115,7 @@
       <div id="sidebar">
       <h3>Contents</h3>
   
-      <div class="panel panel-primary">
-      <div class="panel-heading text-left">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" href="#vars-0">Variables</a>
-        </h3>
-      </div>
-      <div id="vars-0" class="panel-collapse collapse">
-        <div class="list-group">
-            <a class="list-group-item" href="../program/demo_m_overload.html#variable-gen">gen</a>
-        </div>
-      </div>
-    </div>
-
+  
   
   
   
@@ -148,7 +136,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
       <div class="list-group">
-        <a class="list-group-item" href="../program/demo_m_overload.html#src">demo_M_overload</a>
+        <a class="list-group-item" href="../program/demo_m_overload~4.html#src">demo_M_overload</a>
       </div>
     </div>
 
@@ -177,19 +165,7 @@
      <section class="visible-xs visible-sm hidden-md">
          <h3>Contents</h3>
   
-      <div class="panel panel-primary">
-      <div class="panel-heading text-left">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" href="#vars-1">Variables</a>
-        </h3>
-      </div>
-      <div id="vars-1" class="panel-collapse collapse">
-        <div class="list-group">
-            <a class="list-group-item" href="../program/demo_m_overload.html#variable-gen">gen</a>
-        </div>
-      </div>
-    </div>
-
+  
   
   
   
@@ -210,7 +186,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
       <div class="list-group">
-        <a class="list-group-item" href="../program/demo_m_overload.html#src">demo_M_overload</a>
+        <a class="list-group-item" href="../program/demo_m_overload~4.html#src">demo_M_overload</a>
       </div>
     </div>
 
@@ -219,39 +195,6 @@
      <br class="visible-xs visible-sm hidden-md">
 
 
-    <section>
-    <h2>Variables</h2>
-      <table class="table table-striped varlist">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-<th></th><th>Initial</th>        <th></th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-              <span class="anchor" id="variable-gen"></span>
-              character(len=*),
-            </td>
-            <td>
-parameter               
-            </td>
-            <td>::</td>
-            <td><strong>gen</strong></td>
-<td> =</td>
-                <td>'(*("[",g0,"]":,","))'</td>
-            <td>
-                
-            </td>
-        </tr>
-    </tbody>
-  </table>
-
-    </section>
-    <br>
     
     
     
@@ -267,14 +210,17 @@ parameter
 <span class="k">use</span><span class="p">,</span><span class="w"> </span><span class="k">intrinsic</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iso_fortran_env</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">integer_kinds</span><span class="p">,</span><span class="w"> </span><span class="n">int8</span><span class="p">,</span><span class="w"> </span><span class="n">int16</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="p">,</span><span class="w"> </span><span class="n">int64</span><span class="w"></span>
 <span class="k">use</span><span class="p">,</span><span class="w"> </span><span class="k">intrinsic</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">iso_fortran_env</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">real32</span><span class="p">,</span><span class="w"> </span><span class="n">real64</span><span class="p">,</span><span class="w"> </span><span class="n">real128</span><span class="w"></span>
 
-<span class="c">! allow strings of different length on merge</span>
-<span class="k">use </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">merge</span>
+<span class="c">! overload can take a single argument</span>
+<span class="k">use </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">sign</span>
 <span class="k">implicit none</span>
-<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">gen</span><span class="o">=</span><span class="s1">&#39;(*(&quot;[&quot;,g0,&quot;]&quot;:,&quot;,&quot;))&#39;</span><span class="w"></span>
 
-<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">gen</span><span class="p">)</span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span><span class="mf">1.</span><span class="n">eq</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">gen</span><span class="p">)</span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span><span class="mf">1.</span><span class="n">eq</span><span class="p">.</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">gen</span><span class="p">)</span><span class="nb">merge</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],[</span><span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span><span class="s1">&#39;ccccc&#39;</span><span class="p">],</span><span class="mf">1.</span><span class="n">eq</span><span class="p">.</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+<span class="k">   write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int8</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">1</span><span class="w">        </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int8</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int16</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">1</span><span class="w">       </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int16</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="w">       </span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">1</span><span class="w">       </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="w">       </span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">1</span><span class="w">       </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="w">       </span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.0</span><span class="w">  </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mf">1.0</span><span class="w">  </span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.0</span><span class="w">  </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mf">1.0</span><span class="w">  </span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.0</span><span class="w"> </span><span class="p">.</span><span class="nb">and</span><span class="p">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mf">1.0</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
 
 <span class="k">end program </span><span class="n">demo_M_overload</span><span class="w"></span>
 </pre></div>
