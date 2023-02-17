@@ -4,10 +4,14 @@
 NULL=
 PROGFILES = \
  ../example/demo_M_overload.f90 \
+ ../example/show_overload_merge.f90 \
+ ../example/show_overload_sign.f90 \
+ ../example/show_rename.f90 \
+ ../example/show_string2number.f90 \
 $(NULL)
 
 TESTFILES = \
- ../test/test_suite_M_overload.f90 \
+ ../test/test_suite_M_overload.F90 \
 $(NULL)
 
 TPROG = ${TESTFILES:.f90=}
@@ -18,7 +22,7 @@ PROG = ${PROGFILES:.f90=}
 
 CPROG = ${CPROGFILES:.c=}
 
-SRCS =  M_overload.f90 
+SRCS =  M_overload.F90 
 
 OBJS =  M_overload.o
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
