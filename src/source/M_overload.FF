@@ -1,222 +1,276 @@
-!>
-!!##NAME
-!!    M_overload(3fm) - [M_overload::INTRO] overloads of standard operators and intrinsic procedures
-!!    (LICENSE:PD)
-!!##SYNOPSIS
-!!
-!!  overloads on LOGICAL values
-!!
-!!    ! use == like .eqv.; ie. logical==logical
-!!    use M_overload, only : operator(==)
-!!    ! use /= like .neqv.; ie. logical/=logical
-!!    use M_overload, only : operator(/=)
-!!
-!!  overloads on INTRINSICS to take strings, logicals, and metamorphic numeric intrinsic values
-!!
-!!   use M_overload, only : int, real, dble
-!!   ! int('string')   int(logical)   int(class(*))
-!!   ! real('string')  real(logical)  real(class(*))
-!!   ! dble('string')  dble(logical)  dble(class(*))
-!!
-!!  overloads on operators
-!!
-!!   use M_overload, only : operator(==)
-!!   ! INTRINSIC // INTRINSIC // INTRINSIC ...
-!!
-!!   ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
-!!   use M_overload, only : sign
-!!
-!!
-!!  Allow strings of different length in MERGE
-!!
-!!      use M_overload, only : merge
-!!      str=merge('one','three',i.eq.10)
-!!
-!!##OTHER OPERATORS
-!!
-!!    intrinsic_value .fmt. ''   convert an intrinsic value to a CHARACTER variable
-!!
-!!##DESCRIPTION
-!!
-!!   Operator and function overloads have a wide range of applications
-!!   from allowing existing Fortran routines to be used with almost no
-!!   source-code changes to produce versions using arbitrary precision
-!!   or cumulative error bounds on floating-point calculations to adding
-!!   intuitive syntax for standard Fortran operations.
-!!
-!!##OVERLOADS
-!!
-!!   //       overloads // to concatenate any two intrinsic types into a string
-!!
-!!   ==,/=    Allow the syntax "L1 == L2"  and "L1 /= L2" where L1 and L2 are
-!!            type LOGICAL as an alternative to the standard expressions
-!!            "L1 .EQV. L2" and "L1 .NEQV. L2".
-!!
-!!            It should be pointed out that
-!!
-!!               L1 == L2   !! should be L1 .eqv. L2
-!!
-!!            and
-!!
-!!               L1 /= L2   !! should be L1 .neqv. L2
-!!
-!!            should NOT work by default; but often do (probably because
-!!            the compiler silently converts LOGICAL to INTEGER when a
-!!            LOGICAL appears where a numeric value is required). If your
-!!            compiler supports this non-standard (but intuitive-looking)
-!!            syntax you can use this module to allow the syntax in a
-!!            portable manner with a standard method.
-!!
-!!    int(), real(), dble()  allow strings to be converted to numeric values
-!!                           using the standard intrinsic names
-!!
-!!    sign(value)            call sign(1,value)
-!!
-!!
-!!    str=merge('little','big',a.eq.10)  allows for strings of different lengths
-!!
-!!##EXAMPLES
-!!
-!!  Sample usage:
-!!
-!!   program demo_M_overload
-!!
-!!    use, intrinsic :: iso_fortran_env, only : &
-!!            & integer_kinds, int8, int16, int32, int64
-!!    use, intrinsic :: iso_fortran_env, only : &
-!!            & real32, real64, real128
-!!
-!!    ! allow strings to be converted to integers
-!!    use M_overload, only : int
-!!    ! allow strings to be converted to floating point
-!!    use M_overload, only : real,dble
-!!    ! use == like .eqv.
-!!    use M_overload, only : operator(==)
-!!    ! use /= like .neqv.
-!!    use M_overload, only : operator(/=)
-!!    use M_overload, only : operator(//)
-!!    ! take a single argument
-!!    use M_overload, only : sign
-!!    ! allow strings of different length on merge
-!!    use M_overload, only : merge
-!!    implicit none
-!!    character(len=:),allocatable :: cmd
-!!    character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
-!!
-!!      write(*,gen)merge('a','bbbbb',1.eq.1)
-!!      write(*,gen)merge('a','bbbbb',1.eq.2)
-!!      write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
-!!
-!!      if(int('1234')               .eq.1234) &
-!!       & write(*,*)'int("STRING") works '
-!!      if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
-!!       & write(*,*)'real("STRING") works '
-!!      if(abs(dble('1234.5678901234567')- 1234.5678901234567d0).lt.epsilon(0.0d0)) &
-!!       & write(*,*)'dble("STRING") works '
-!!
-!!      write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
-!!      write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
-!!
-!!      if (.true. == .true. ) &
-!!      & write(*,*)'== works like .eqv. for LOGICAL values'
-!!      if (.true. /= .false. ) &
-!!      & write(*,*)'/= works like .neqv. for LOGICAL values'
-!!
-!!      write(*,*)' The value is '//10//' which is less than '//20.2
-!!
-!!
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10_int8).eq.1 &
-!!       & .and. sign(-10_int8).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10_int16).eq.1 &
-!!       & .and. sign(-10_int16).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10_int32).eq.1 &
-!!       & .and. sign(-10_int32).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10_int64).eq.1 &
-!!       & .and. sign(-10_int64).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10.0_real32).eq.1.0 &
-!!       & .and. sign(-10.0_real32).eq.-1.0 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10.0_real64).eq.1.0 &
-!!       & .and. sign(-10.0_real64).eq.-1.0 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10.0_real128).eq.1.0&
-!!       & .and. sign(-10.0_real128).eq.-1.0 )
-!!    contains
-!!
-!!    end program demo_M_overload
-!!
-!!  Results:
-!!     >  [a    ]
-!!     >  [bbbbb]
-!!     >  [bbbbb],[ccccc]
-!!     >  int("STRING") works
-!!     >  real("STRING") works
-!!     >  dble("STRING") works
-!!     >  == works like .eqv. for LOGICAL values
-!!     >  /= works like .neqv. for LOGICAL values
-!!     >          444         555
-!!     >    444.444000       555.554993
-!!     >    444.44400000000002        555.55500000000006
-!!     >    555.44399999999996        666.66600000000005        777.77700000000004
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  int("STRING") works
-!!     >  real("STRING") works
-!!     >  dble("STRING") works
-!!     >  == works like .eqv. for LOGICAL values
-!!     >  /= works like .neqv. for LOGICAL values
-!!     >          444         555
-!!     >    444.444000       555.554993
-!!     >    444.44400000000002        555.55500000000006
-!!     >    555.44399999999996        666.66600000000005        777.77700000000004
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     > 57 xx -x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-!!     > 0 0 [xx]
-!!     > 1 0 [-x]
-!!     > 2 0 [-y]
-!!     > 3 0 [hello there]
-!!     > 4 0 [xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
-!!     > 0 0 [xx        ]
-!!     > 1 0 [-x        ]
-!!     > 2 0 [-y        ]
-!!     > 3 -1 [hello ther]
-!!     > 4 -1 [xxxxxxxxxx]
-!!     > 0 0 [xx                  ]
-!!     > 1 0 [-x                  ]
-!!     > 2 0 [-y                  ]
-!!     > 3 0 [hello there         ]
-!!     > 4 -1 [xxxxxxxxxxxxxxxxxxxx]
-!!
-!!##AUTHOR
-!!    John S. Urban
-!!##LICENSE
-!!    Public Domain
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+$BLOCK COMMENT -file M_overload.3m_overload.man
+NAME
+   M_overload(3fm) - [M_overload::INTRO] overloads of standard operators and intrinsic procedures
+   (LICENSE:PD)
+SYNOPSIS
+ overloads on LOGICAL values
+
+   ! use == like .eqv.; ie. logical==logical
+   use M_overload, only : operator(==)
+   ! use /= like .neqv.; ie. logical/=logical
+   use M_overload, only : operator(/=)
+
+ overloads on INTRINSICS to take strings, logicals, and metamorphic numeric intrinsic values
+
+  use M_overload, only : int, real, dble
+  ! int('string')   int(logical)   int(class(*))
+  ! real('string')  real(logical)  real(class(*))
+  ! dble('string')  dble(logical)  dble(class(*))
+
+ overloads on operators 
+
+  use M_overload, only : operator(==)
+  ! INTRINSIC // INTRINSIC // INTRINSIC ...
+
+  ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
+  use M_overload, only : sign
+
+$! Allow unallocated allocatable variables or allocated variables to be reallocated for strings
+$! Note _ in name. Not an actual overload.
+$!
+$!  get_command(command,length,status,realloc=.true.)
+$!  get_command_argument(number,value,length,status,realloc=.true.)
+
+ Allow strings of different length in MERGE
+
+     use M_overload, only : merge
+     str=merge('one','three',i.eq.10)
+
+OTHER OPERATORS
+
+   intrinsic_value .fmt. ''   convert an intrinsic value to a CHARACTER variable
+
+DESCRIPTION
+
+  Operator and function overloads have a wide range of applications
+  from allowing existing Fortran routines to be used with almost no
+  source-code changes to produce versions using arbitrary precision
+  or cumulative error bounds on floating-point calculations to adding
+  intuitive syntax for standard Fortran operations.
+
+OVERLOADS
+
+  //       overloads // to concatenate any two intrinsic types into a string
+
+  ==,/=    Allow the syntax "L1 == L2"  and "L1 /= L2" where L1 and L2 are
+           type LOGICAL as an alternative to the standard expressions
+           "L1 .EQV. L2" and "L1 .NEQV. L2".
+
+           It should be pointed out that
+
+              L1 == L2   !! should be L1 .eqv. L2
+
+           and
+
+              L1 /= L2   !! should be L1 .neqv. L2
+
+           should NOT work by default; but often do (probably because
+           the compiler silently converts LOGICAL to INTEGER when a
+           LOGICAL appears where a numeric value is required). If your
+           compiler supports this non-standard (but intuitive-looking)
+           syntax you can use this module to allow the syntax in a
+           portable manner with a standard method.
+
+   int(), real(), dble()  allow strings to be converted to numeric values
+                          using the standard intrinsic names
+
+   sign(value)            call sign(1,value)
+
+$!   get_command(command,length,status_realloc=.true.)   allow "command" to be allocatable
+$!
+$!   get_command_argument(number,value,length,status_realloc=.true.)   allow "value"
+$!                                                      to be allocatable
+$!
+$!   The intrinsics allow an allocated allocatable variable but do not change
+$!   its allocation so to force reallocation of an allocatable variable the
+$!   new logical argument "realloc" is added.
+
+   str=merge('little','big',a.eq.10)  allows for strings of different lengths
+
+EXAMPLES
+ Sample usage:
+
+  program demo_M_overload
+
+   use, intrinsic :: iso_fortran_env, only : &
+           & integer_kinds, int8, int16, int32, int64
+   use, intrinsic :: iso_fortran_env, only : &
+           & real32, real64, real128
+
+   ! allow strings to be converted to integers
+   use M_overload, only : int
+   ! allow strings to be converted to floating point
+   use M_overload, only : real,dble
+   ! use == like .eqv.
+   use M_overload, only : operator(==)
+   ! use /= like .neqv.
+   use M_overload, only : operator(/=)
+   use M_overload, only : operator(//)
+   ! take a single argument
+   use M_overload, only : sign
+$!   use M_overload, only : get_command
+   ! allow strings of different length on merge
+   use M_overload, only : merge
+   implicit none
+   character(len=:),allocatable :: cmd
+   character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
+
+     write(*,gen)merge('a','bbbbb',1.eq.1)
+     write(*,gen)merge('a','bbbbb',1.eq.2)
+     write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
+
+     if(int('1234')               .eq.1234) &
+      & write(*,*)'int("STRING") works '
+     if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
+      & write(*,*)'real("STRING") works '
+     if(abs(dble('1234.5678901234567')- 1234.5678901234567d0).lt.epsilon(0.0d0)) &
+      & write(*,*)'dble("STRING") works '
+
+     write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
+     write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
+
+     if (.true. == .true. ) &
+     & write(*,*)'== works like .eqv. for LOGICAL values'
+     if (.true. /= .false. ) &
+     & write(*,*)'/= works like .neqv. for LOGICAL values'
+
+     write(*,*)' The value is '//10//' which is less than '//20.2
+
+$! was working; no longer works with gfortran
+$!     write(*,*)int(['111','222'])+333
+$!     write(*,*)real(['111.111','222.222'])+333.333
+$!     write(*,*)dble(['111.111d0','222.222d0'])+333.333d0
+$!     write(*,*)dble([character(len=10) :: &
+$!      & '111','222.222','333.333d0'])+444.444d0
+
+     write(*,*) merge('sign works','sign fails',&
+      & sign(10_int8).eq.1 &
+      & .and. sign(-10_int8).eq.-1 )
+     write(*,*) merge('sign works','sign fails',&
+      & sign(10_int16).eq.1 &
+      & .and. sign(-10_int16).eq.-1 )
+     write(*,*) merge('sign works','sign fails',&
+      & sign(10_int32).eq.1 &
+      & .and. sign(-10_int32).eq.-1 )
+     write(*,*) merge('sign works','sign fails',&
+      & sign(10_int64).eq.1 &
+      & .and. sign(-10_int64).eq.-1 )
+     write(*,*) merge('sign works','sign fails',&
+      & sign(10.0_real32).eq.1.0 &
+      & .and. sign(-10.0_real32).eq.-1.0 )
+     write(*,*) merge('sign works','sign fails',&
+      & sign(10.0_real64).eq.1.0 &
+      & .and. sign(-10.0_real64).eq.-1.0 )
+     write(*,*) merge('sign works','sign fails',&
+      & sign(10.0_real128).eq.1.0&
+      & .and. sign(-10.0_real128).eq.-1.0 )
+$!     if(command_argument_count().eq.0)then
+$!        call get_command(cmd,realloc=.true.)
+$!        cmd=cmd// &
+$!         &' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+$!        call execute_command_line(cmd)
+$!     else
+$!        call demo_get_command()
+$!        call demo_get_command_argumentA()
+$!     endif
+   contains
+
+$!     subroutine demo_get_command()
+$!     use M_overload, only : get_command
+$!     implicit none
+$!     character(len=:),allocatable :: command_line
+$!        call get_command(command=command_line,realloc=.true.)
+$!        write(*,'(*(g0,1x))')len(command_line),command_line
+$!     end subroutine demo_get_command
+$!
+$!     subroutine demo_get_command_argumentA()
+$!             ! alloctable and realloc=.true.
+$!     use M_overload, only : get_command_argument
+$!     implicit none
+$!     character(len=:),allocatable :: argument
+$!     integer                      :: istat, i
+$!        do i=0, command_argument_count()
+$!           call get_command_argument(i, argument,status=istat,&
+$!            & realloc=.true.)
+$!           write (*,'(2(g0,1x),"[",a,"]")') i,istat,argument
+$!        enddo
+$!     end subroutine demo_get_command_argumentA
+$!
+   end program demo_M_overload
+
+ Results:
+    >  [a    ]
+    >  [bbbbb]
+    >  [bbbbb],[ccccc]
+    >  int("STRING") works
+    >  real("STRING") works
+    >  dble("STRING") works
+    >  == works like .eqv. for LOGICAL values
+    >  /= works like .neqv. for LOGICAL values
+    >          444         555
+    >    444.444000       555.554993
+    >    444.44400000000002        555.55500000000006
+    >    555.44399999999996        666.66600000000005        777.77700000000004
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    >  int("STRING") works
+    >  real("STRING") works
+    >  dble("STRING") works
+    >  == works like .eqv. for LOGICAL values
+    >  /= works like .neqv. for LOGICAL values
+    >          444         555
+    >    444.444000       555.554993
+    >    444.44400000000002        555.55500000000006
+    >    555.44399999999996        666.66600000000005        777.77700000000004
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    >  sign works
+    > 57 xx -x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    > 0 0 [xx]
+    > 1 0 [-x]
+    > 2 0 [-y]
+    > 3 0 [hello there]
+    > 4 0 [xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+    > 0 0 [xx        ]
+    > 1 0 [-x        ]
+    > 2 0 [-y        ]
+    > 3 -1 [hello ther]
+    > 4 -1 [xxxxxxxxxx]
+    > 0 0 [xx                  ]
+    > 1 0 [-x                  ]
+    > 2 0 [-y                  ]
+    > 3 0 [hello there         ]
+    > 4 -1 [xxxxxxxxxxxxxxxxxxxx]
+
+AUTHOR
+   John S. Urban
+LICENSE
+   Public Domain
+$BLOCK END
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module m_overload
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
 implicit none
-! ident_1="@(#) M_overload(3fm) overloads of standard operators and intrinsic procedures"
+$@(#) M_overload(3fm): overloads of standard operators and intrinsic procedures
 private
 public boolean_equal, boolean_notequal      !
 public operator(==)
 public operator(/=)
 public operator(//)
 public operator(.fmt.)
+$!public int, real, dble                      ! extend intrinsics to accept CHARACTER values
+$!public get_command, get_command_argument
+$!public adjustl, adjustr
 interface operator ( .fmt. )
    module procedure ffmt
 end interface operator ( .fmt. )
@@ -258,12 +312,14 @@ interface adjustl; module procedure adjustl_atleast;      end interface
 
 interface adjustr; module procedure adjustr_atleast;      end interface
 
+$!interface  get_command;           module  procedure  get_command_allocatable;           end  interface
+$!interface  get_command_argument;  module  procedure  get_command_argument_allocatable;  end  interface
 
 interface merge
    module procedure strmerge
 end interface
 !-----------------------------------------------------------------------------------------------------------------------------------
-! this allwos you to rename intrinsics, overload them,
+! this allwos you to rename intrinsics, overload them, 
 intrinsic :: abs,                   achar,                     acos,              acosh,             adjustl
 public    :: abs,                   achar,                     acos,              acosh,             adjustl
 intrinsic :: adjustr,               aimag,                     aint,              all,               allocated
@@ -346,7 +402,7 @@ contains
 !-----------------------------------------------------------------------------------------------------------------------------------
 function g_g(value1,value2) result (string)
 
-! ident_2="@(#) M_overload g_g(3f) convert two single intrinsic values to a string"
+$@(#) M_overload::g_g(3f): convert two single intrinsic values to a string
 
 class(*),intent(in)          :: value1, value2
 character(len=:),allocatable :: string1
@@ -354,7 +410,7 @@ character(len=:),allocatable :: string2
 character(len=:),allocatable :: string
    ! use this instead of str() so character variables are not trimmed and/or spaces are not added
    !ifort_bug!string = ffmt(value1,'(g0)') // ffmt(value2,'(g0)')
-   string1 = ffmt(value1,'(g0)')
+   string1 = ffmt(value1,'(g0)') 
    string2 = ffmt(value2,'(g0)')
    allocate(character(len=len(string1)+len(string2)) :: string)
    string(1:len(string1))=string1
@@ -387,7 +443,7 @@ end function strmerge
 !-----------------------------------------------------------------------------------------------------------------------------------
 function adjustl_atleast(line,length) result(strout)
 
-! ident_3="@(#) M_strings adjustl_atleast(3f) return string padded on right to at least specified length"
+$@(#) M_strings::adjustl_atleast(3f): return string padded on right to at least specified length 
 
 character(len=*),intent(in)                :: line
 integer,intent(in)                         :: length
@@ -397,7 +453,7 @@ end function adjustl_atleast
 !-----------------------------------------------------------------------------------------------------------------------------------
 function adjustr_atleast(line,length) result(strout)
 
-! ident_4="@(#) M_overload adjustr_atleast(3f) return string padded on left to at least specified length"
+$@(#) M_overload::adjustr_atleast(3f): return string padded on left to at least specified length 
 
 character(len=*),intent(in)                :: line
 integer,intent(in)                         :: length
@@ -406,50 +462,34 @@ character(len=max(length,len(trim(line)))) :: strout
    strout=adjustr(strout)
 end function adjustr_atleast
 !-----------------------------------------------------------------------------------------------------------------------------------
+$PARCEL SIGN
+elemental function sign_${KIND}(value)
+${TYPE}(kind=${KIND}),intent(in) :: value
+${TYPE}(kind=${KIND})            :: sign_${KIND}
+intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
+   sign_${KIND}=sign(${UNIT}_${KIND},value)
+end function sign_${KIND}
+$ENDPARCEL
 
-elemental function sign_real128(value)
-real(kind=real128),intent(in) :: value
-real(kind=real128)            :: sign_real128
-intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
-   sign_real128=sign(1.0_real128,value)
-end function sign_real128
-elemental function sign_real64(value)
-real(kind=real64),intent(in) :: value
-real(kind=real64)            :: sign_real64
-intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
-   sign_real64=sign(1.0_real64,value)
-end function sign_real64
-elemental function sign_real32(value)
-real(kind=real32),intent(in) :: value
-real(kind=real32)            :: sign_real32
-intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
-   sign_real32=sign(1.0_real32,value)
-end function sign_real32
+$SET TYPE real
+$SET UNIT 1.0
+$SET KIND real128
+$POST SIGN
+$SET KIND real64
+$POST SIGN
+$SET KIND real32
+$POST SIGN
 
-elemental function sign_int64(value)
-integer(kind=int64),intent(in) :: value
-integer(kind=int64)            :: sign_int64
-intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
-   sign_int64=sign(1_int64,value)
-end function sign_int64
-elemental function sign_int32(value)
-integer(kind=int32),intent(in) :: value
-integer(kind=int32)            :: sign_int32
-intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
-   sign_int32=sign(1_int32,value)
-end function sign_int32
-elemental function sign_int16(value)
-integer(kind=int16),intent(in) :: value
-integer(kind=int16)            :: sign_int16
-intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
-   sign_int16=sign(1_int16,value)
-end function sign_int16
-elemental function sign_int8(value)
-integer(kind=int8),intent(in) :: value
-integer(kind=int8)            :: sign_int8
-intrinsic :: sign ! make it clear just need to call the intrinsic, not the overloaded function
-   sign_int8=sign(1_int8,value)
-end function sign_int8
+$SET TYPE integer
+$SET UNIT 1
+$SET KIND int64
+$POST SIGN
+$SET KIND int32
+$POST SIGN
+$SET KIND int16
+$POST SIGN
+$SET KIND int8
+$POST SIGN
 
 !-----------------------------------------------------------------------------------------------------------------------------------
 logical function boolean_equal(logical_val1,logical_val2)
@@ -533,16 +573,74 @@ end function dbles_s2v
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
+$!subroutine get_command_allocatable(command, length, status,realloc)
+$!implicit none
+$!!*!intrinsic get_command
+$!character(len=:), allocatable, intent(out) :: COMMAND   ! (Optional) shall be of type CHARACTER and of default kind.
+$!integer, intent(out), optional             :: LENGTH    ! (Optional) Shall be of type INTEGER and of default kind.
+$!integer, intent(out), optional             :: STATUS    ! (Optional) Shall be of type INTEGER and of default kind.
+$!logical, intent(in)                        :: realloc
+$!integer                                    :: length_local
+$!integer                                    :: status_local
+$!logical                                    :: realloc_local
+$!   realloc_local=realloc
+$!   intel_bug: block
+$!   intrinsic get_command
+$!   call get_command(length=length_local, status=status_local)   ! get command line length
+$!   if(status_local.eq.0)then
+$!      if(.not.allocated(command))then
+$!         allocate(character(len=length_local) :: command)          ! allocate string big enough to hold command line
+$!      elseif(realloc_local)then
+$!         if(allocated(command))deallocate(command)
+$!         allocate(character(len=length_local) :: command)          ! allocate string big enough to hold command line
+$!      endif
+$!      call get_command(command=command, status=status_local)    ! get command line as a string
+$!   else
+$!      length_local=0
+$!      command=''
+$!   endif
+$!   endblock intel_bug
+$!   if(present(length))length=length_local
+$!   if(present(status))status=status_local
+$!end subroutine get_command_allocatable
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
+$!subroutine get_command_argument_allocatable(number, value, length, status,realloc)
+$!implicit none
+$!intrinsic get_command_argument
+$!integer, intent(in)            :: number ! Shall be a scalar of type integer(4), NUMBER >= 0.
+$!character(len=:), allocatable  :: value  ! Shall be a scalar of type CHARACTER and of default kind.
+$!integer, intent(out), optional :: length ! (Optional) Shall be a scalar of type integer(4).
+$!integer, intent(out), optional :: status ! (Optional) Shall be a scalar of type integer(4).
+$!logical, intent(in)            :: realloc
+$!integer                        :: length_local
+$!integer                        :: status_local
+$!logical                        :: realloc_local
+$!   realloc_local=realloc
+$!   call get_command_argument(number=number, length=length_local,status=status_local)
+$!   if(status_local.eq.0)then
+$!      if(.not.allocated(value))then
+$!         allocate(character(len=length_local) :: value)          ! allocate string big enough to hold command line
+$!      elseif(realloc_local)then
+$!         if(allocated(value))deallocate(value)
+$!         allocate(character(len=length_local) :: value)          ! allocate string big enough to hold command line
+$!      endif
+$!      call get_command_argument(number, value, status=status_local, length=length_local)
+$!   else
+$!      length_local=0
+$!      value=''
+$!   endif
+$!   if(present(length))length=length_local
+$!   if(present(status))status=status_local
+$!end subroutine get_command_argument_allocatable
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 function ffmt(generic,format) result (line)
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
 
-! ident_5="@(#) M_overload ffmt(3f) convert any intrinsic to a string using specified format"
+$@(#) M_overload::ffmt(3f): convert any intrinsic to a string using specified format
 
 class(*),intent(in)          :: generic
 character(len=*),intent(in)  :: format
@@ -679,7 +777,7 @@ use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic dble
 
-! ident_6="@(#) M_anything anyscalar_to_double(3f) convert integer or real parameter of any kind to doubleprecision"
+$@(#) M_anything::anyscalar_to_double(3f): convert integer or real parameter of any kind to doubleprecision
 
 class(*),intent(in)       :: valuein
 doubleprecision           :: d_out
@@ -714,7 +812,7 @@ use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic int
 
-! ident_7="@(#) M_anything anyscalar_to_int64(3f) convert integer parameter of any kind to 64-bit integer"
+$@(#) M_anything::anyscalar_to_int64(3f): convert integer parameter of any kind to 64-bit integer
 
 class(*),intent(in)    :: valuein
    integer(kind=int64) :: ii38
@@ -746,7 +844,7 @@ use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic real
 
-! ident_8="@(#) M_anything anyscalar_to_real(3f) convert integer or real parameter of any kind to real"
+$@(#) M_anything::anyscalar_to_real(3f): convert integer or real parameter of any kind to real
 
 class(*),intent(in) :: valuein
 real                :: r_out
@@ -776,3 +874,105 @@ end function anyscalar_to_real
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 end module M_overload
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+$BLOCK NULL
+!
+! THOSE features would make interesting additions to the Fortran standard.
+!
+!
+!-----------------------------------------------------
+
+! An example of overloading subroutines.
+! by James Van Buskirk as posted at comp.lang.fortran on 24 September
+! 2007.
+! This says to me that the code as given was nonconforming because the
+! name FOO was used to identify the module procedure SUBROUTINE FOO
+! from MODULE M1 as well as the module procedure SUBROUTINE FOO from
+! MODULE M2.  The case of generic names says to me that any number of
+! generic identifiers may have the same name as one module procedure
+! provided any possible generic procedure reference is unambiguous
+! (section 14.1.2.3).
+
+MODULE M1
+   INTERFACE FOO1
+     MODULE PROCEDURE joe
+   END INTERFACE
+
+   INTERFACE FOO2
+     MODULE PROCEDURE sue
+   END INTERFACE
+CONTAINS
+   SUBROUTINE joe(I,I2,extra)
+     integer extra
+     INTEGER, INTENT(IN) :: I, I2
+     WRITE(*,*) 'Joe INTEGER'
+   END SUBROUTINE joe
+
+   SUBROUTINE sue(I,I2,extra,onemore)
+     integer extra, onemore
+     INTEGER, INTENT(IN) :: I, I2
+     WRITE(*,*) 'Sue INTEGER'
+   END SUBROUTINE sue
+END MODULE M1
+
+MODULE M2
+   INTERFACE FOO1
+     MODULE PROCEDURE joe
+   END INTERFACE
+
+   INTERFACE FOO2
+     MODULE PROCEDURE sue
+   END INTERFACE
+CONTAINS
+   SUBROUTINE joe(R,R2,extra)
+     integer extra
+     REAL, INTENT(IN) :: R,R2
+     WRITE(*,*) 'Joe REAL'
+   END SUBROUTINE joe
+
+   SUBROUTINE sue(R,R2,extra,onemore)
+     integer extra, onemore
+     REAL, INTENT(IN) :: R,R2
+     WRITE(*,*) 'Sue REAL'
+   END SUBROUTINE sue
+END MODULE M2
+
+MODULE M3
+   INTERFACE FOO1
+     MODULE PROCEDURE joe
+   END INTERFACE
+
+   INTERFACE FOO2
+     MODULE PROCEDURE sue
+   END INTERFACE
+CONTAINS
+   SUBROUTINE joe(D,D2,extra)
+     integer extra
+     DOUBLE PRECISION, INTENT(IN) :: D,D2
+     WRITE(*,*) 'Joe DOUBLE'
+   END SUBROUTINE joe
+
+   SUBROUTINE sue(D,D2,extra,onemore)
+     integer extra, onemore
+     DOUBLE PRECISION, INTENT(IN) :: D,D2
+     WRITE(*,*) 'Sue DOUBLE'
+   END SUBROUTINE sue
+END MODULE M3
+
+program p
+! In PROGRAM P, there are three class 2 entities with the names 'joe',
+! and sue; 'joe' and 'sue' are not generic names.
+   use m1
+   use m2
+   use m3
+   call foo1(10,9,1)
+   call foo1(10.,9.,1)
+   call foo1(10.0d0,9.0d0,1)
+
+   call foo2(10,9,2,3)
+   call foo2(10.,9.,2,3)
+   call foo2(10.0d0,9.0d0,2,3)
+
+end program p
+$BLOCK END
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

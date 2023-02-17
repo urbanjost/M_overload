@@ -1,18 +1,18 @@
-## NAME
+## Name
    M_overload(3f) - a module of intrinsic and operator overloads
    (LICENSE:MIT)
-## SYNOPSIS
+## Synopsis
 ```text
        use M_overload
 ```
-## DESCRIPTION
+## Description
 
    A WIP (Work In Progress)
 
    Common examples of intrinsic and operator overloads available
    as an fpm(1) package.
 
-## BUILDING THE MODULE USING make(1) ![gmake](docs/images/gnu.gif)
+## Building the Module using make(1) ![gmake](docs/images/gnu.gif)
      git clone https://github.com/urbanjost/M_overload.git
      cd M_overload/src
      # change Makefile if not using one of the listed compilers
@@ -32,7 +32,7 @@
 This will compile the Fortran module and basic example
 program that exercise the routine.
 
-## BUILD and TEST with FPM ![-](docs/images/fpm_logo.gif)
+## Build and Test with FPM ![-](docs/images/fpm_logo.gif)
 
    Alternatively, download the github repository and build it with
    fpm ( as described at [Fortran Package Manager](https://github.com/fortran-lang/fpm) )
@@ -52,9 +52,9 @@ program that exercise the routine.
         M_overload        = { git = "https://github.com/urbanjost/M_overload.git" }
 ```
 
-## DOCUMENTATION   ![docs](docs/images/docs.gif)
+## Documentation   ![docs](docs/images/docs.gif)
 
-### USER
+### User
 ![man-pages](docs/images/manpages.gif)
    - There are man-pages in the repository download in the docs/ directory
      that may be installed on ULS (Unix-Like Systems).
@@ -72,7 +72,7 @@ program that exercise the routine.
 
    - [CHANGELOG](docs/CHANGELOG.md) provides a history of significant changes
 
-### DEVELOPER
+### Developer
    - [ford(1) output](https://urbanjost.github.io/M_overload/fpm-ford/index.html).
 <!--
    - [doxygen(1) output](https://urbanjost.github.io/M_overload/doxygen_out/html/index.html).

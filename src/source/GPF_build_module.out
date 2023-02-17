@@ -1,0 +1,2144 @@
+>>>> MODULE IS                       M_overload
+>>>> DOCUMENT DIRECTORY IS           /home/urbanjs/venus/V600/github/M_overload/src/source
+>>>> MANPAGES PROCEDURE DIRECTORY IS /home/urbanjs/venus/V600/github/M_overload/man
+>>>> MAN_EXTENSION IS                m_overload
++ grep -q '^#' M_overload.FF
++ SUFFIX=f90
++ '[' TRUE = '' ']'
++ prep F90 GITHUB --noenv --comment doxygen --verbose -i M_overload.FF -o ../M_overload.f90
++ verbose mode on
++ -->> M_overload::g_g(3f): convert two single intrinsic values to a string
++ -->> M_strings::strmerge(3f): pads first and second arguments to MERGE(3f) to same length
++ -->> M_strings::sub_s2v(3fp): subroutine returns double value from string
++ -->> M_overload::atleast(3f): return string padded to at least specified length
++ grep -qi '^$IFDEF  *C *$' M_overload.FF
++ cd doc
++ set -xv
++ cat
+>>>> .man files to MAN DIRECTORY as ROFF and HTML
+>>>> MANOUT        => /home/urbanjs/venus/V600/github/M_overload/man
+>>>> MAN_EXTENSION => 
+>>>> DOCS          => /home/urbanjs/venus/V600/github/M_overload/docs
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man1
+++ ls '*.1.man' '*.1m_overload.man'
+++ sort
+++ uniq
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man2
+++ sort
+++ uniq
+++ ls '*.2.man' '*.2m_overload.man'
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man3
+++ ls '*.3.man' M_overload.3m_overload.man
+++ uniq
+++ sort
++ for NAME in $(ls *.$NUM.man *.${NUM}${MAN_EXTENSION}.man 2>/dev/null|sort|uniq)
++ echo '>>>> processing manpage and HTML for M_overload.3m_overload.man'
+>>>> processing manpage and HTML for M_overload.3m_overload.man
+++ basename M_overload.3m_overload.man .man
++ SHORTNAME_MAN=/home/urbanjs/venus/V600/github/M_overload/man/man3/M_overload.3m_overload
+++ basename M_overload.3m_overload.man .3m_overload.man
++ SHORTNAME=M_overload
++ : SHORTNAME_MAN /home/urbanjs/venus/V600/github/M_overload/man/man3/M_overload.3m_overload SHORTNAME M_overload
++ txt2man -s 3m_overload -t M_overload M_overload.3m_overload.man
++ env AUX_FILENAME=M_overload man2html
+/home/urbanjs/venus/V600/github/index/github_scripts/bash/txt2man
++ tee /home/urbanjs/venus/V600/github/M_overload/man/man3/M_overload.3m_overload
+man2html c8fedc44-ad14-4235-8b2a-b9c459651f4b
++ replace index.html https://github.com/urbanjost/M_overload -- /home/urbanjs/venus/V600/github/M_overload/docs/M_overload.3m_overload.html
+CHANGING FILE /home/urbanjs/venus/V600/github/M_overload/docs/M_overload.3m_overload.html  [index.html][https://github.com/urbanjost/M_overload]
+BEFORE: /home/urbanjs/venus/V600/github/M_overload/docs/M_overload.3m_overload.html:45:<h5><a href="index.html">[UP]</a></h5>
+AFTER:  /home/urbanjs/venus/V600/github/M_overload/docs/M_overload.3m_overload.html:45:<h5><a href="https://github.com/urbanjost/M_overload">[UP]</a></h5>
++ gzip -f /home/urbanjs/venus/V600/github/M_overload/man/man3/M_overload.3m_overload
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man4
+++ sort
+++ uniq
+++ ls '*.4.man' '*.4m_overload.man'
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man5
+++ sort
+++ uniq
+++ ls '*.5.man' '*.5m_overload.man'
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man6
+++ ls '*.6.man' '*.6m_overload.man'
+++ sort
+++ uniq
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man7
+++ ls '*.7.man' '*.7m_overload.man'
+++ sort
+++ uniq
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man8
+++ sort
+++ ls '*.8.man' '*.8m_overload.man'
+++ uniq
++ cat
+>>>> .txt files to MAN DIRECTORY
+>>>> MANOUT        => /home/urbanjs/venus/V600/github/M_overload/man
+>>>> MAN_EXTENSION => 
++ cd doc
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man1
+++ ls '*.1.txt' '*.1m_overload.txt'
+++ uniq
+++ sort
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man2
+++ ls '*.2.txt' '*.2m_overload.txt'
+++ uniq
+++ sort
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man3
+++ sort
+++ uniq
+++ ls '*.3.txt' '*.3m_overload.txt'
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man4
+++ ls '*.4.txt' '*.4m_overload.txt'
+++ sort
+++ uniq
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man5
+++ ls '*.5.txt' '*.5m_overload.txt'
+++ sort
+++ uniq
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man6
+++ ls '*.6.txt' '*.6m_overload.txt'
+++ sort
+++ uniq
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man7
+++ ls '*.7.txt' '*.7m_overload.txt'
+++ sort
+++ uniq
++ for NUM in 1 2 3 4 5 6 7 8
++ mkdir -p /home/urbanjs/venus/V600/github/M_overload/man/man8
+++ uniq
+++ sort
+++ ls '*.8.txt' '*.8m_overload.txt'
++ echo '>>>> *.htm files to HTML and ROFF'
+>>>> *.htm files to HTML and ROFF
++ cd doc
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.htm'
++ echo '>>>> *.html files to DOC DIRECTORY'
+>>>> *.html files to DOC DIRECTORY
++ cd doc
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.1m_overload.html'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.2m_overload.html'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.3m_overload.html'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.4m_overload.html'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.5m_overload.html'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.6m_overload.html'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.7m_overload.html'
++ for NUM in 1 2 3 4 5 6 7 8
+++ ls '*.8m_overload.html'
++ echo '>>>> Build manpage index'
+>>>> Build manpage index
++ cd ../../man
++ mandb -c .
+mandb: warning: $MANPATH set, inserting /etc/manpath.config
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man1'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man3'. Wait...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/....
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man2'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man4'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man6'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man7'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man8'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/man/./man5'. Wait...
+done.
+Checking for stray cats under /home/urbanjs/venus/V600/github/M_overload/man/....
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat8...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat1...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat3...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat4...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat6...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat2...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat5...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/man/./cat7...
+8 man subdirectories contained newer manual pages.
+1 manual page was added.
+0 stray cats were added.
+++ pwd
++ env MANPATH=/home/urbanjs/venus/V600/github/M_overload/man man -k .
+M_overload (3m_overload) - [M_overload::INTRO] overloads of standard operator...
++ echo '>>>> make easily distributed archive files of manpages'
+>>>> make easily distributed archive files of manpages
++ mkdir -p ../../docs
++ cd ../../man
++ gzip man3/M_overload.3m_overload.gz
+gzip: man3/M_overload.3m_overload.gz already has .gz suffix -- unchanged
++ zip -r ../docs/manpages.zip man3/M_overload.3m_overload.gz
+updating: man3/M_overload.3m_overload.gz (stored 0%)
++ tar cvfz ../docs/manpages.tgz man3/M_overload.3m_overload.gz
+man3/M_overload.3m_overload.gz
++ gunzip man3/M_overload.3m_overload.gz
++ echo '>>>> extract demo pages from manpages'
+>>>> extract demo pages from manpages
++ cd /home/urbanjs/venus/V600/github/M_overload/man
+++ pwd
++ MANPATH=/home/urbanjs/venus/V600/github/M_overload/man
++ SECTION=3m_overload
++ DEMO_OUTDIR=../../example/
++ GPF_extract_manpage_demos /home/urbanjs/venus/V600/github/M_overload/man 3m_overload ../../example/
+>>>> Extract demo program from manpages with
+     MANPATH=/home/urbanjs/venus/V600/github/M_overload/man
+     SECTION=3m_overload
+     DEMO_OUTDIR=../../example/
+     DEMO_SUBDIR=FALSE
+     1	M_overload (3m_overload) - [M_overload::INTRO] overloads of standard operator...
+>>>> M_overload.3m_overload
+M_overload(3m_overload) 			       M_overload(3m_overload)
+
+
+
+NAME
+  M_overload(3fm) - [M_overload::INTRO] overloads of standard operators and
+  intrinsic procedures (LICENSE:PD)
+
+SYNOPSIS
+  overloads on LOGICAL values
+
+     ! use == like .eqv.; ie. logical==logical
+     use M_overload, only : operator(==)
+     ! use /= like .neqv.; ie. logical/=logical
+     use M_overload, only : operator(/=)
+
+  overloads on INTRINSICS to take strings, logicals, and metamorphic numeric
+  intrinsic values
+
+    use M_overload, only : int, real, dble
+    ! int('string')   int(logical)   int(class(*))
+    ! real('string')  real(logical)  real(class(*))
+    ! dble('string')  dble(logical)  dble(class(*))
+
+  overloads on operators
+
+    use M_overload, only : operator(==)
+    ! INTRINSIC // INTRINSIC // INTRINSIC ...
+
+    ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
+    use M_overload, only : sign
+
+
+  Allow strings of different length in MERGE
+
+       use M_overload, only : merge
+       str=merge('one','three',i.eq.10)
+
+
+OTHER OPERATORS
+  intrinsic_value .fmt. ''
+    convert an intrinsic value to a CHARACTER variable
+
+DESCRIPTION
+  Operator and function overloads have a wide range of applications from
+  allowing existing Fortran routines to be used with almost no source-code
+  changes to produce versions using arbitrary precision or cumulative error
+  bounds on floating-point calculations to adding intuitive syntax for
+  standard Fortran operations.
+
+OVERLOADS
+  //
+    overloads // to concatenate any two intrinsic types into a string
+
+  ==,/=
+    Allow the syntax "L1 == L2"  and "L1 /= L2" where L1 and L2 are type
+    LOGICAL as an alternative to the standard expressions "L1 .EQV. L2" and
+    "L1 .NEQV. L2".
+
+    It should be pointed out that
+
+		  L1 == L2   !! should be L1 .eqv. L2
+
+    and
+
+		  L1 /= L2   !! should be L1 .neqv. L2
+
+    should NOT work by default; but often do (probably because the compiler
+    silently converts LOGICAL to INTEGER when a LOGICAL appears where a
+    numeric value is required). If your compiler supports this non-standard
+    (but intuitive-looking) syntax you can use this module to allow the syntax
+    in a portable manner with a standard method.
+
+  int(), real(), dble()
+    allow strings to be converted to numeric values using the standard
+    intrinsic names
+
+    sign(value)
+      call sign(1,value)
+
+    str=merge('little','big',a.eq.10)
+      allows for strings of different lengths
+
+EXAMPLES
+  Sample usage:
+
+    program demo_M_overload
+
+     use, intrinsic :: iso_fortran_env, only : &
+	     & integer_kinds, int8, int16, int32, int64
+     use, intrinsic :: iso_fortran_env, only : &
+	     & real32, real64, real128
+
+     ! allow strings to be converted to integers
+     use M_overload, only : int
+     ! allow strings to be converted to floating point
+     use M_overload, only : real,dble
+     ! use == like .eqv.
+     use M_overload, only : operator(==)
+     ! use /= like .neqv.
+     use M_overload, only : operator(/=)
+     use M_overload, only : operator(//)
+     ! take a single argument
+     use M_overload, only : sign
+     ! allow strings of different length on merge
+     use M_overload, only : merge
+     implicit none
+     character(len=:),allocatable :: cmd
+     character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
+
+       write(*,gen)merge('a','bbbbb',1.eq.1)
+       write(*,gen)merge('a','bbbbb',1.eq.2)
+       write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
+
+       if(int('1234')		    .eq.1234) &
+	& write(*,*)'int("STRING") works '
+       if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
+	& write(*,*)'real("STRING") works '
+       if(abs(dble('1234.5678901234567')- 1234.5678901234567d0).lt.epsilon(0.0d0)) &
+	& write(*,*)'dble("STRING") works '
+
+       write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
+       write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
+
+       if (.true. == .true. ) &
+       & write(*,*)'== works like .eqv. for LOGICAL values'
+       if (.true. /= .false. ) &
+       & write(*,*)'/= works like .neqv. for LOGICAL values'
+
+       write(*,*)' The value is '//10//' which is less than '//20.2
+
+
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int8).eq.1 &
+	& .and. sign(-10_int8).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int16).eq.1 &
+	& .and. sign(-10_int16).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int32).eq.1 &
+	& .and. sign(-10_int32).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int64).eq.1 &
+	& .and. sign(-10_int64).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10.0_real32).eq.1.0 &
+	& .and. sign(-10.0_real32).eq.-1.0 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10.0_real64).eq.1.0 &
+	& .and. sign(-10.0_real64).eq.-1.0 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10.0_real128).eq.1.0&
+	& .and. sign(-10.0_real128).eq.-1.0 )
+     contains
+
+     end program demo_M_overload
+
+  Results:
+
+    > [a    ]
+
+    > [bbbbb]
+
+    > [bbbbb],[ccccc]
+
+    > int("STRING") works
+
+    > real("STRING") works
+
+    > dble("STRING") works
+
+    > == works like .eqv. for LOGICAL values
+
+    > /= works like .neqv. for LOGICAL values
+
+    > 444	  555
+
+    > 444.444000       555.554993
+
+    > 444.44400000000002	555.55500000000006
+
+    > 555.44399999999996	666.66600000000005	  777.77700000000004
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > int("STRING") works
+
+    > real("STRING") works
+
+    > dble("STRING") works
+
+    > == works like .eqv. for LOGICAL values
+
+    > /= works like .neqv. for LOGICAL values
+
+    > 444	  555
+
+    > 444.444000       555.554993
+
+    > 444.44400000000002	555.55500000000006
+
+    > 555.44399999999996	666.66600000000005	  777.77700000000004
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works > 57 xx -x -y hello there
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx > 0 0 [xx] > 1 0 [-x] > 2 0 [-y] >
+      3 0 [hello there] > 4 0 [xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+
+    > 0 0 [xx
+
+    > 1 0 [-x
+
+    > 2 0 [-y
+      > 3 -1 [hello ther] > 4 -1 [xxxxxxxxxx]
+
+    > 0 0 [xx
+
+    > 1 0 [-x
+
+    > 2 0 [-y
+
+    > 3 0 [hello there
+      > 4 -1 [xxxxxxxxxxxxxxxxxxxx]
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+			       February 16, 2023       M_overload(3m_overload)
++ echo '>>>> run make'
+>>>> run make
++ cd ..
++ make clean
+rm -f ../example/demo_M_overload  M_overload.o *.mod ../test/test_suite_M_overload 
++ make F90=gfortran gfortran
+gfortran -g -O -Wall -std=f2018 -Wextra -Wno-maybe-uninitialized -Wno-uninitialized -c M_overload.f90
+M_overload.f90:770:41:
+
+  770 |    type is (logical);              r_out=merge(0.0d0,1.0d0,valuein)
+      |                                         1
+Warning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]
+M_overload.f90:506:18:
+
+  506 |       ints_s2v(i)=int(s2v(chars(i)))
+      |                  1
+Warning: Possible change of value in conversion from INTEGER(8) to INTEGER(4) at (1) [-Wconversion]
+M_overload.f90:753:26:
+
+  753 | real,parameter      :: big=huge(0.0)
+      |                          1
+Warning: Unused parameter ‘big’ declared at (1) [-Wunused-parameter]
+M_overload.f90:686:32:
+
+  686 | doubleprecision,parameter :: big=huge(0.0d0)
+      |                                1
+Warning: Unused parameter ‘big’ declared at (1) [-Wunused-parameter]
+M_overload.f90:654:42:
+
+  654 | integer                     :: ierr, onerr
+      |                                          1
+Warning: Unused variable ‘onerr’ declared at (1) [-Wunused-variable]
+M_overload.f90:660:0:
+
+  660 | function atleast(line,length,pattern) result(strout)
+      | 
+Warning: ‘atleast’ defined but not used [-Wunused-function]
+build examples
+gfortran  ../example/demo_M_overload.f90 -o ../example/demo_M_overload M_overload.o  # && ./../example/demo_M_overload </dev/null
+build tests
+That's all folks!
+built with gfortran
++ make doxygen
+doxygen dox.in
+warning: Tag 'PERL_PATH' at line 2140 of file 'dox.in' has become obsolete.
+         To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: Tag 'MSCGEN_PATH' at line 2162 of file 'dox.in' has become obsolete.
+         To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: source html/images is not a readable file or directory... skipping.
+Searching for include files...
+Searching for example files...
+Searching for images...
+Searching for files in directory /home/urbanjs/venus/V600/github/M_overload/docs/images
+Searching for dot files...
+Searching for msc files...
+Searching for dia files...
+Searching for files to exclude
+Searching INPUT for files to process...
+Searching for files in directory /home/urbanjs/venus/V600/github/M_overload/src
+Searching for files in directory /home/urbanjs/venus/V600/github/M_overload/src/source
+Searching for files in directory /home/urbanjs/venus/V600/github/M_overload/src/source/doc
+Searching for files in directory /home/urbanjs/venus/V600/github/M_overload/src/source/doc/PRIVATE
+Reading and parsing tag files
+Parsing files
+Reading /home/urbanjs/venus/V600/github/M_overload/src/M_overload.f90...
+Parsing file /home/urbanjs/venus/V600/github/M_overload/src/M_overload.f90...
+Preprocessing /home/urbanjs/venus/V600/github/M_overload/src/mainpage.txt...
+Parsing file /home/urbanjs/venus/V600/github/M_overload/src/mainpage.txt...
+Building group list...
+Building directory list...
+Building namespace list...
+Building file list...
+Building class list...
+Computing nesting relations for classes...
+Associating documentation with classes...
+Building example list...
+Searching for enumerations...
+Searching for documented typedefs...
+Searching for members imported via using declarations...
+Searching for included using directives...
+Searching for documented variables...
+Building interface member list...
+Building member list...
+Searching for friends...
+Searching for documented defines...
+Computing class inheritance relations...
+Computing class usage relations...
+Flushing cached template relations that have become invalid...
+Computing class relations...
+Add enum values to enums...
+Searching for member function documentation...
+Creating members for template instances...
+Building page list...
+Search for main page...
+Computing page relations...
+Determining the scope of groups...
+Sorting lists...
+Determining which enums are documented
+Computing member relations...
+Building full member lists recursively...
+Adding members to member groups.
+Computing member references...
+Inheriting documentation...
+Generating disk names...
+Adding source references...
+Adding xrefitems...
+Sorting member lists...
+Setting anonymous enum type...
+Computing dependencies between directories...
+Generating citations page...
+Counting members...
+Counting data structures...
+Resolving user defined references...
+Finding anchors and sections in the documentation...
+Transferring function references...
+Combining using relations...
+Adding members to index pages...
+Correcting members for VHDL...
+Generating style sheet...
+Generating search indices...
+Generating example documentation...
+Generating file sources...
+Parsing code for file /home/urbanjs/venus/V600/github/M_overload/src/M_overload.f90...
+Parsing code for file /home/urbanjs/venus/V600/github/M_overload/src/mainpage.txt...
+Generating file documentation...
+Generating docs for file /home/urbanjs/venus/V600/github/M_overload/src/M_overload.f90...
+Generating docs for file /home/urbanjs/venus/V600/github/M_overload/src/mainpage.txt...
+Generating page documentation...
+Generating group documentation...
+Generating class documentation...
+Generating namespace index...
+Generating docs for namespace m_overload
+Generating call graph for function m_overload::dble_s2v
+Generating call graph for function m_overload::dbles_s2v
+Generating caller graph for function m_overload::ffmt
+Generating call graph for function m_overload::g_g
+Generating call graph for function m_overload::int_s2v
+Generating call graph for function m_overload::ints_s2v
+Generating call graph for function m_overload::real_s2v
+Generating call graph for function m_overload::reals_s2v
+Generating call graph for function m_overload::s2v
+Generating caller graph for function m_overload::s2v
+Generating caller graph for function m_overload::sub_s2v
+Generating docs for compound m_overload::adjustl...
+Generating docs for compound m_overload::adjustr...
+Generating docs for compound m_overload::dble...
+Generating docs for compound m_overload::int...
+Generating docs for compound m_overload::merge...
+Generating docs for compound m_overload::operator(.fmt.)...
+Generating docs for compound m_overload::operator(//)...
+Generating docs for compound m_overload::operator(/=)...
+Generating docs for compound m_overload::operator(==)...
+Generating docs for compound m_overload::real...
+Generating docs for compound m_overload::sign...
+Generating graph info page...
+Generating directory documentation...
+Generating index page...
+Generating page index...
+Generating module index...
+Generating namespace index...
+Generating namespace member index...
+Generating annotated compound index...
+Generating alphabetical compound index...
+Generating hierarchical class index...
+Generating graphical class hierarchy...
+Generating member index...
+Generating file index...
+Generating file member index...
+Generating example index...
+finalizing index lists...
+writing tag file...
+Running plantuml with JAVA...
+Running dot...
+lookup cache used 62/65536 hits=120 misses=62
+finished...
++ make man
+mandb: warning: $MANPATH set, inserting /etc/manpath.config
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/../man/man3'. Wait...
+Purging old database entries in /home/urbanjs/venus/V600/github/M_overload/src/../man...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man...
+mandb: warning: failed to store entry for M_overload(3m_overload)
+done.
+Checking for stray cats under /home/urbanjs/venus/V600/github/M_overload/src/../man...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat8...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat1...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat3...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat4...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat6...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat2...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat5...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/../man/cat7...
+1 man subdirectory contained newer manual pages.
+1 manual page was added.
+0 stray cats were added.
+0 old database entries were purged.
+M_overload(3fm) (3m_overload) [M_overload] - (unknown subject)
+M_overload(3m_overload) 			       M_overload(3m_overload)
+
+
+
+NAME
+  M_overload(3fm) - [M_overload::INTRO] overloads of standard operators and
+  intrinsic procedures (LICENSE:PD)
+
+SYNOPSIS
+  overloads on LOGICAL values
+
+     ! use == like .eqv.; ie. logical==logical
+     use M_overload, only : operator(==)
+     ! use /= like .neqv.; ie. logical/=logical
+     use M_overload, only : operator(/=)
+
+  overloads on INTRINSICS to take strings, logicals, and metamorphic numeric
+  intrinsic values
+
+    use M_overload, only : int, real, dble
+    ! int('string')   int(logical)   int(class(*))
+    ! real('string')  real(logical)  real(class(*))
+    ! dble('string')  dble(logical)  dble(class(*))
+
+  overloads on operators
+
+    use M_overload, only : operator(==)
+    ! INTRINSIC // INTRINSIC // INTRINSIC ...
+
+    ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
+    use M_overload, only : sign
+
+
+  Allow strings of different length in MERGE
+
+       use M_overload, only : merge
+       str=merge('one','three',i.eq.10)
+
+
+OTHER OPERATORS
+  intrinsic_value .fmt. ''
+    convert an intrinsic value to a CHARACTER variable
+
+DESCRIPTION
+  Operator and function overloads have a wide range of applications from
+  allowing existing Fortran routines to be used with almost no source-code
+  changes to produce versions using arbitrary precision or cumulative error
+  bounds on floating-point calculations to adding intuitive syntax for
+  standard Fortran operations.
+
+OVERLOADS
+  //
+    overloads // to concatenate any two intrinsic types into a string
+
+  ==,/=
+    Allow the syntax "L1 == L2"  and "L1 /= L2" where L1 and L2 are type
+    LOGICAL as an alternative to the standard expressions "L1 .EQV. L2" and
+    "L1 .NEQV. L2".
+
+    It should be pointed out that
+
+		  L1 == L2   !! should be L1 .eqv. L2
+
+    and
+
+		  L1 /= L2   !! should be L1 .neqv. L2
+
+    should NOT work by default; but often do (probably because the compiler
+    silently converts LOGICAL to INTEGER when a LOGICAL appears where a
+    numeric value is required). If your compiler supports this non-standard
+    (but intuitive-looking) syntax you can use this module to allow the syntax
+    in a portable manner with a standard method.
+
+  int(), real(), dble()
+    allow strings to be converted to numeric values using the standard
+    intrinsic names
+
+    sign(value)
+      call sign(1,value)
+
+    str=merge('little','big',a.eq.10)
+      allows for strings of different lengths
+
+EXAMPLES
+  Sample usage:
+
+    program demo_M_overload
+
+     use, intrinsic :: iso_fortran_env, only : &
+	     & integer_kinds, int8, int16, int32, int64
+     use, intrinsic :: iso_fortran_env, only : &
+	     & real32, real64, real128
+
+     ! allow strings to be converted to integers
+     use M_overload, only : int
+     ! allow strings to be converted to floating point
+     use M_overload, only : real,dble
+     ! use == like .eqv.
+     use M_overload, only : operator(==)
+     ! use /= like .neqv.
+     use M_overload, only : operator(/=)
+     use M_overload, only : operator(//)
+     ! take a single argument
+     use M_overload, only : sign
+     ! allow strings of different length on merge
+     use M_overload, only : merge
+     implicit none
+     character(len=:),allocatable :: cmd
+     character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
+
+       write(*,gen)merge('a','bbbbb',1.eq.1)
+       write(*,gen)merge('a','bbbbb',1.eq.2)
+       write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
+
+       if(int('1234')		    .eq.1234) &
+	& write(*,*)'int("STRING") works '
+       if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
+	& write(*,*)'real("STRING") works '
+       if(abs(dble('1234.5678901234567')- 1234.5678901234567d0).lt.epsilon(0.0d0)) &
+	& write(*,*)'dble("STRING") works '
+
+       write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
+       write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
+
+       if (.true. == .true. ) &
+       & write(*,*)'== works like .eqv. for LOGICAL values'
+       if (.true. /= .false. ) &
+       & write(*,*)'/= works like .neqv. for LOGICAL values'
+
+       write(*,*)' The value is '//10//' which is less than '//20.2
+
+
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int8).eq.1 &
+	& .and. sign(-10_int8).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int16).eq.1 &
+	& .and. sign(-10_int16).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int32).eq.1 &
+	& .and. sign(-10_int32).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10_int64).eq.1 &
+	& .and. sign(-10_int64).eq.-1 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10.0_real32).eq.1.0 &
+	& .and. sign(-10.0_real32).eq.-1.0 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10.0_real64).eq.1.0 &
+	& .and. sign(-10.0_real64).eq.-1.0 )
+       write(*,*) merge('sign works','sign fails',&
+	& sign(10.0_real128).eq.1.0&
+	& .and. sign(-10.0_real128).eq.-1.0 )
+     contains
+
+     end program demo_M_overload
+
+  Results:
+
+    > [a    ]
+
+    > [bbbbb]
+
+    > [bbbbb],[ccccc]
+
+    > int("STRING") works
+
+    > real("STRING") works
+
+    > dble("STRING") works
+
+    > == works like .eqv. for LOGICAL values
+
+    > /= works like .neqv. for LOGICAL values
+
+    > 444	  555
+
+    > 444.444000       555.554993
+
+    > 444.44400000000002	555.55500000000006
+
+    > 555.44399999999996	666.66600000000005	  777.77700000000004
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > int("STRING") works
+
+    > real("STRING") works
+
+    > dble("STRING") works
+
+    > == works like .eqv. for LOGICAL values
+
+    > /= works like .neqv. for LOGICAL values
+
+    > 444	  555
+
+    > 444.444000       555.554993
+
+    > 444.44400000000002	555.55500000000006
+
+    > 555.44399999999996	666.66600000000005	  777.77700000000004
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works
+
+    > sign works > 57 xx -x -y hello there
+      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx > 0 0 [xx] > 1 0 [-x] > 2 0 [-y] >
+      3 0 [hello there] > 4 0 [xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+
+    > 0 0 [xx
+
+    > 1 0 [-x
+
+    > 2 0 [-y
+      > 3 -1 [hello ther] > 4 -1 [xxxxxxxxxx]
+
+    > 0 0 [xx
+
+    > 1 0 [-x
+
+    > 2 0 [-y
+
+    > 3 0 [hello there
+      > 4 -1 [xxxxxxxxxxxxxxxxxxxx]
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+			       February 16, 2023       M_overload(3m_overload)
++ make ship
+: make easily distributed archive files of manpages
+mkdir -p ../docs
+cd ../man/man3;\
+   gzip *.3m_overload;\
+   zip -r ../../docs/manpages.zip *gz;\
+   tar cvfz ../../docs/manpages.tgz *gz;\
+   gunzip *.3m_overload.gz
+updating: M_overload.3m_overload.gz (stored 0%)
+M_overload.3m_overload.gz
++ make help
+: make    '-- build M_overload module'
+: run     '-- run manpage demo programs and test program'
+: man     '-- show all manpages as text'
+: ship    '-- rebuild archive files of manpages'
+: clean   '-- clean directory of object files and executables'
+: doxygen '-- run doxygen(1) if you have it'
+: help    '-- display this text'
++ make clean
+rm -f ../example/demo_M_overload  M_overload.o *.mod ../test/test_suite_M_overload 
++ echo '>>>> fpm test'
+>>>> fpm test
++ cd ../..
++ fpm test
+[  0%]                 M_overload.f90
+[ 12%]                 M_overload.f90  done.
+[ 12%]                libM_overload.a
+[ 25%]                libM_overload.a  done.
+[ 25%]            demo_M_overload.f90
+[ 37%]            demo_M_overload.f90  done.
+[ 37%]                     rename.f90
+[ 50%]                     rename.f90  done.
+[ 50%]      test_suite_M_overload.f90
+[ 62%]      test_suite_M_overload.f90  done.
+[ 62%]                demo_M_overload
+[ 75%]                demo_M_overload  done.
+[ 75%]                         rename
+[ 87%]                         rename  done.
+[ 87%]          test_suite_M_overload
+[100%]          test_suite_M_overload  done.
+[100%] Project compiled successfully.
+check:       boolean_equal        SUCCESS : == works like .eqv. for LOGICAL values
+check_done:  boolean_equal        PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000002:
+check:       boolean_notequal     SUCCESS : /= works like .neqv. for LOGICAL values
+check_done:  boolean_notequal     PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000:
+check:       dble_s2v             SUCCESS :
+check_done:  dble_s2v             PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       dbles_s2v            SUCCESS :
+check_done:  dbles_s2v            PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000001
+check:       int_s2v              SUCCESS : string passed to int
+check_done:  int_s2v              PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000:
+check:       ints_s2v             SUCCESS :
+check_done:  ints_s2v             PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       real_s2v             SUCCESS :
+check_done:  real_s2v             PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       reals_s2v            SUCCESS :
+check_done:  reals_s2v            PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000001
+check:       sign                 SUCCESS : sign(+-10_int8) 1 -1
+check:       sign                 SUCCESS : sign(+-10_int16) 1 -1
+check:       sign                 SUCCESS : sign(+-10_int32) 1 -1
+check:       sign                 SUCCESS : sign(+-10_int64) 1 -1
+check:       sign                 SUCCESS : sign(+-10_real32) 1.00000000 -1.00000000
+check:       sign                 SUCCESS : sign(+-10_real64) 1.0000000000000000 -1.0000000000000000
+check:       sign                 SUCCESS : sign(+-10_real128) 1.00000000000000000000000000000000000 -1.00000000000000000000000000000000000
+check_done:  sign                 PASSED  : GOOD:        7 BAD:        0 DURATION:00000000000000:
+check_stop:  TALLY                PASSED  : GOOD:       15 BAD:        0 DURATION:00000000000003
+STOP 0
++ echo '>>>> make BOOK html document'
+>>>> make BOOK html document
++ env MANPATH=../../man mandb -c
+mandb: warning: $MANPATH set, ignoring /etc/manpath.config
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man1'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man3'. Wait...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man2'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man4'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man6'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man7'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man8'. Wait...
+Updating index cache for path `/home/urbanjs/venus/V600/github/M_overload/src/source/../../man/man5'. Wait...
+done.
+Checking for stray cats under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat8...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat1...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat3...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat4...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat6...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat2...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat5...
+Processing manual pages under /home/urbanjs/venus/V600/github/M_overload/src/source/../../man/cat7...
+8 man subdirectories contained newer manual pages.
+1 manual page was added.
+0 stray cats were added.
++ env OUTPUT_DIR=../../docs/ MAN_CMD=man MANPATH=../../man GPF_book M_overload m_overload
+Creating book M_overload
+                                                                                
+                                                                                
+ XX   XX                                           XX                        XX 
+  X   X                                             X                         X 
+  XX XX                                             X                         X 
+  XX XX           XXXXX  XXX XXX  XXXXX  XXX XX     X     XXXXX   XXXX    XXXXX 
+  X X X          X     X  X   X  X     X   XX  X    X    X     X      X  X    X 
+  X X X          X     X  X   X  XXXXXXX   X        X    X     X  XXXXX  X    X 
+  X   X          X     X   X X   X         X        X    X     X X    X  X    X 
+  X   X          X     X   X X   X     X   X        X    X     X X    X  X    X 
+ XXX XXX          XXXXX     X     XXXXX  XXXXX    XXXXX   XXXXX   XXXX X  XXXXXX
+                                                                                
+        XXXXXXXX                                                                
+/home/urbanjs/venus/V600/github/github_scripts/bash/GPF_book:
+________________________________________________________________________________
+   TOPIC      M_overload
+   SECTION    m_overload
+   OUTPUT_DIR ../../docs/
+   MAN_CMD    man
+   MANPATH    ../../man
+________________________________________________________________________________
++ HTML
++ cat
++ cat
+++ date +%Y-%m-%d
++ cat
++ cat
++ cat
++ echo 'function loadthem(){'
++ read NAME
++ uniq
++ '[' M_overload = INDEX ']'
++ echo M_overload.3m_overload.html
++ env LC_ALL=C /usr/bin/sort -k 2r,2r -k 1,1
++ grep -i '(3M_overload)'
++ uniq
++ man -k '\[M_overload\>'
++ awk '{printf "%s.%s.html\n",$1,$2}'
++ tr -d '()'
++ man --section 3m_overload -k .
++ grep -i '(3M_overload)'
++ man -k '\[M_overload\>'
++ env LC_ALL=C /usr/bin/sort -k 2r,2r -k 1,1
++ grep -vi '(3M_overload)'
++ '[' -r ../../docs//M_overload.3m_overload.html..html ']'
++ read NAME
++ '[' -r ../../docs//M_overload.3m_overload.html ']'
++ echo 'append("M_overload.3m_overload.html");'
++ read NAME
++ echo '}'
++ exit
++ echo '>>>> make HTML index to manpages'
+>>>> make HTML index to manpages
++ env MANPATH=../../man OUTDIR=../../docs GPF_manpage_index
+making HTML index for section 1 in ../../docs/man1.html
+FOUND 0 for section 1
+making HTML index for section 2 in ../../docs/man2.html
+FOUND 0 for section 2
+making HTML index for section 3 in ../../docs/man3.html
+FOUND 1 for section 3
+<GPF_manpage_index><MANPATH>../../man
+<GPF_manpage_index><NAME>M_overload<SECT>(3m_overload)<DASH>-
+making HTML index for section 4 in ../../docs/man4.html
+FOUND 0 for section 4
+making HTML index for section 5 in ../../docs/man5.html
+FOUND 0 for section 5
+making HTML index for section 6 in ../../docs/man6.html
+FOUND 0 for section 6
+making HTML index for section 7 in ../../docs/man7.html
+FOUND 0 for section 7
+making HTML index for section 8 in ../../docs/man8.html
+FOUND 0 for section 8
+making HTML index for Fortran Intrinsics for section 3 in ../../docs/man3i.html
+FOUND 0 for section 3
+making HTML index for Fortran Intrinsics for section 7 in ../../docs/man7i.html
+FOUND 0 for section 7
+sed: can't read ../../docs/*.[37]fortran.html: No such file or directory
++ echo '>>>> spell check'
+>>>> spell check
++ xargs -n 8
++ column -t
++ spell ../../README.md
+CHANGELOG  FPM   Fortran     Makefile  ULS       WIP    cd         doxygen
+fortran    fpm   gfortran    gif       github    gmake  html       https
+ifort      io    javascript  lang      manpages  md     nvfortran  src
+tgz        toml  urbanjost
++ echo '>>>> update GPF project and documents'
+>>>> update GPF project and documents
++ unset GITHUB
++ make.one libGPF
+574142 (process ID) old priority 0, new priority 19
+W-A-R-N-I-N-G: no ccheck.c file (required for configured versions)
++ echo '>>>> run test'
+>>>> run test
++ cd ../../test
++ ccall test_suite_M_overload.f90
+*ccall*: MAKING TEMPORARY DIRECTORY /tmp/CCALL_Linux_gfortran_574486
++ mkdir -m 755 -p /tmp/CCALL_Linux_gfortran_574486
++ chmod u=xrw,g-xrw,o-xrw /tmp/CCALL_Linux_gfortran_574486
++ CCALL_DELETE_DIR=TRUE
++ FULLNAME=/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
++ SPLIT
++ tr @ '\012'
++ sed -e 's/ -/@ -/g'
++ cp test_suite_M_overload.f90 /tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
++ echo NAME test_suite_M_overload.f90
+NAME test_suite_M_overload.f90
++ echo /home/urbanjs/venus/V600/bin/Linux_gfortran/test_suite_M_overload
+/home/urbanjs/venus/V600/bin/Linux_gfortran/test_suite_M_overload
++ ADDOPTIONS /tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
++ INPUTFILENAME=/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
++ grep
+ -qi '\<use\>  *\<M_readline\>' /tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
++ grep
+ -qi '\<use\>  *\<M_curl\>' /tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
++ set
+ -x
++ set
+ -v
++ gfortran
+ -fbacktrace
+ -fdump-core
+ -frecord-marker=4
+ -I.
+ -DTESTPRG
+ -DTESTPRG90 /tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
+ -o /home/urbanjs/venus/V600/bin/Linux_gfortran/test_suite_M_overload
+ -Wall
+ -Wextra
+ -Bstatic
+ -I/home/urbanjs/venus/V600/lib/Linux_gfortran
+ -J/home/urbanjs/venus/V600/lib/Linux_gfortran
+ -L/home/urbanjs/venus/V600/lib/Linux_gfortran
+ -lkon
+ -lDL
+ -lMULTI
+ -lrandlib
+ -lrandlibf90
+ -lncarsa
+ -lvopl
+ -lGPF
+ -lGPF_C
+ -lncurses
+ -lcurl
+ -lSTUG
+ -lsqlite3
+ -lquadmath
+ -lm
+ -Wunreachable-code
+ -Wunused
+ -Wuninitialized
+ -g
+ -O
+ -fcoarray=single
+ -Bdynamic
+ -L/usr/lib/x86_64-linux-gnu
+ -lX11
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘len’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘trim’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘abs’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘achar’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘acos’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘acosh’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘aimag’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘aint’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘all’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘allocated’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘anint’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘any’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘asin’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘asinh’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘associated’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘atan’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘atan2’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘atanh’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bessel_j0’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bessel_j1’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bessel_jn’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bessel_y0’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bessel_y1’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bessel_yn’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bge’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bgt’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘bit_size’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ble’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘blt’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘btest’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ceiling’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘cmplx’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘command_argument_count’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘conjg’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘cos’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘cosh’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘count’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘cshift’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘dble’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘digits’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘dim’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘dot_product’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘dprod’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘dshiftl’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘dshiftr’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘eoshift’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘epsilon’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘erf’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘erfc’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘erfc_scaled’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘exp’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘exponent’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘extends_type_of’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘findloc’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘float’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘floor’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘fraction’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘gamma’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘hypot’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘iachar’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘iall’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘iand’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘iany’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ibclr’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ibits’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ibset’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ichar’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ieor’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘image_index’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘int’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ior’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘iparity’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘is_contiguous’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘is_iostat_end’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘is_iostat_eor’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ishft’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ishftc’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘kind’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘lbound’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘leadz’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘lge’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘lgt’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘lle’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘llt’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘log’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘log10’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘log_gamma’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘logical’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘maskl’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘maskr’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘matmul’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘maxexponent’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘maxloc’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘maxval’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘merge_bits’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘minexponent’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘minloc’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘minval’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘mod’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘modulo’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘nearest’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘new_line’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘nint’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘norm2’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘not’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘null’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘num_images’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘pack’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘parity’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘popcnt’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘poppar’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘precision’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘product’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘radix’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘range’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘rank’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘real’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘reshape’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘rrspacing’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘same_type_as’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘scale’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘scan’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘selected_char_kind’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘selected_int_kind’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘selected_real_kind’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘set_exponent’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘shape’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘shifta’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘shiftl’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘shiftr’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘sin’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘sinh’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘size’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘sngl’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘spacing’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘spread’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘sqrt’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘storage_size’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘sum’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘tan’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘tanh’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘this_image’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘tiny’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘trailz’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘transfer’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘transpose’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘ubound’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘unpack’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:6:4:
+
+    6 | use M_overload
+      |    1
+Warning: Type specified for intrinsic function ‘verify’ at (1) is ignored [-Wsurprising]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:230:10:
+
+  230 |    if(all(rbug.eq. [0.357072622,200.0]))then
+      |          1
+Warning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:208:6:
+
+  208 |    if(REAL('0.357072622').eq. 0.357072622)then
+      |      1
+Warning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:143:10:
+
+  143 |    if(all(vals.eq.0.0d0))then
+      |          1
+Warning: Equality comparison for REAL(8) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:117:6:
+
+  117 |    if(dble('0.3570726221234567').eq. 0.3570726221234567d0)then
+      |      1
+Warning: Equality comparison for REAL(8) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:64:53:
+
+   64 |    call unit_check('sign',sign(10.0_real32).eq.1.and.sign(-10.0_real32).eq.-1,&
+      |                                                     1
+Warning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:64:26:
+
+   64 |    call unit_check('sign',sign(10.0_real32).eq.1.and.sign(-10.0_real32).eq.-1,&
+      |                          1
+Warning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:66:55:
+
+   66 |    call unit_check('sign',0+sign(10.0_real64).eq.1.and.sign(-10.0_real64).eq.-1,&
+      |                                                       1
+Warning: Equality comparison for REAL(8) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:66:27:
+
+   66 |    call unit_check('sign',0+sign(10.0_real64).eq.1.and.sign(-10.0_real64).eq.-1,&
+      |                           1
+Warning: Equality comparison for REAL(8) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:68:57:
+
+   68 |    call unit_check('sign',0+sign(10.0_real128).eq.1.and.0+sign(-10.0_real128).eq.-1,&
+      |                                                         1
+Warning: Equality comparison for REAL(16) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:68:27:
+
+   68 |    call unit_check('sign',0+sign(10.0_real128).eq.1.and.0+sign(-10.0_real128).eq.-1,&
+      |                           1
+Warning: Equality comparison for REAL(16) at (1) [-Wcompare-reals]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:23:35:
+
+   23 | character(len=:),allocatable :: cmd
+      |                                   1
+Warning: Unused variable ‘cmd’ declared at (1) [-Wunused-variable]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:140:33:
+
+  140 |    vals=dble(['10.0d0','20.0d0'])
+      |                                 ^
+Warning: ‘vals.offset’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:128:38:
+
+  128 | doubleprecision,allocatable :: vals(:)
+      |                                      ^
+note: ‘vals’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:140:33:
+
+  140 |    vals=dble(['10.0d0','20.0d0'])
+      |                                 ^
+Warning: ‘vals.dim[0].lbound’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:128:38:
+
+  128 | doubleprecision,allocatable :: vals(:)
+      |                                      ^
+note: ‘vals’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:140:33:
+
+  140 |    vals=dble(['10.0d0','20.0d0'])
+      |                                 ^
+Warning: ‘vals.dim[0].ubound’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:128:38:
+
+  128 | doubleprecision,allocatable :: vals(:)
+      |                                      ^
+note: ‘vals’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:189:26:
+
+  189 |    ibug=int(['100','200'])
+      |                          ^
+Warning: ‘ibug.offset’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:177:30:
+
+  177 | integer,allocatable :: ibug(:)
+      |                              ^
+note: ‘ibug’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:189:26:
+
+  189 |    ibug=int(['100','200'])
+      |                          ^
+Warning: ‘ibug.dim[0].lbound’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:177:30:
+
+  177 | integer,allocatable :: ibug(:)
+      |                              ^
+note: ‘ibug’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:189:26:
+
+  189 |    ibug=int(['100','200'])
+      |                          ^
+Warning: ‘ibug.dim[0].ubound’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:177:30:
+
+  177 | integer,allocatable :: ibug(:)
+      |                              ^
+note: ‘ibug’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:229:43:
+
+  229 |    rbug=real(['0.357072622','200.0      '])
+      |                                           ^
+Warning: ‘rbug.offset’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:218:27:
+
+  218 | real,allocatable :: rbug(:)
+      |                           ^
+note: ‘rbug’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:229:43:
+
+  229 |    rbug=real(['0.357072622','200.0      '])
+      |                                           ^
+Warning: ‘rbug.dim[0].lbound’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:218:27:
+
+  218 | real,allocatable :: rbug(:)
+      |                           ^
+note: ‘rbug’ declared here
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:229:43:
+
+  229 |    rbug=real(['0.357072622','200.0      '])
+      |                                           ^
+Warning: ‘rbug.dim[0].ubound’ is used uninitialized [-Wuninitialized]
+/tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90:218:27:
+
+  218 | real,allocatable :: rbug(:)
+      |                           ^
+note: ‘rbug’ declared here
++ ar rv /home/urbanjs/venus/V600/lib/Linux_gfortran/PROGRAM.a /tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
+a - /tmp/CCALL_Linux_gfortran_574486/test_suite_M_overload.574486.f90
++ set +x
+/home/urbanjs/venus/V600/LIBRARY/CYGWIN/scripts_regression/goodbad: test_suite_M_overload.1 0 test_suite_M_overload start --section 1
+/home/urbanjs/venus/V600/bin/Linux_gfortran/test_suite_M_overload
+*ccall*: REMOVING /tmp/CCALL_Linux_gfortran_574486
++ test_suite_M_overload
+check:       boolean_equal        SUCCESS : == works like .eqv. for LOGICAL values
+check_done:  boolean_equal        PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000:
+check:       boolean_notequal     SUCCESS : /= works like .neqv. for LOGICAL values
+check_done:  boolean_notequal     PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000:
+check:       dble_s2v             SUCCESS :
+check_done:  dble_s2v             PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       dbles_s2v            SUCCESS :
+check_done:  dbles_s2v            PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       int_s2v              SUCCESS : string passed to int
+check_done:  int_s2v              PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000:
+check:       ints_s2v             SUCCESS :
+check_done:  ints_s2v             PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       real_s2v             SUCCESS :
+check_done:  real_s2v             PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       reals_s2v            SUCCESS :
+check_done:  reals_s2v            PASSED  : GOOD:        1 BAD:        0 DURATION:00000000000000
+check:       sign                 SUCCESS : sign(+-10_int8) 1 -1
+check:       sign                 SUCCESS : sign(+-10_int16) 1 -1
+check:       sign                 SUCCESS : sign(+-10_int32) 1 -1
+check:       sign                 SUCCESS : sign(+-10_int64) 1 -1
+check:       sign                 SUCCESS : sign(+-10_real32) 1.00000000 -1.00000000
+check:       sign                 SUCCESS : sign(+-10_real64) 1.0000000000000000 -1.0000000000000000
+check:       sign                 SUCCESS : sign(+-10_real128) 1.00000000000000000000000000000000000 -1.00000000000000000000000000000000000
+check_done:  sign                 PASSED  : GOOD:        7 BAD:        0 DURATION:00000000000000:
+check_stop:  TALLY                PASSED  : GOOD:       15 BAD:        0 DURATION:00000000000001
+STOP 0
++ echo '>>>> GPF_fman'
+>>>> GPF_fman
++ '[' -d doc/ ']'
++ GPF_fman m_overload doc
++++ dirname /home/urbanjs/venus/V600/github/github_scripts/bash/GPF_fman
+++ realpath /home/urbanjs/venus/V600/github/github_scripts/bash
++ HERE=/home/urbanjs/venus/V600/github/github_scripts/bash
+++ dirname /home/urbanjs/venus/V600/github/github_scripts/bash
++ BASE=/home/urbanjs/venus/V600/github/github_scripts
+++ dirname /home/urbanjs/venus/V600/github/github_scripts
++ BASE=/home/urbanjs/venus/V600/github
++ DOCS=/home/urbanjs/venus/V600/github/docs
++ export PACKAGE=m_overload
++ PACKAGE=m_overload
++ export TEXTDIR=doc
++ TEXTDIR=doc
++ export NAME
++ cd doc
++ WRITE_MODULE
++ cat
++ cat
++ cat
++ cat
++ COUNT=0
++ ls M_overload.3m_overload.man
++ read NAME
++ SHORTNAME=M_overload
++ COUNT=1
++ cat
+++ TOCHARACTER
+++ :
+++ cat M_overload.3m_overload.man
+++ sed -e 's/'\''/'\'''\''/g'
+++ sed -e 's/^/'\''/'
+++ sed -e 's/$/'\'', \&/'
+++ cat
++ read NAME
++ END_MODULE
++ cat
++ cat
++ ls -ld /home/urbanjs/venus/V600/github/PLUGINS/fpm-docs/src/m_overload_docs.f90
+-rw-rw-r-- 1 urbanjs urbanjs 20092 Feb 16 21:24 /home/urbanjs/venus/V600/github/PLUGINS/fpm-docs/src/m_overload_docs.f90
++ cat

@@ -1,0 +1,98 @@
+!
+! THOSE features would make interesting additions to the Fortran standard.
+!
+!
+!-----------------------------------------------------
+
+! An example of overloading subroutines.
+! by James Van Buskirk as posted at comp.lang.fortran on 24 September
+! 2007.
+! This says to me that the code as given was nonconforming because the
+! name FOO was used to identify the module procedure SUBROUTINE FOO
+! from MODULE M1 as well as the module procedure SUBROUTINE FOO from
+! MODULE M2.  The case of generic names says to me that any number of
+! generic identifiers may have the same name as one module procedure
+! provided any possible generic procedure reference is unambiguous
+! (section 14.1.2.3).
+
+MODULE M1
+   INTERFACE FOO1
+     MODULE PROCEDURE joe
+   END INTERFACE
+
+   INTERFACE FOO2
+     MODULE PROCEDURE sue
+   END INTERFACE
+CONTAINS
+   SUBROUTINE joe(I,I2,extra)
+     integer extra
+     INTEGER, INTENT(IN) :: I, I2
+     WRITE(*,*) 'Joe INTEGER'
+   END SUBROUTINE joe
+
+   SUBROUTINE sue(I,I2,extra,onemore)
+     integer extra, onemore
+     INTEGER, INTENT(IN) :: I, I2
+     WRITE(*,*) 'Sue INTEGER'
+   END SUBROUTINE sue
+END MODULE M1
+
+MODULE M2
+   INTERFACE FOO1
+     MODULE PROCEDURE joe
+   END INTERFACE
+
+   INTERFACE FOO2
+     MODULE PROCEDURE sue
+   END INTERFACE
+CONTAINS
+   SUBROUTINE joe(R,R2,extra)
+     integer extra
+     REAL, INTENT(IN) :: R,R2
+     WRITE(*,*) 'Joe REAL'
+   END SUBROUTINE joe
+
+   SUBROUTINE sue(R,R2,extra,onemore)
+     integer extra, onemore
+     REAL, INTENT(IN) :: R,R2
+     WRITE(*,*) 'Sue REAL'
+   END SUBROUTINE sue
+END MODULE M2
+
+MODULE M3
+   INTERFACE FOO1
+     MODULE PROCEDURE joe
+   END INTERFACE
+
+   INTERFACE FOO2
+     MODULE PROCEDURE sue
+   END INTERFACE
+CONTAINS
+   SUBROUTINE joe(D,D2,extra)
+     integer extra
+     DOUBLE PRECISION, INTENT(IN) :: D,D2
+     WRITE(*,*) 'Joe DOUBLE'
+   END SUBROUTINE joe
+
+   SUBROUTINE sue(D,D2,extra,onemore)
+     integer extra, onemore
+     DOUBLE PRECISION, INTENT(IN) :: D,D2
+     WRITE(*,*) 'Sue DOUBLE'
+   END SUBROUTINE sue
+END MODULE M3
+
+program p
+! In PROGRAM P, there are three class 2 entities with the names 'joe',
+! and sue; 'joe' and 'sue' are not generic names.
+   use m1
+   use m2
+   use m3
+   call foo1(10,9,1)
+   call foo1(10.,9.,1)
+   call foo1(10.0d0,9.0d0,1)
+
+   call foo2(10,9,2,3)
+   call foo2(10.,9.,2,3)
+   call foo2(10.0d0,9.0d0,2,3)
+
+end program p
