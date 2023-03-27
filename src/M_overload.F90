@@ -147,8 +147,8 @@
 !!       & .and. sign(-10.0_real32).eq.-1.0 )
 !!      write(*,*) merge('sign works','sign fails',&
 !!       & sign(10.0_real64).eq.1.0 &
-!!    #ifdef HAS_REAL128
 !!       & .and. sign(-10.0_real64).eq.-1.0 )
+!!    #ifdef HAS_REAL128
 !!      write(*,*) merge('sign works','sign fails',&
 !!       & sign(10.0_real128).eq.1.0&
 !!       & .and. sign(-10.0_real128).eq.-1.0 )
@@ -464,26 +464,16 @@ end function sign_int8
 
 !-----------------------------------------------------------------------------------------------------------------------------------
 logical function boolean_equal(logical_val1,logical_val2)
-logical, intent (in) :: logical_val1
-logical, intent (in) :: logical_val2
+logical, intent (in) :: logical_val1, logical_val2
 
-   if (logical_val1 .eqv. logical_val2 )then
-     boolean_equal=.true.
-   else
-     boolean_equal=.false.
-   endif
+   boolean_equal = logical_val1 .eqv. logical_val2
 
 end function boolean_equal
 !-----------------------------------------------------------------------------------------------------------------------------------
 logical function boolean_notequal(logical_val1,logical_val2)
-logical, intent (in) :: logical_val1
-logical, intent (in) :: logical_val2
+logical, intent (in) :: logical_val1, logical_val2
 
-   if (logical_val1 .eqv. logical_val2 )then
-     boolean_notequal=.false.
-   else
-     boolean_notequal=.true.
-   endif
+   boolean_notequal = logical_val1 .neqv. logical_val2
 
 end function boolean_notequal
 !===================================================================================================================================
