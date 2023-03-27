@@ -505,26 +505,16 @@ $POST SIGN
 
 !-----------------------------------------------------------------------------------------------------------------------------------
 logical function boolean_equal(logical_val1,logical_val2)
-logical, intent (in) :: logical_val1
-logical, intent (in) :: logical_val2
+logical, intent (in) :: logical_val1, logical_val2
 
-   if (logical_val1 .eqv. logical_val2 )then
-     boolean_equal=.true.
-   else
-     boolean_equal=.false.
-   endif
+   boolean_equal = logical_val1 .eqv. logical_val2 
 
 end function boolean_equal
 !-----------------------------------------------------------------------------------------------------------------------------------
 logical function boolean_notequal(logical_val1,logical_val2)
-logical, intent (in) :: logical_val1
-logical, intent (in) :: logical_val2
+logical, intent (in) :: logical_val1, logical_val2
 
-   if (logical_val1 .eqv. logical_val2 )then
-     boolean_notequal=.false.
-   else
-     boolean_notequal=.true.
-   endif
+   boolean_notequal = logical_val1 .neqv. logical_val2
 
 end function boolean_notequal
 !===================================================================================================================================

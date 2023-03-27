@@ -18,7 +18,7 @@ auto-examples = true
 [[example]]
 name = "demo_M_overload"
 source-dir = "example/"
-main = "demo_M_overload.f90"
+main = "demo_M_overload.F90"
 #[example.dependencies]
 #M_compare_float_numbers  = { git = "https://github.com/urbanjost/M_Compare_Float_Numbers.git" }
 #M_anything  = { git = "https://github.com/urbanjost/M_anything.git" }
