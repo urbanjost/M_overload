@@ -1,4 +1,4 @@
-program main
+program show_rename_intrinsics
 ! rename intrinsics
 
 ! shorter names
@@ -18,4 +18,4 @@ character(len=4096) :: home
 
    write(*,*)cosine(1.0),sine(1.0),tangent(1.0)
 
-end program main
+end program show_rename_intrinsics
