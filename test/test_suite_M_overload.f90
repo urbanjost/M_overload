@@ -34,6 +34,8 @@ character(len=:),allocatable :: cmd
       call test_real_s2v()
       call test_reals_s2v()
       call test_sign()
+      call test_oz()
+      call test_zo()
 !$!      call get_command(cmd,realloc=.true.)
 !$!      cmd=cmd//' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 !$!      call execute_command_line(cmd)
@@ -43,6 +45,42 @@ character(len=:),allocatable :: cmd
    endif
 !! teardown
 contains
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_oz()
+!use M_overload,              only : operator(==)
+   call unit_check_start('oz',' &
+         & -description "convert logical expression to integer with 1 for TRUE" &
+         & -section 3  &
+         & -library libGPF  &
+         & -filename `pwd`/M_overload.FF &
+         & -documentation y &
+         &  -prep         y &
+         &  -ccall        n &
+         &  -archive      GPF.a &
+         & ')
+   ! add 0+ to avoid gfortran-11 bug
+   call unit_check('oz',oz(10 > 5).eq.1.and.oz( 10 < 5).eq.0)
+   call unit_check('oz',all(oz([10 > 5, 10 < 5, 5 == 5, 5 < 5]) == [1,0,1,0]) , oz(10 > 5)+0,oz(10 < 5)+0,oz(5 == 5)+0,oz(5 < 5)+0 )
+   call unit_check_done('oz',msg='')
+end subroutine test_oz
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_zo()
+!use M_overload,              only : operator(==)
+   call unit_check_start('zo',' &
+         & -description "convert logical expression to integer with 1 for TRUE" &
+         & -section 3  &
+         & -library libGPF  &
+         & -filename `pwd`/M_overload.FF &
+         & -documentation y &
+         &  -prep         y &
+         &  -ccall        n &
+         &  -archive      GPF.a &
+         & ')
+   ! add 0+ to avoid gfortran-11 bug
+   call unit_check('zo',zo(10 > 5).eq.0.and.zo( 10 < 5).eq.1)
+   call unit_check('zo',all(zo([10 > 5, 10 < 5, 5 == 5, 5 < 5]) == [0,1,0,1]), zo(10 > 5)+0,zo(10 < 5)+0,zo(5 == 5)+0, zo(5 < 5)+0 )
+   call unit_check_done('zo',msg='')
+end subroutine test_zo
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_sign()
 !use M_overload,              only : operator(==)

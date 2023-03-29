@@ -3,7 +3,7 @@
 
 NULL=
 PROGFILES = \
- ../example/demo_M_overload.f90 \
+ ../example/demo_M_overload.F90 \
  ../example/show_overload_merge.f90 \
  ../example/show_overload_sign.f90 \
  ../example/show_rename.f90 \
@@ -18,7 +18,8 @@ TPROG = ${TESTFILES:.f90=}
 
 CPROGFILES = 
 
-PROG = ${PROGFILES:.f90=}
+PROGTMP = ${PROGFILES:.f90=}
+PROG = ${PROGTMP:.F90=}
 
 CPROG = ${CPROGFILES:.c=}
 
@@ -63,11 +64,11 @@ all: $(PROG) $(CPROG) $(TPROG)
 $(PROG): $(OBJS)
 	@echo 'build examples'
 
-	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
+	-$(F90) $(LDFLAGS) $@.[fF]90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
 
 $(TPROG): $(OBJS)
 	@echo 'build tests'
-#	-$(F90) $(LDFLAGS) $@.f90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
+#	-$(F90) $(LDFLAGS) $@.[fF]90 -o $@ $(OBJS) $(LIBS) # && ./$@ </dev/null
 
 .PHONY: clean
 clean:
@@ -113,7 +114,7 @@ doxygen:
 
 .PHONY: man
 man:
-	@mandb ../man 1>&2
+	@cd ../man;mandb -c . 1>&2
 	@env MANPATH=../man MANWIDTH=256 man -k .|col -b
 	@env MANPATH=../man MANWIDTH=80  man -Tutf8 --regex '.*'|col -b
 

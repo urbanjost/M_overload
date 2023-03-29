@@ -22,6 +22,13 @@ checked ...
    - [ ] registered in fpm(1) repository
 
 ---
+**2023-03-28**  John S. Urban  <https://github.com/urbanjost>
+
+### :green_circle: ADD:
+     - add OZ(), ZO()
+     - prototypes for LE(), LT(), EQ(), NE(), GT(), GE()
+---
+---
 **2021-12-20**  John S. Urban  <https://github.com/urbanjost>
 
 ### :green_circle: ADD:

@@ -18,6 +18,8 @@
      use M_overload, only : sign
      ! allow strings of different length on merge
      use M_overload, only : merge
+     ! convert logical expressions to integer
+     use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge
      implicit none
      character(len=:),allocatable :: cmd
      character(len=*), parameter :: gen='(*("[",g0,"]":,","))'

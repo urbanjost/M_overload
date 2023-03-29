@@ -32,6 +32,9 @@
 !!   use M_overload, only : sign
 !!
 !!
+!!   ! logical functions that return integer values
+!!   use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge
+!!
 !!  Allow strings of different length in MERGE
 !!
 !!      use M_overload, only : merge
@@ -104,6 +107,8 @@
 !!    use M_overload, only : sign
 !!    ! allow strings of different length on merge
 !!    use M_overload, only : merge
+!!    ! convert logical expressions to integer
+!!    use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge
 !!    implicit none
 !!    character(len=:),allocatable :: cmd
 !!    character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
@@ -219,6 +224,7 @@ use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real
 implicit none
 ! ident_1="@(#) M_overload(3fm) overloads of standard operators and intrinsic procedures"
 private
+public lt, le, eq, ne, ge, gt, oz, zo
 public boolean_equal, boolean_notequal      !
 public operator(==)
 public operator(/=)
@@ -684,7 +690,7 @@ use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic dble
 
-! ident_6="@(#) M_anything anyscalar_to_double(3f) convert integer or real parameter of any kind to doubleprecision"
+! ident_6="@(#) M_overload anyscalar_to_double(3f) convert integer or real parameter of any kind to doubleprecision"
 
 class(*),intent(in)       :: valuein
 doubleprecision           :: d_out
@@ -707,7 +713,7 @@ doubleprecision,parameter :: big=huge(0.0d0)
    type is (character(len=*));      read(valuein,*) d_out
    class default
      d_out=0.0d0
-     !!stop '*M_anything::anyscalar_to_double: unknown type'
+     !!stop '*M_overload::anyscalar_to_double: unknown type'
    end select
 end function anyscalar_to_double
 !===================================================================================================================================
@@ -716,7 +722,7 @@ use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic int
 
-! ident_7="@(#) M_anything anyscalar_to_int64(3f) convert integer parameter of any kind to 64-bit integer"
+! ident_7="@(#) M_overload anyscalar_to_int64(3f) convert integer parameter of any kind to 64-bit integer"
 
 class(*),intent(in)    :: valuein
    integer(kind=int64) :: ii38
@@ -750,7 +756,7 @@ use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic real
 
-! ident_8="@(#) M_anything anyscalar_to_real(3f) convert integer or real parameter of any kind to real"
+! ident_8="@(#) M_overload anyscalar_to_real(3f) convert integer or real parameter of any kind to real"
 
 class(*),intent(in) :: valuein
 real                :: r_out
@@ -777,6 +783,148 @@ real,parameter      :: big=huge(0.0)
    type is (character(len=*));     read(valuein,*) r_out
    end select
 end function anyscalar_to_real
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!>
+!!##NAME
+!!    M_overload(3fm) - [M_overload::LOGICAL] returns One if expression is TRUE, else returns Zero.
+!!    (LICENSE:PD)
+!!##SYNOPSIS
+!!
+!!
+!!    pure elemental integer function oz(expr)
+!!
+!!     logical,intent(in) :: expr
+!!
+!!##DESCRIPTION
+!!
+!!    Returns an integer given a logical expression.
+!!
+!!##OPTIONS
+!!    expr  A logical expression
+!!
+!!##RETURNS
+!!
+!!    The result is a default INTEGER value of 1 if the expression is TRUE,
+!!    and a 0 otherwise.
+!!
+!!##EXAMPLES
+!!
+!!  Sample usage:
+!!
+!!    program demo_oz
+!!    use M_overload, only: oz, zo, lt, le, eq, ne, gt, ge
+!!    implicit none
+!!       write (*, *) 'is 10 < 20 ?', oz(10 < 20)
+!!       write (*, *) 'elemental', oz([2 > 1, 3 == 4, 10 < 5, 100 > 50])
+!!       if (sum(oz([2 > 1, 3 == 4, 10 < 5, 100 > 50])) >= 2) then
+!!          write (*, *) 'two or more are true'
+!!       endif
+!!    end program demo_oz
+!!
+!!  Results:
+!!
+!!     > is 10 < 20 ? 1
+!!     > elemental 1 0 0 1
+!!     > two or more are true
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!##LICENSE
+!!    Public Domain
+pure elemental integer function oz(expr)
+! ident_9="@(#) M_strings oz(3f) logical to integer TRUE results in 1 FALSE results in 0"
+logical, intent(in) :: expr
+   oz = merge(1, 0, expr) ! One and Zero
+end function oz
+
+!>
+!!##NAME
+!!    M_overload(3fm) - [M_overload::LOGICAL] returns Zero if expression is FALSE, else returns One.
+!!    (LICENSE:PD)
+!!##SYNOPSIS
+!!
+!!
+!!    pure elemental integer function zo(expr)
+!!
+!!     logical,intent(in) :: expr
+!!
+!!##DESCRIPTION
+!!
+!!    Returns an integer given a logical expression.
+!!
+!!##OPTIONS
+!!    expr  A logical expression
+!!
+!!##RETURNS
+!!
+!!    The result is a default INTEGER value of 0 if the expression is TRUE,
+!!    and a 1 otherwise.
+!!
+!!##EXAMPLES
+!!
+!!  Sample usage:
+!!
+!!    program demo_zo
+!!    use M_overload, only: zo, zo, lt, le, eq, ne, gt, ge
+!!    implicit none
+!!    write (*, *) zo(10 < 20)
+!!    if (sum(zo([1 > 2, 3 == 4, 10 < 5, 100 > 50])) > 2) then
+!!       write (*, *) 'two or more are not true'
+!!    endif
+!!    end program demo_zo
+!!
+!!  Results:
+!!
+!!    >           0
+!!    >  two or more are not true
+!!
+!!##AUTHOR
+!!    John S. Urban
+!!##LICENSE
+!!    Public Domain
+pure elemental integer function zo(expr)
+! ident_10="@(#) M_strings zo(3f) logical to integer TRUE results in 0 FALSE results in 1"
+logical, intent(in) :: expr
+   zo = merge(0, 1, expr) ! Zero and One
+end function zo
+
+pure elemental integer function ge(ia,ib)
+! ident_11="@(#) M_strings ge(3f) logical to integer TRUE results in 0 FALSE results in 1"
+integer,intent(in)  :: ia, ib
+   ge = merge(1, 0, ia .ge. ib )
+end function ge
+
+pure elemental integer function le(ia,ib)
+! ident_12="@(#) M_strings le(3f) logical to integer TRUE results in 0 FALSE results in 1"
+integer,intent(in)  :: ia, ib
+   le = merge(1, 0, ia .le. ib )
+end function le
+
+pure elemental integer function eq(ia,ib)
+! ident_13="@(#) M_strings eq(3f) logical to integer TRUE results in 0 FALSE results in 1"
+integer,intent(in)  :: ia, ib
+   eq = merge(1, 0, ia .eq. ib )
+end function eq
+
+pure elemental integer function lt(ia,ib)
+! ident_14="@(#) M_strings lt(3f) logical to integer TRUE results in 0 FALSE results in 1"
+integer,intent(in)  :: ia, ib
+   lt = merge(1, 0, ia .lt. ib )
+end function lt
+
+pure elemental integer function gt(ia,ib)
+! ident_15="@(#) M_strings gt(3f) logical to integer TRUE results in 0 FALSE results in 1"
+integer,intent(in)  :: ia, ib
+   gt = merge(1, 0, ia .lt. ib )
+end function gt
+
+pure elemental integer function ne(ia,ib)
+! ident_16="@(#) M_strings ne(3f) logical to integer TRUE results in 0 FALSE results in 1"
+integer,intent(in)  :: ia, ib
+   ne = merge(1, 0, ia .lt. ib )
+end function ne
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
