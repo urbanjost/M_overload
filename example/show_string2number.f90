@@ -5,6 +5,7 @@ use, intrinsic :: iso_fortran_env, only : real32, real64, real128
 
 use M_overload, only : int       ! allow strings to be converted to integers
 use M_overload, only : real,dble ! allow strings to be converted to floating point
+use M_overload, only : operator(//)
 
 use M_overload, only : merge
 implicit none
@@ -16,5 +17,7 @@ character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
 
    write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
    write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
+
+   write(*,*)' The value is '//10//' which is less than '//20.2
 
 end program demo_show_string2number

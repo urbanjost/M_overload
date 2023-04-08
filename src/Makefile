@@ -3,7 +3,7 @@
 
 NULL=
 PROGFILES = \
- ../example/demo_M_overload.F90 \
+ ../example/demo_M_overload.f90 \
  ../example/show_overload_merge.f90 \
  ../example/show_overload_sign.f90 \
  ../example/show_rename.f90 \

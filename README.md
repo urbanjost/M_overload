@@ -1,3 +1,7 @@
+You never change something by fighting the existing reality. To
+change something, build a new model that makes the existing model
+obsolete — Buckminster Fuller 
+
 ## Name
    M_overload(3f) - a module of intrinsic and operator overloads
    (LICENSE:MIT)
