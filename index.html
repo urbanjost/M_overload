@@ -95,7 +95,10 @@
       <div class="row" id='text'>
         <div class="col-md-8">
           <h1>M_overload</h1>
-          <h2 id="name">Name</h2>
+          <p>You never change something by fighting the existing reality. To
+change something, build a new model that makes the existing model
+obsolete — Buckminster Fuller </p>
+<h2 id="name">Name</h2>
 <p>M_overload(3f) - a module of intrinsic and operator overloads
    (LICENSE:MIT)</p>
 <h2 id="synopsis">Synopsis</h2>
@@ -129,12 +132,13 @@ program that exercise the routine.</p>
 <h2 id="build-and-test-with-fpm">Build and Test with FPM <img alt="-" src="docs/images/fpm_logo.gif"></h2>
 <p>Alternatively, download the github repository and build it with
    fpm ( as described at <a href="https://github.com/fortran-lang/fpm">Fortran Package Manager</a> )</p>
-<p><code>bash
-        git clone https://github.com/urbanjost/M_overload.git
-        cd M_overload
-        fpm run "*"
-        fpm run --example "*"
-        fpm test</code></p>
+<div class="codehilite"><pre><span></span><code>        git clone https://github.com/urbanjost/M_overload.git
+        <span class="nb">cd</span> M_overload
+        fpm run <span class="s2">&quot;*&quot;</span>
+        fpm run --example <span class="s2">&quot;*&quot;</span>
+        fpm <span class="nb">test</span>
+</code></pre></div>
+
 <p>or just list it as a dependency in your fpm.toml project file.</p>
 <div class="codehilite"><pre><span></span><code><span class="w">        </span><span class="k">[dependencies]</span><span class="w"></span>
 <span class="w">        </span><span class="n">M_overload</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;https://github.com/urbanjost/M_overload.git&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
@@ -185,41 +189,42 @@ program that exercise the routine.</p>
        </div>
        </div>
       </div>
-      <div class="row">
-        <div class="col-xs-6 col-sm-4">
+        <div class="row">
+          <hr>
+          <div class="col-xs-6 col-sm-4">
+            <div>
               <h3>Source Files</h3>
-              <ul>                    <li><a href='./sourcefile/demo_m_overload.f90.html'>demo_M_overload.F90</a></li>
-                    <li><a href='./sourcefile/demo_oz.f90.html'>demo_oz.f90</a></li>
-                    <li><a href='./sourcefile/demo_zo.f90.html'>demo_zo.f90</a></li>
-                    <li><a href='./sourcefile/m_overload.f90.html'>M_overload.F90</a></li>
-                    <li><a href='./sourcefile/show_overload_merge.f90.html'>show_overload_merge.f90</a></li>
-                    <li><a href='./sourcefile/show_overload_sign.f90.html'>show_overload_sign.f90</a></li>
-                    <li><a href='./sourcefile/show_rename.f90.html'>show_rename.f90</a></li>
-                    <li><a href='./sourcefile/show_string2number.f90.html'>show_string2number.f90</a></li>
-                    <li><a href='./sourcefile/test_suite_m_overload.f90.html'>test_suite_M_overload.f90</a></li>
-</ul>
+              <ul><li><a href='./sourcefile/demo_m_overload.f90.html'>demo_M_overload.f90</a></li><li><a href='./sourcefile/demo_oz.f90.html'>demo_oz.f90</a></li><li><a href='./sourcefile/demo_zo.f90.html'>demo_zo.f90</a></li><li><a href='./sourcefile/extend_dble.f90.html'>extend_dble.f90</a></li><li><a href='./sourcefile/m_overload.f90.html'>M_overload.F90</a></li><li><a href='./sourcefile/show_ffmt.f90.html'>show_ffmt.f90</a></li><li><a href='./sourcefile/show_overload_merge.f90.html'>show_overload_merge.f90</a></li><li><a href='./sourcefile/show_overload_sign.f90.html'>show_overload_sign.f90</a></li><li><a href='./sourcefile/show_rename.f90.html'>show_rename.f90</a></li><li><a href='./sourcefile/show_string2number.f90.html'>show_string2number.f90</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/files.html"><em>All source files&hellip;</em></a></li>
+              </ul>
+            </div>
           </div>
-		  <div class="col-xs-6 col-sm-4">
+          <div class="col-xs-6 col-sm-4">
+            <div>
               <h3>Modules</h3>
-              <ul>                    <li><a href='./module/m_overload.html'>m_overload</a></li>
-                    <li><a href='./module/m_test_suite_m_overload.html'>M_test_suite_M_overload</a></li>
-</ul>
+              <ul><li><a href='./module/m_extend.html'>M_extend</a></li><li><a href='./module/m_overload.html'>m_overload</a></li><li><a href='./module/m_test_suite_m_overload.html'>M_test_suite_M_overload</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/modules.html"><em>All modules&hellip;</em></a></li>
+              </ul>
+            </div>
           </div>
-		  <div class="col-xs-6 col-sm-4">
+          <div class="col-xs-6 col-sm-4">
+            <div>
               <h3>Procedures</h3>
-              <ul>                    <li><a href='./interface/adjustl.html'>adjustl</a></li>
-                    <li><a href='./interface/adjustr.html'>adjustr</a></li>
-                    <li><a href='./proc/boolean_equal.html'>boolean_equal</a></li>
-                    <li><a href='./proc/boolean_notequal.html'>boolean_notequal</a></li>
-                    <li><a href='./interface/dble.html'>dble</a></li>
-                    <li><a href='./proc/eq.html'>eq</a></li>
-                    <li><a href='./proc/ge.html'>ge</a></li>
-                    <li><a href='./proc/gt.html'>gt</a></li>
-                    <li><a href='./interface/int.html'>int</a></li>
-                    <li><a href='./proc/le.html'>le</a></li>
-</ul>
+              <ul><li><a href='./interface/adjustl.html'>adjustl</a></li><li><a href='./interface/adjustr.html'>adjustr</a></li><li><a href='./proc/boolean_equal.html'>boolean_equal</a></li><li><a href='./proc/boolean_notequal.html'>boolean_notequal</a></li><li><a href='./interface/dble.html'>dble</a></li><li><a href='./interface/dble~2.html'>dble</a></li><li><a href='./proc/eq.html'>eq</a></li><li><a href='./proc/ge.html'>ge</a></li><li><a href='./proc/gt.html'>gt</a></li><li><a href='./interface/int.html'>int</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/procedures.html"><em>All procedures&hellip;</em></a></li>
+              </ul>
+            </div>
           </div>
-      </div>
+        </div>
       <hr>
     </div> <!-- /container -->
     <footer>
@@ -232,7 +237,7 @@ program that exercise the routine.</p>
             <p class="text-right">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-03-29 01:22              </p>
+ on 2023-04-12 12:11              </p>
           </div>
         </div>
         <br>

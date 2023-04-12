@@ -36,6 +36,7 @@ character(len=:),allocatable :: cmd
       call test_sign()
       call test_oz()
       call test_zo()
+      call test_ffmt()
 !$!      call get_command(cmd,realloc=.true.)
 !$!      cmd=cmd//' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 !$!      call execute_command_line(cmd)
@@ -46,6 +47,24 @@ character(len=:),allocatable :: cmd
 !! teardown
 contains
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_ffmt()
+!use M_overload,              only : operator(==)
+   call unit_check_start('ffmt',' &
+         & -description "convert intrinsic scalar value to a formatted string" &
+         & -section 3  &
+         & -library libGPF  &
+         & -filename `pwd`/M_overload.FF &
+         & -documentation y &
+         & -prep         y &
+         & -ccall        n &
+         & -archive      GPF.a &
+         & ')
+   ! add 0+ to avoid gfortran-11 bug
+   !call unit_check( 'ffmt', 1234.fmt.'"[",i0,"]"' == '[1234]' )
+   !call unit_check( 'ffmt', '1234'.fmt.'"[",i0,"]"' == '[1234]' )
+   call unit_check_done('ffmt', msg='')
+end subroutine test_ffmt
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_oz()
 !use M_overload,              only : operator(==)
    call unit_check_start('oz',' &
@@ -54,9 +73,9 @@ subroutine test_oz()
          & -library libGPF  &
          & -filename `pwd`/M_overload.FF &
          & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
+         & -prep         y &
+         & -ccall        n &
+         & -archive      GPF.a &
          & ')
    ! add 0+ to avoid gfortran-11 bug
    call unit_check('oz',oz(10 > 5).eq.1.and.oz( 10 < 5).eq.0)

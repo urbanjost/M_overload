@@ -96,7 +96,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="80.9% of total for modules and submodules.">530 statements</a>
+               title="74.5% of total for modules and submodules.">530 statements</a>
           </li>
 
             <li id="source-file">
@@ -194,32 +194,34 @@
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<p>overloads on LOGICAL values</p>
-<div class="codehilite"><pre><span></span><code><span class="o">!</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="o">.</span><span class="n">eqv</span><span class="o">.</span><span class="p">;</span><span class="w"> </span><span class="n">ie</span><span class="o">.</span><span class="w"> </span><span class="n">logical</span><span class="o">==</span><span class="n">logical</span><span class="w"></span>
-<span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">==</span><span class="p">)</span><span class="w"></span>
+<p>overloads on operators</p>
+<div class="codehilite"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">==</span><span class="p">),</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">/=</span><span class="p">)</span><span class="w"></span>
+<span class="o">!</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="o">.</span><span class="n">eqv</span><span class="o">.</span><span class="p">;</span><span class="w"> </span><span class="n">ie</span><span class="o">.</span><span class="w"> </span><span class="n">logical</span><span class="o">==</span><span class="n">logical</span><span class="w"></span>
 <span class="o">!</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="o">.</span><span class="n">neqv</span><span class="o">.</span><span class="p">;</span><span class="w"> </span><span class="n">ie</span><span class="o">.</span><span class="w"> </span><span class="n">logical</span><span class="o">/=</span><span class="n">logical</span><span class="w"></span>
-<span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">/=</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">operator</span><span class="p">(</span><span class="o">//</span><span class="p">)</span><span class="w"></span>
+<span class="o">!</span><span class="w"> </span><span class="nb">convert</span><span class="w"> </span><span class="n">intrinsics</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">contatenate</span><span class="w"></span>
 </code></pre></div>
 
 <p>overloads on INTRINSICS to take strings, logicals, and metamorphic numeric intrinsic values</p>
-<p>use M_overload, only : int, real, dble
-   ! int(&lsquo;string&rsquo;)   int(logical)   int(class(<em>))
-   ! real(&lsquo;string&rsquo;)  real(logical)  real(class(</em>))
-   ! dble(&lsquo;string&rsquo;)  dble(logical)  dble(class(*))</p>
-<p>overloads on operators</p>
-<p>use M_overload, only : operator(==)
-   ! INTRINSIC // INTRINSIC // INTRINSIC &hellip;</p>
-<p>! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
-   use M_overload, only : sign</p>
-<p>! logical functions that return integer values
-   use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge</p>
-<p>Allow strings of different length in MERGE</p>
-<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">merge</span><span class="w"></span>
-<span class="w">  </span><span class="nb">str</span><span class="o">=</span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span><span class="s1">&#39;three&#39;</span><span class="p">,</span><span class="n">i</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">dble</span><span class="w"></span>
+<span class="o">!</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span><span class="w">   </span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">logical</span><span class="p">)</span><span class="w">   </span><span class="nb nb-Type">int</span><span class="p">(</span><span class="k">class</span><span class="p">(</span><span class="o">*</span><span class="p">))</span><span class="w"></span>
+<span class="o">!</span><span class="w"> </span><span class="n">real</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span><span class="w">  </span><span class="n">real</span><span class="p">(</span><span class="n">logical</span><span class="p">)</span><span class="w">  </span><span class="n">real</span><span class="p">(</span><span class="k">class</span><span class="p">(</span><span class="o">*</span><span class="p">))</span><span class="w"></span>
+<span class="o">!</span><span class="w"> </span><span class="n">dble</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span><span class="w">  </span><span class="n">dble</span><span class="p">(</span><span class="n">logical</span><span class="p">)</span><span class="w">  </span><span class="n">dble</span><span class="p">(</span><span class="k">class</span><span class="p">(</span><span class="o">*</span><span class="p">))</span><span class="w"></span>
+
+<span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb">sign</span><span class="w"></span>
+<span class="o">!</span><span class="w"> </span><span class="n">When</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">value</span><span class="p">);</span><span class="w"> </span><span class="n">ie</span><span class="o">.</span><span class="w">  </span><span class="nb">sign</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"></span>
+<span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">merge</span><span class="w"></span>
+<span class="o">!</span><span class="w"> </span><span class="n">Allow</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">MERGE</span><span class="w"></span>
 </code></pre></div>
 
-<h2 id="other-operators">OTHER OPERATORS</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">intrinsic_value</span><span class="w"> </span><span class="o">.</span><span class="n">fmt</span><span class="o">.</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">   </span><span class="nb">convert</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">intrinsic</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">CHARACTER</span><span class="w"> </span><span class="n">variable</span><span class="w"></span>
+<p>other operators</p>
+<div class="codehilite"><pre><span></span><code><span class="o">!</span><span class="w"> </span><span class="nb">convert</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">intrinsic</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">CHARACTER</span><span class="w"> </span><span class="n">variable</span><span class="w"></span>
+</code></pre></div>
+
+<p>Related functions</p>
+<div class="codehilite"><pre><span></span><code><span class="o">!</span><span class="w"> </span><span class="n">logical</span><span class="w"> </span><span class="n">functions</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">integer</span><span class="w"> </span><span class="n">values</span><span class="w"></span>
+<span class="n">use</span><span class="w"> </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">oz</span><span class="p">,</span><span class="w"> </span><span class="n">zo</span><span class="p">,</span><span class="w"> </span><span class="n">lt</span><span class="p">,</span><span class="w"> </span><span class="n">le</span><span class="p">,</span><span class="w"> </span><span class="n">eq</span><span class="p">,</span><span class="w"> </span><span class="n">ne</span><span class="p">,</span><span class="w"> </span><span class="n">gt</span><span class="p">,</span><span class="w"> </span><span class="n">ge</span><span class="w"></span>
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
@@ -284,108 +286,52 @@
 <span class="n">character</span><span class="p">(</span><span class="n">len</span><span class="o">=</span><span class="p">:),</span><span class="n">allocatable</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">cmd</span><span class="w"></span>
 <span class="n">character</span><span class="p">(</span><span class="n">len</span><span class="o">=*</span><span class="p">),</span><span class="w"> </span><span class="n">parameter</span><span class="w"> </span><span class="p">::</span><span class="w"> </span><span class="n">gen</span><span class="o">=</span><span class="s1">&#39;(*(&quot;[&quot;,g0,&quot;]&quot;:,&quot;,&quot;))&#39;</span><span class="w"></span>
 
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="n">merge</span><span class="p">()</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">string</span><span class="w"> </span><span class="n">lengths</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">longest</span><span class="w"></span>
 <span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">gen</span><span class="p">)</span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span><span class="mf">1.</span><span class="n">eq</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
 <span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">gen</span><span class="p">)</span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span><span class="mf">1.</span><span class="n">eq</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 <span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="n">gen</span><span class="p">)</span><span class="n">merge</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],[</span><span class="s1">&#39;bbbbb&#39;</span><span class="p">,</span><span class="s1">&#39;ccccc&#39;</span><span class="p">],</span><span class="mf">1.</span><span class="n">eq</span><span class="o">.</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">()</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">take</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="n">representing</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">input</span><span class="s1">&#39;</span>
 <span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="s1">&#39;1234&#39;</span><span class="p">)</span><span class="w">               </span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mi">1234</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
 <span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;int(&quot;STRING&quot;) works &#39;</span><span class="w"></span>
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">real</span><span class="p">()</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">dble</span><span class="p">()</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">real</span><span class="p">(</span><span class="s1">&#39;1234.56789&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1234.56789</span><span class="p">)</span><span class="o">.</span><span class="n">lt</span><span class="o">.</span><span class="mi">2</span><span class="o">*</span><span class="n">epsilon</span><span class="p">(</span><span class="mf">0.0</span><span class="p">))</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
 <span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;real(&quot;STRING&quot;) works &#39;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">dble</span><span class="p">(</span><span class="s1">&#39;1234.5678901234567&#39;</span><span class="p">)</span><span class="o">-</span><span class="w"> </span><span class="mf">1234.5678901234567</span><span class="n">d0</span><span class="p">)</span><span class="o">.</span><span class="n">lt</span><span class="o">.</span><span class="n">epsilon</span><span class="p">(</span><span class="mf">0.0</span><span class="n">d0</span><span class="p">))</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
 <span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;dble(&quot;STRING&quot;) works &#39;</span><span class="w"></span>
 
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">logical</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">treated</span><span class="w"> </span><span class="n">numerically</span><span class="w"></span>
 <span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;int works for .FALSE.&#39;</span><span class="p">,</span><span class="s1">&#39;int fails for .FALSE.&#39;</span><span class="p">,</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="o">.</span><span class="n">FALSE</span><span class="o">.</span><span class="p">)</span><span class="o">.</span><span class="n">ne</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 <span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;int works for .TRUE.&#39;</span><span class="p">,</span><span class="s1">&#39;int fails for .TRUE.&#39;</span><span class="p">,</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="o">.</span><span class="n">TRUE</span><span class="o">.</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="nb nb-Type">int</span><span class="p">([</span><span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="p">,</span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">,</span><span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="p">]))</span><span class="w"></span>
 
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">work</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">logical</span><span class="w"> </span><span class="n">expressions</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
 <span class="w">  </span><span class="o">&amp;</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;== works like .eqv. for LOGICAL values&#39;</span><span class="w"></span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
 <span class="w">  </span><span class="o">&amp;</span><span class="w"> </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;/= works like .neqv. for LOGICAL values&#39;</span><span class="w"></span>
 
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">intrinsic</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nb">convert</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">string</span><span class="w"></span>
 <span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39; The value is &#39;</span><span class="o">//</span><span class="mi">10</span><span class="o">//</span><span class="s1">&#39; which is less than &#39;</span><span class="o">//</span><span class="mf">20.2</span><span class="w"></span>
 
 
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="n">logical</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">numeric</span><span class="w"> </span><span class="n">values</span><span class="w"></span>
+<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sum</span><span class="p">([</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">),</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">)])</span><span class="w"></span>
+<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">([</span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">,</span><span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="p">,</span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">])</span><span class="w"></span>
+<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="nb nb-Type">int</span><span class="p">([</span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">,</span><span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="p">,</span><span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">]))</span><span class="w"></span>
+
+
+<span class="w">  </span><span class="o">!</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nb">sign</span><span class="p">()</span><span class="w"> </span><span class="n">assumes</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 <span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="o">&amp;</span><span class="w"></span>
 <span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10</span><span class="n">_int8</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
 <span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="o">.</span><span class="ow">and</span><span class="o">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="n">_int8</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.-</span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10</span><span class="n">_int16</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="o">.</span><span class="ow">and</span><span class="o">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="n">_int16</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.-</span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10</span><span class="n">_int32</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="o">.</span><span class="ow">and</span><span class="o">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="n">_int32</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.-</span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mi">10</span><span class="n">_int64</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="o">.</span><span class="ow">and</span><span class="o">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="n">_int64</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.-</span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mf">10.0</span><span class="n">_real32</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mf">1.0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="o">.</span><span class="ow">and</span><span class="o">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mf">10.0</span><span class="n">_real32</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.-</span><span class="mf">1.0</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mf">10.0</span><span class="n">_real64</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mf">1.0</span><span class="w"> </span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="o">.</span><span class="ow">and</span><span class="o">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mf">10.0</span><span class="n">_real64</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.-</span><span class="mf">1.0</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="c1">#ifdef </span><span class="w"></span>
-<span class="w">  </span><span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">merge</span><span class="p">(</span><span class="s1">&#39;sign works&#39;</span><span class="p">,</span><span class="s1">&#39;sign fails&#39;</span><span class="p">,</span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="mf">10.0</span><span class="n">_real128</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.</span><span class="mf">1.0</span><span class="o">&amp;</span><span class="w"></span>
-<span class="w">   </span><span class="o">&amp;</span><span class="w"> </span><span class="o">.</span><span class="ow">and</span><span class="o">.</span><span class="w"> </span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mf">10.0</span><span class="n">_real128</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="o">.-</span><span class="mf">1.0</span><span class="w"> </span><span class="p">)</span><span class="w"></span>
-<span class="c1">#endif</span><span class="w"></span>
+
 <span class="n">contains</span><span class="w"></span>
 
 <span class="n">end</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="n">demo_M_overload</span><span class="w"></span>
 </code></pre></div>
 
-<p>Results:
-     &gt;  [a    ]
-     &gt;  [bbbbb]
-     &gt;  [bbbbb],[ccccc]
-     &gt;  int(&ldquo;STRING&rdquo;) works
-     &gt;  real(&ldquo;STRING&rdquo;) works
-     &gt;  dble(&ldquo;STRING&rdquo;) works
-     &gt;  == works like .eqv. for LOGICAL values
-     &gt;  /= works like .neqv. for LOGICAL values
-     &gt;          444         555
-     &gt;    444.444000       555.554993
-     &gt;    444.44400000000002        555.55500000000006
-     &gt;    555.44399999999996        666.66600000000005        777.77700000000004
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  int(&ldquo;STRING&rdquo;) works
-     &gt;  real(&ldquo;STRING&rdquo;) works
-     &gt;  dble(&ldquo;STRING&rdquo;) works
-     &gt;  == works like .eqv. for LOGICAL values
-     &gt;  /= works like .neqv. for LOGICAL values
-     &gt;          444         555
-     &gt;    444.444000       555.554993
-     &gt;    444.44400000000002        555.55500000000006
-     &gt;    555.44399999999996        666.66600000000005        777.77700000000004
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt;  sign works
-     &gt; 57 xx -x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-     &gt; 0 0 [xx]
-     &gt; 1 0 [-x]
-     &gt; 2 0 [-y]
-     &gt; 3 0 [hello there]
-     &gt; 4 0 [xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
-     &gt; 0 0 [xx        ]
-     &gt; 1 0 [-x        ]
-     &gt; 2 0 [-y        ]
-     &gt; 3 -1 [hello ther]
-     &gt; 4 -1 [xxxxxxxxxx]
-     &gt; 0 0 [xx                  ]
-     &gt; 1 0 [-x                  ]
-     &gt; 2 0 [-y                  ]
-     &gt; 3 0 [hello there         ]
-     &gt; 4 -1 [xxxxxxxxxxxxxxxxxxxx]</p>
+<p>Results:</p>
 <h2 id="author">AUTHOR</h2>
 <div class="codehilite"><pre><span></span><code>John S. Urban
 </code></pre></div>
@@ -1512,7 +1458,7 @@ interface dble;    module procedure dble_s2v;             end interface</p>
             <p class="text-right">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-03-29 01:22              </p>
+ on 2023-04-12 12:11              </p>
           </div>
         </div>
         <br>

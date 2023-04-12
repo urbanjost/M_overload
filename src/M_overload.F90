@@ -9,40 +9,37 @@
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!
-!!  overloads on LOGICAL values
+!!  overloads on operators
 !!
+!!    use M_overload, only : operator(==), operator(/=)
 !!    ! use == like .eqv.; ie. logical==logical
-!!    use M_overload, only : operator(==)
 !!    ! use /= like .neqv.; ie. logical/=logical
-!!    use M_overload, only : operator(/=)
+!!
+!!    use M_overload, only : operator(//)
+!!    ! convert intrinsics to strings and contatenate
 !!
 !!  overloads on INTRINSICS to take strings, logicals, and metamorphic numeric intrinsic values
 !!
-!!   use M_overload, only : int, real, dble
-!!   ! int('string')   int(logical)   int(class(*))
-!!   ! real('string')  real(logical)  real(class(*))
-!!   ! dble('string')  dble(logical)  dble(class(*))
+!!    use M_overload, only : int, real, dble
+!!    ! int('string')   int(logical)   int(class(*))
+!!    ! real('string')  real(logical)  real(class(*))
+!!    ! dble('string')  dble(logical)  dble(class(*))
 !!
-!!  overloads on operators
+!!    use M_overload, only : sign
+!!    ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
+!!    use M_overload, only : merge
+!!    ! Allow strings of different length in MERGE
 !!
-!!   use M_overload, only : operator(==)
-!!   ! INTRINSIC // INTRINSIC // INTRINSIC ...
+!!  other operators
 !!
-!!   ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
-!!   use M_overload, only : sign
+!!    ! convert an intrinsic value to a CHARACTER variable
+!!
+!!  Related functions
+!!
+!!    ! logical functions that return integer values
+!!    use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge
 !!
 !!
-!!   ! logical functions that return integer values
-!!   use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge
-!!
-!!  Allow strings of different length in MERGE
-!!
-!!      use M_overload, only : merge
-!!      str=merge('one','three',i.eq.10)
-!!
-!!##OTHER OPERATORS
-!!
-!!    intrinsic_value .fmt. ''   convert an intrinsic value to a CHARACTER variable
 !!
 !!##DESCRIPTION
 !!
@@ -113,107 +110,51 @@
 !!    character(len=:),allocatable :: cmd
 !!    character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
 !!
+!!      ! merge() with different string lengths expanded to longest
 !!      write(*,gen)merge('a','bbbbb',1.eq.1)
 !!      write(*,gen)merge('a','bbbbb',1.eq.2)
 !!      write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
 !!
+!!      ! int() can take strings representing a number as input'
 !!      if(int('1234')               .eq.1234) &
 !!       & write(*,*)'int("STRING") works '
+!!      ! as can real() and dble()
 !!      if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
 !!       & write(*,*)'real("STRING") works '
 !!      if(abs(dble('1234.5678901234567')- 1234.5678901234567d0).lt.epsilon(0.0d0)) &
 !!       & write(*,*)'dble("STRING") works '
 !!
+!!      ! and logical values can be treated numerically
 !!      write(*,*) merge('int works for .FALSE.','int fails for .FALSE.',int(.FALSE.).ne.0)
 !!      write(*,*) merge('int works for .TRUE.','int fails for .TRUE.',int(.TRUE.).eq.0)
+!!      write(*,*) sum(int([.true.,.false.,.true.]))
 !!
+!!      ! and == and /= work for logical expressions
 !!      if (.true. == .true. ) &
 !!      & write(*,*)'== works like .eqv. for LOGICAL values'
 !!      if (.true. /= .false. ) &
 !!      & write(*,*)'/= works like .neqv. for LOGICAL values'
 !!
+!!      ! // will allow any intrinsic type and convert it to a string
 !!      write(*,*)' The value is '//10//' which is less than '//20.2
 !!
 !!
+!!      ! logical values as numeric values
+!!      write(*,*) sum([int(.false.),int(.false.)])
+!!      write(*,*) int([.false.,.true.,.false.])
+!!      write(*,*) sum(int([.false.,.true.,.false.]))
+!!
+!!
+!!      ! and sign() assumes the second argument is 1
 !!      write(*,*) merge('sign works','sign fails',&
 !!       & sign(10_int8).eq.1 &
 !!       & .and. sign(-10_int8).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10_int16).eq.1 &
-!!       & .and. sign(-10_int16).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10_int32).eq.1 &
-!!       & .and. sign(-10_int32).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10_int64).eq.1 &
-!!       & .and. sign(-10_int64).eq.-1 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10.0_real32).eq.1.0 &
-!!       & .and. sign(-10.0_real32).eq.-1.0 )
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10.0_real64).eq.1.0 &
-!!       & .and. sign(-10.0_real64).eq.-1.0 )
-!!    #ifdef HAS_REAL128
-!!      write(*,*) merge('sign works','sign fails',&
-!!       & sign(10.0_real128).eq.1.0&
-!!       & .and. sign(-10.0_real128).eq.-1.0 )
-!!    #endif
+!!
 !!    contains
 !!
 !!    end program demo_M_overload
 !!
 !!  Results:
-!!     >  [a    ]
-!!     >  [bbbbb]
-!!     >  [bbbbb],[ccccc]
-!!     >  int("STRING") works
-!!     >  real("STRING") works
-!!     >  dble("STRING") works
-!!     >  == works like .eqv. for LOGICAL values
-!!     >  /= works like .neqv. for LOGICAL values
-!!     >          444         555
-!!     >    444.444000       555.554993
-!!     >    444.44400000000002        555.55500000000006
-!!     >    555.44399999999996        666.66600000000005        777.77700000000004
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  int("STRING") works
-!!     >  real("STRING") works
-!!     >  dble("STRING") works
-!!     >  == works like .eqv. for LOGICAL values
-!!     >  /= works like .neqv. for LOGICAL values
-!!     >          444         555
-!!     >    444.444000       555.554993
-!!     >    444.44400000000002        555.55500000000006
-!!     >    555.44399999999996        666.66600000000005        777.77700000000004
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     >  sign works
-!!     > 57 xx -x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-!!     > 0 0 [xx]
-!!     > 1 0 [-x]
-!!     > 2 0 [-y]
-!!     > 3 0 [hello there]
-!!     > 4 0 [xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
-!!     > 0 0 [xx        ]
-!!     > 1 0 [-x        ]
-!!     > 2 0 [-y        ]
-!!     > 3 -1 [hello ther]
-!!     > 4 -1 [xxxxxxxxxx]
-!!     > 0 0 [xx                  ]
-!!     > 1 0 [-x                  ]
-!!     > 2 0 [-y                  ]
-!!     > 3 0 [hello there         ]
-!!     > 4 -1 [xxxxxxxxxxxxxxxxxxxx]
 !!
 !!##AUTHOR
 !!    John S. Urban
@@ -703,7 +644,7 @@ doubleprecision,parameter :: big=huge(0.0d0)
    type is (real(kind=real32));    d_out=dble(valuein)
    type is (real(kind=real64));    d_out=dble(valuein)
 #ifdef HAS_REAL128
-   Type is (real(kind=real128))
+   type is (real(kind=real128))
       !!if(valuein.gt.big)then
       !!   write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
       !!endif
