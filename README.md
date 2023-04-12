@@ -41,13 +41,13 @@ program that exercise the routine.
    Alternatively, download the github repository and build it with
    fpm ( as described at [Fortran Package Manager](https://github.com/fortran-lang/fpm) )
 
-   ```bash
+```bash
         git clone https://github.com/urbanjost/M_overload.git
         cd M_overload
         fpm run "*"
         fpm run --example "*"
         fpm test
-   ```
+```
 
    or just list it as a dependency in your fpm.toml project file.
 
