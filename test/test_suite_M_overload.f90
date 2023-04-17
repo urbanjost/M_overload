@@ -1,8 +1,8 @@
 module M_test_suite_M_overload
 use, intrinsic :: iso_fortran_env, only : integer_kinds, int8, int16, int32, int64
 use, intrinsic :: iso_fortran_env, only : real32, real64, real128
-use M_msg
-use M_verify, only : unit_check_command, unit_check_keep_going, unit_check_level
+use M_framework__msg
+use M_framework__verify, only : unit_check_command, unit_check_keep_going, unit_check_level
 use M_overload
 private
 public test_suite_m_overload
@@ -15,9 +15,9 @@ contains
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 subroutine test_suite_M_overload()
-use M_verify,                 only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
-use M_verify,                 only : unit_check_level
-use M_verify,                 only : almost
+use M_framework__verify,   only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
+use M_framework__verify,   only : unit_check_level
+use M_framework__verify,   only : almost
 !use M_compare_float_numbers, only : operator(.EqualTo.)
 implicit none
 character(len=:),allocatable :: cmd
@@ -404,8 +404,8 @@ end subroutine test_suite_M_overload
 end module M_test_suite_M_overload
 
 program runtest
-use M_msg
-use M_verify, only : unit_check_command, unit_check_keep_going, unit_check_level, unit_check_stop
+use M_framework__msg
+use M_framework__verify, only : unit_check_command, unit_check_keep_going, unit_check_level, unit_check_stop
 use M_test_suite_M_overload
 implicit none
    unit_check_command=''

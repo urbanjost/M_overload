@@ -1,4 +1,4 @@
-module M_extend ! self-contained example program
+module M_overload__extend ! self-contained example program
    use, intrinsic :: iso_fortran_env, only : int8, int16, int32, int64
    use, intrinsic :: iso_fortran_env, only : real32, real64, real128
    implicit none
@@ -45,10 +45,10 @@ contains
       end select
    end function anyscalar_to_double
 
-end module M_extend
+end module M_overload__extend
 
 program testit
-   use M_extend
+   use M_overload__extend
    implicit none
    ! make sure normal stuff still works
    write(*,*)'##CONVENTIONAL'

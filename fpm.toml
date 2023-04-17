@@ -1,4 +1,4 @@
-# TOML file for fpm as described at https://github.com/fortran-lang/fpm/blob/master/manifest-reference.md
+# TOML file for fpm as described at https://fpm.fortran-lang.org/en/spec/manifest.html
 name = "M_overload"
 version = "1.0.0"
 license = "MIT, custom OpenSource license"
@@ -14,6 +14,7 @@ homepage = "https://github.com/urbanjost/M_overload.git"
 auto-executables = true
 auto-tests = true
 auto-examples = true
+#module-naming = true
 
 [[example]]
 name = "demo_M_overload"
@@ -28,5 +29,5 @@ name="test_suite_M_overload"
 source-dir="test"
 main="test_suite_M_overload.f90"
 [test.dependencies]
-M_msg = { git = "https://github.com/urbanjost/M_msg.git" }
+M_framework = { git = "https://github.com/urbanjost/M_framework.git" }
 #M_strings = { git = "https://github.com/urbanjost/M_strings.git" }
