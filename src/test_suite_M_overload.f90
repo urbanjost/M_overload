@@ -17,7 +17,7 @@ contains
 subroutine test_suite_M_overload()
 use M_framework__verify,   only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
 use M_framework__verify,   only : unit_check_level
-use M_framework__verify,   only : almost
+use M_framework__approx,   only : almost
 !use M_compare_float_numbers, only : operator(.EqualTo.)
 implicit none
 character(len=:),allocatable :: cmd
