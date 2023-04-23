@@ -2,7 +2,7 @@ module M_test_suite_M_overload
 use, intrinsic :: iso_fortran_env, only : integer_kinds, int8, int16, int32, int64
 use, intrinsic :: iso_fortran_env, only : real32, real64, real128
 use M_framework__msg
-use M_framework__verify, only : unit_check_command, unit_check_keep_going, unit_check_level
+use M_framework__verify, only : unit_check_level
 use M_overload
 private
 public test_suite_m_overload
@@ -405,11 +405,9 @@ end module M_test_suite_M_overload
 
 program runtest
 use M_framework__msg
-use M_framework__verify, only : unit_check_command, unit_check_keep_going, unit_check_level, unit_check_stop
+use M_framework__verify, only : unit_check_level, unit_check_stop
 use M_test_suite_M_overload
 implicit none
-   unit_check_command=''
-   unit_check_keep_going=.true.
    unit_check_level=0
    call test_suite_M_overload()
    call unit_check_stop()
