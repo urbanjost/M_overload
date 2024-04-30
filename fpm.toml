@@ -29,5 +29,6 @@ name="test_suite_M_overload"
 source-dir="test"
 main="test_suite_M_overload.f90"
 [test.dependencies]
-M_framework = {namespace = "GPF"}
+M_framework = { git = "https://github.com/urbanjost/M_framework.git" }
+#M_framework = {namespace = "GPF"}
 #M_strings = { git = "https://github.com/urbanjost/M_strings.git" }

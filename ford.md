@@ -6,7 +6,7 @@ output_dir: docs/fpm-ford
 project: M_overload
 summary: common overloads
 project_github: https://github.com/urbanjost/M_overload
-project_download:
+project_download: https://github.com/urbanjost/M_overload/archive/refs/heads/master.zip
 author: John S. Urban
 author_email: urbanjost@comcast.net
 github: https://github.com/urbanjost/M_overload

@@ -151,7 +151,14 @@ $!   use M_overload, only : get_command
 
      ! // will allow any intrinsic type and convert it to a string
      write(*,*)' The value is '//10//' which is less than '//20.2
-
+     block
+     character(len=:),allocatable :: fmt
+     integer :: i
+        i=24
+        ! build a format with a variable numeric value
+        fmt='("[",I'//i//',"]")'
+        write(*,fmt)20
+     endblock
 
      ! logical values as numeric values
      write(*,*) sum([int(.false.),int(.false.)])
@@ -204,7 +211,25 @@ $!     end subroutine demo_get_command_argumentA
 $!
    end program demo_M_overload
 
- Results:
+Results:
+
+ > [a    ]
+ > [bbbbb]
+ > [bbbbb],[ccccc]
+ >  int("STRING") works 
+ >  real("STRING") works 
+ >  dble("STRING") works 
+ >  int works for .FALSE.
+ >  int works for .TRUE.
+ >                     1
+ >  == works like .eqv. for LOGICAL values
+ >  /= works like .neqv. for LOGICAL values
+ >   The value is 10 which is less than 20.2000008
+ > [                      20]
+ >                     2
+ >                     1                    0                    1
+ >                     2
+ >  sign works
 
 AUTHOR
    John S. Urban

@@ -410,5 +410,5 @@ use M_test_suite_M_overload
 implicit none
    unit_check_level=0
    call test_suite_M_overload()
-   call unit_check_stop()
+   call unit_check_stop('')
 end program runtest
