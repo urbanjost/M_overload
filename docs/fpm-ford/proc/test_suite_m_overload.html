@@ -1,0 +1,617 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="common overloads">
+    <meta name="author" content="John S. Urban" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>test_suite_M_overload &ndash; M_overload</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+      <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">M_overload </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/programs.html">Programs</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>test_suite_M_overload
+      <small>Subroutine</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title="62.8% of total for procedures.">120 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/test_suite_M_overload.f90"> Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/test_suite_m_overload.f90.html'>test_suite_M_overload.f90</a></li>
+                <li class="breadcrumb-item"><a href='../module/m_test_suite_m_overload.html'>M_test_suite_M_overload</a></li>
+            <li class="breadcrumb-item active" aria-current="page">test_suite_M_overload</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(function () {
+    $('[data-bs-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+      <div id="sidebar">
+      <h3>Contents</h3>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/test_suite_m_overload.html#src">test_suite_M_overload</a>
+      </div>
+    </div>
+
+
+  </div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+    <h2>public  subroutine test_suite_M_overload()  
+</h2>
+        <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item">M_framework__verify</li>
+                  <li class="list-inline-item">M_framework__approx</li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <p>teardown</p>
+
+
+    <h3>Arguments</h3>
+    <em>None</em>
+    <br>
+    <br>
+
+
+    
+    
+
+    
+    
+
+
+
+    
+    <section>
+    <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="hl codehilite"><pre><span></span><span class="k">subroutine </span><span class="n">test_suite_M_overload</span><span class="p">()</span>
+<span class="k">use </span><span class="n">M_framework__verify</span><span class="p">,</span><span class="w">   </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">unit_check_start</span><span class="p">,</span><span class="n">unit_check</span><span class="p">,</span><span class="n">unit_check_done</span><span class="p">,</span><span class="n">unit_check_good</span><span class="p">,</span><span class="n">unit_check_bad</span><span class="p">,</span><span class="n">unit_check_msg</span>
+<span class="k">use </span><span class="n">M_framework__verify</span><span class="p">,</span><span class="w">   </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">unit_check_level</span>
+<span class="k">use </span><span class="n">M_framework__approx</span><span class="p">,</span><span class="w">   </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">almost</span>
+<span class="c">!use M_compare_float_numbers, only : operator(.EqualTo.)</span>
+<span class="k">implicit none</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cmd</span>
+
+<span class="c">!! setup</span>
+<span class="w">   </span><span class="n">unit_check_level</span><span class="o">=</span><span class="mi">5</span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="nb">command_argument_count</span><span class="p">().</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">test_boolean_equal</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_boolean_notequal</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_dble_s2v</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_dbles_s2v</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_int_s2v</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_ints_s2v</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_real_s2v</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_reals_s2v</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_sign</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_oz</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_zo</span><span class="p">()</span>
+<span class="w">      </span><span class="k">call </span><span class="n">test_ffmt</span><span class="p">()</span>
+<span class="c">!$!      call get_command(cmd,realloc=.true.)</span>
+<span class="c">!$!      cmd=cmd//&#39; -x -y &quot;hello there&quot; xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#39;</span>
+<span class="c">!$!      call execute_command_line(cmd)</span>
+<span class="c">!$!   else</span>
+<span class="c">!$!      call test_get_command()</span>
+<span class="c">!$!      call test_get_command_argument()</span>
+<span class="w">   </span><span class="k">endif</span>
+<span class="c">!! teardown</span>
+<span class="k">contains</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_ffmt</span><span class="p">()</span>
+<span class="c">!use M_overload,              only : operator(==)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;ffmt&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;convert intrinsic scalar value to a formatted string&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp; -prep         y &amp;</span>
+<span class="s1">         &amp; -ccall        n &amp;</span>
+<span class="s1">         &amp; -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="c">! add 0+ to avoid gfortran-11 bug</span>
+<span class="w">   </span><span class="c">!call unit_check( &#39;ffmt&#39;, 1234.fmt.&#39;&quot;[&quot;,i0,&quot;]&quot;&#39; == &#39;[1234]&#39; )</span>
+<span class="w">   </span><span class="c">!call unit_check( &#39;ffmt&#39;, &#39;1234&#39;.fmt.&#39;&quot;[&quot;,i0,&quot;]&quot;&#39; == &#39;[1234]&#39; )</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_done</span><span class="p">(</span><span class="s1">&#39;ffmt&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">test_ffmt</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_oz</span><span class="p">()</span>
+<span class="c">!use M_overload,              only : operator(==)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;oz&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;convert logical expression to integer with 1 for TRUE&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp; -prep         y &amp;</span>
+<span class="s1">         &amp; -ccall        n &amp;</span>
+<span class="s1">         &amp; -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="c">! add 0+ to avoid gfortran-11 bug</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;oz&#39;</span><span class="p">,</span><span class="n">oz</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="n">oz</span><span class="p">(</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;oz&#39;</span><span class="p">,</span><span class="k">all</span><span class="p">(</span><span class="n">oz</span><span class="p">([</span><span class="mi">10</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">])</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">oz</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span><span class="n">oz</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span><span class="n">oz</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span><span class="n">oz</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="w"> </span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_done</span><span class="p">(</span><span class="s1">&#39;oz&#39;</span><span class="p">,</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">test_oz</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_zo</span><span class="p">()</span>
+<span class="c">!use M_overload,              only : operator(==)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;zo&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;convert logical expression to integer with 1 for TRUE&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="c">! add 0+ to avoid gfortran-11 bug</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;zo&#39;</span><span class="p">,</span><span class="n">zo</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">0.</span><span class="nb">and</span><span class="p">.</span><span class="n">zo</span><span class="p">(</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;zo&#39;</span><span class="p">,</span><span class="k">all</span><span class="p">(</span><span class="n">zo</span><span class="p">([</span><span class="mi">10</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">])</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="n">zo</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span><span class="n">zo</span><span class="p">(</span><span class="mi">10</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span><span class="n">zo</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">zo</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">0</span><span class="w"> </span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_done</span><span class="p">(</span><span class="s1">&#39;zo&#39;</span><span class="p">,</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">test_zo</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_sign</span><span class="p">()</span>
+<span class="c">!use M_overload,              only : operator(==)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;overload SIGN to take a single argument&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="c">! add 0+ to avoid gfortran-11 bug</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int8</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int8</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;sign(+-10_int8)&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int8</span><span class="p">),</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int8</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int16</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int16</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;sign(+-10_int16)&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int16</span><span class="p">),</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int16</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;sign(+-10_int32)&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int32</span><span class="p">),</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int32</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;sign(+-10_int64)&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">10_int64</span><span class="p">),</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">10_int64</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real32</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="p">,&amp;</span>
+<span class="w">   </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;sign(+-10_real32)&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real32</span><span class="p">),</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real32</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="p">,&amp;</span>
+<span class="w">   </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;sign(+-10_real64)&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">),</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real64</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mf">1.</span><span class="nb">and</span><span class="p">.</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="o">-</span><span class="mi">1</span><span class="p">,&amp;</span>
+<span class="w">   </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;sign(+-10_real128)&#39;</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">),</span><span class="mi">0</span><span class="o">+</span><span class="nb">sign</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="mf">0.0_real128</span><span class="p">))</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_done</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">test_sign</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_boolean_equal</span><span class="p">()</span>
+<span class="c">!use M_overload,              only : operator(==)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;boolean_equal&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;overload == to take LOGICAL arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;boolean_equal&#39;</span><span class="p">,.</span><span class="n">true</span><span class="p">.</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.</span><span class="w"> </span><span class="p">,</span><span class="s1">&#39;== works like .eqv. for LOGICAL values&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_done</span><span class="p">(</span><span class="s1">&#39;boolean_equal&#39;</span><span class="p">,</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">test_boolean_equal</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_boolean_notequal</span><span class="p">()</span>
+<span class="c">!use M_overload,              only : operator(/=)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;boolean_notequal&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;overload /= to take LOGICAL arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;boolean_notequal&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(.</span><span class="n">true</span><span class="p">.</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="p">.</span><span class="n">false</span><span class="p">.</span><span class="w"> </span><span class="p">),</span><span class="s1">&#39;/= works like .neqv. for LOGICAL values&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_done</span><span class="p">(</span><span class="s1">&#39;boolean_notequal&#39;</span><span class="p">,</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">test_boolean_notequal</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_dble_s2v</span><span class="p">()</span>
+<span class="c">!use M_overload,              only : int, real, dble</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;dble_s2v&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;overload dble() to take string arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="nb">dble</span><span class="p">(</span><span class="s1">&#39;0.3570726221234567&#39;</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="w"> </span><span class="mf">0.3570726221234567d0</span><span class="p">)</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;dble_s2v&#39;</span><span class="p">)</span><span class="w">                                             </span><span class="c">! string passed to dble</span>
+<span class="c">!   elseif(dble(&#39;0.3570726221234567&#39;) .EqualTo. 0.3570726221234567d0 )then</span>
+<span class="w">   </span><span class="k">elseif</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="nb">dble</span><span class="p">(</span><span class="s1">&#39;0.3570726221234567&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.3570726221234567d0</span><span class="w"> </span><span class="p">).</span><span class="n">lt</span><span class="p">.</span><span class="mi">2</span><span class="o">*</span><span class="nb">epsilon</span><span class="p">(</span><span class="mf">0.0d0</span><span class="p">))</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;dble_s2v&#39;</span><span class="p">)</span><span class="w">                                             </span><span class="c">! string passed to real but not exactly</span>
+<span class="w">   </span><span class="k">else</span>
+<span class="k">      call </span><span class="n">unit_check_bad</span><span class="p">(</span><span class="s1">&#39;dble_s2v&#39;</span><span class="p">)</span><span class="w">                                              </span><span class="c">! returned value not equal to expected value</span>
+<span class="w">   </span><span class="k">endif</span>
+<span class="k">end subroutine </span><span class="n">test_dble_s2v</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_dbles_s2v</span><span class="p">()</span>
+<span class="n">doubleprecision</span><span class="p">,</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">vals</span><span class="p">(:)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;dbles_s2v&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;overload dble() to take string arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+
+<span class="w">   </span><span class="n">vals</span><span class="o">=</span><span class="nb">dble</span><span class="p">([</span><span class="s1">&#39;10.0d0&#39;</span><span class="p">,</span><span class="s1">&#39;20.0d0&#39;</span><span class="p">])</span>
+<span class="w">   </span><span class="n">vals</span><span class="o">=</span><span class="n">vals</span><span class="o">-</span><span class="p">[</span><span class="mi">1</span><span class="mf">0.0d0</span><span class="p">,</span><span class="mi">2</span><span class="mf">0.0d0</span><span class="p">]</span>
+<span class="w">   </span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="k">all</span><span class="p">(</span><span class="n">vals</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mf">0.0d0</span><span class="p">))</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;dbles_s2v&#39;</span><span class="p">)</span><span class="w">                                             </span><span class="c">! string passed to dble</span>
+<span class="w">   </span><span class="k">elseif</span><span class="p">(</span><span class="k">all</span><span class="p">(</span><span class="n">vals</span><span class="p">.</span><span class="n">lt</span><span class="p">.</span><span class="mi">2</span><span class="o">*</span><span class="nb">epsilon</span><span class="p">(</span><span class="mf">0.0d0</span><span class="p">)))</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;dbles_s2v&#39;</span><span class="p">)</span><span class="w">                                             </span><span class="c">! string passed to real but not exactly</span>
+<span class="w">   </span><span class="k">else</span>
+<span class="k">      call </span><span class="n">unit_check_bad</span><span class="p">(</span><span class="s1">&#39;dbles_s2v&#39;</span><span class="p">)</span><span class="w">                                              </span><span class="c">! returned value not equal to expected value</span>
+<span class="w">   </span><span class="k">endif</span>
+<span class="c">!!   ENCOUNTERS GFORTRAN 10.3.0 BUG</span>
+<span class="c">!!   if(all(abs(dble([&#39;10.0d0&#39;,&#39;20.0d0&#39;]).eq.[10.0d0,20.0d0])))then</span>
+<span class="c">!!      call unit_check_good(&#39;dbles_s2v&#39;)                                             ! string passed to dble</span>
+<span class="c">!!!   elseif(all(dble([&#39;10.0d0&#39;,&#39;20.0d0&#39;]) .EqualTo. [10.0d0,20.0d0]))then</span>
+<span class="c">!!   elseif(all(abs(dble([&#39;10.0d0&#39;,&#39;20.0d0&#39;]) - [10.0d0,20.0d0]).lt.2*epsilon(0.0d0)))then</span>
+<span class="c">!!      call unit_check_good(&#39;dbles_s2v&#39;)                                             ! string passed to real but not exactly</span>
+<span class="c">!!   else</span>
+<span class="c">!!      call unit_check_bad(&#39;dbles_s2v&#39;)                                              ! returned value not equal to expected value</span>
+<span class="c">!!   endif</span>
+<span class="k">end subroutine </span><span class="n">test_dbles_s2v</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_int_s2v</span><span class="p">()</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;int_s2v&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;overload INT() to take string arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check</span><span class="p">(</span><span class="s1">&#39;int_s2v&#39;</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="s1">&#39;1234&#39;</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">1234</span><span class="p">,</span><span class="s1">&#39;string passed to int&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_done</span><span class="p">(</span><span class="s1">&#39;int_s2v&#39;</span><span class="p">,</span><span class="n">msg</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="k">end subroutine </span><span class="n">test_int_s2v</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_ints_s2v</span><span class="p">()</span>
+<span class="kt">integer</span><span class="p">,</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ibug</span><span class="p">(:)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;ints_s2v&#39;</span><span class="p">,</span><span class="s1">&#39; &amp;</span>
+<span class="s1">         &amp; -description &quot;overload INT() to take string arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3  &amp;</span>
+<span class="s1">         &amp; -library libGPF  &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y &amp;</span>
+<span class="s1">         &amp;  -prep         y &amp;</span>
+<span class="s1">         &amp;  -ccall        n &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="c">!!if(all(int([&#39;100&#39;,&#39;200&#39;]).eq. [100,200]))then</span>
+<span class="w">   </span><span class="n">ibug</span><span class="o">=</span><span class="nb">int</span><span class="p">([</span><span class="s1">&#39;100&#39;</span><span class="p">,</span><span class="s1">&#39;200&#39;</span><span class="p">])</span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="k">all</span><span class="p">(</span><span class="n">ibug</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="w"> </span><span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">]))</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;ints_s2v&#39;</span><span class="p">)</span><span class="w">                                             </span><span class="c">! string passed to int</span>
+<span class="w">   </span><span class="k">else</span>
+<span class="k">      call </span><span class="n">unit_check_bad</span><span class="p">(</span><span class="s1">&#39;ints_s2v&#39;</span><span class="p">)</span><span class="w">                                              </span><span class="c">! returned value not equal to expected value</span>
+<span class="w">   </span><span class="k">endif</span>
+<span class="k">end subroutine </span><span class="n">test_ints_s2v</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_real_s2v</span><span class="p">()</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;real_s2v&#39;</span><span class="p">,</span><span class="s1">&#39;&amp;</span>
+<span class="s1">         &amp; -description &quot;overload REAL() to take string arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3                    &amp;</span>
+<span class="s1">         &amp; -library libGPF               &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y              &amp;</span>
+<span class="s1">         &amp;  -prep         y              &amp;</span>
+<span class="s1">         &amp;  -ccall        n              &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a          &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="kt">REAL</span><span class="p">(</span><span class="s1">&#39;0.357072622&#39;</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="w"> </span><span class="mf">0.357072622</span><span class="p">)</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;real_s2v&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">elseif</span><span class="p">(</span><span class="n">almost</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="s1">&#39;0.357072622&#39;</span><span class="p">),</span><span class="w"> </span><span class="mf">0.357072622</span><span class="p">,</span><span class="mf">7.0</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;real_s2v&#39;</span><span class="p">)</span><span class="w">                                          </span><span class="c">! string passed to real but not exactly</span>
+<span class="w">   </span><span class="k">else</span>
+<span class="k">      call </span><span class="n">unit_check_bad</span><span class="p">(</span><span class="s1">&#39;real_s2v&#39;</span><span class="p">)</span><span class="w">                                           </span><span class="c">! returned value not equal to expected value</span>
+<span class="w">   </span><span class="k">endif</span>
+<span class="k">end subroutine </span><span class="n">test_real_s2v</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="k">subroutine </span><span class="n">test_reals_s2v</span><span class="p">()</span>
+<span class="kt">real</span><span class="p">,</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">rbug</span><span class="p">(:)</span>
+<span class="w">   </span><span class="k">call </span><span class="n">unit_check_start</span><span class="p">(</span><span class="s1">&#39;reals_s2v&#39;</span><span class="p">,</span><span class="s1">&#39;&amp;</span>
+<span class="s1">         &amp; -description &quot;overload REAL() to take string arguments&quot; &amp;</span>
+<span class="s1">         &amp; -section 3                    &amp;</span>
+<span class="s1">         &amp; -library libGPF               &amp;</span>
+<span class="s1">         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="s1">         &amp; -documentation y              &amp;</span>
+<span class="s1">         &amp;  -prep         y              &amp;</span>
+<span class="s1">         &amp;  -ccall        n              &amp;</span>
+<span class="s1">         &amp;  -archive      GPF.a          &amp;</span>
+<span class="s1">         &amp; &#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="n">rbug</span><span class="o">=</span><span class="kt">real</span><span class="p">([</span><span class="s1">&#39;0.357072622&#39;</span><span class="p">,</span><span class="s1">&#39;200.0      &#39;</span><span class="p">])</span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="k">all</span><span class="p">(</span><span class="n">rbug</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="w"> </span><span class="p">[</span><span class="mf">0.357072622</span><span class="p">,</span><span class="mi">20</span><span class="mf">0.0</span><span class="p">]))</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;reals_s2v&#39;</span><span class="p">)</span><span class="w">                                             </span><span class="c">! string passed to int</span>
+<span class="c">!   elseif(all(real([&#39;0.357072622&#39;,&#39;200.0      &#39;]) .EqualTo. [0.357072622,200.0]))then</span>
+<span class="w">   </span><span class="k">elseif</span><span class="p">(</span><span class="k">all</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="kt">real</span><span class="p">([</span><span class="s1">&#39;0.357072622&#39;</span><span class="p">,</span><span class="s1">&#39;200.0      &#39;</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">[</span><span class="mf">0.357072622</span><span class="p">,</span><span class="mi">20</span><span class="mf">0.0</span><span class="p">]).</span><span class="n">lt</span><span class="p">.</span><span class="mi">2</span><span class="o">*</span><span class="nb">epsilon</span><span class="p">(</span><span class="mf">0.0d0</span><span class="p">)))</span><span class="k">then</span>
+<span class="k">      call </span><span class="n">unit_check_good</span><span class="p">(</span><span class="s1">&#39;reals_s2v&#39;</span><span class="p">)</span><span class="w">                                             </span><span class="c">! string passed to real but not exactly</span>
+<span class="w">   </span><span class="k">else</span>
+<span class="k">      call </span><span class="n">unit_check_bad</span><span class="p">(</span><span class="s1">&#39;reals_s2v&#39;</span><span class="p">)</span><span class="w">                                              </span><span class="c">! returned value not equal to expected value</span>
+<span class="w">   </span><span class="k">endif</span>
+
+<span class="k">end subroutine </span><span class="n">test_reals_s2v</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="c">!$!subroutine test_get_command()</span>
+<span class="c">!$!   call unit_check_start(&#39;get_command&#39;,&#39;&amp;</span>
+<span class="c">!$!         &amp; -description &quot;overload GET_COMMAND() to take allocatable string&quot; &amp;</span>
+<span class="c">!$!         &amp; -section 3                    &amp;</span>
+<span class="c">!$!         &amp; -library libGPF               &amp;</span>
+<span class="c">!$!         &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="c">!$!         &amp; -documentation y              &amp;</span>
+<span class="c">!$!         &amp;  -prep         y              &amp;</span>
+<span class="c">!$!         &amp;  -ccall        n              &amp;</span>
+<span class="c">!$!         &amp;  -archive      GPF.a          &amp;</span>
+<span class="c">!$!         &amp; &#39;)</span>
+<span class="c">!$!   call unit_check_done(&#39;get_command&#39;,msg=&#39;&#39;)</span>
+<span class="c">!$!end subroutine test_get_command</span>
+<span class="c">!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT</span>
+<span class="c">!$!subroutine test_get_command_argument()</span>
+<span class="c">!$!integer                      :: istat, ilen, i</span>
+<span class="c">!$!character(len=:),allocatable :: argument, arguments</span>
+<span class="c">!$!character(len=10)            :: regular</span>
+<span class="c">!$!integer,allocatable          :: istats(:), ilens(:)</span>
+<span class="c">!$!! assuming called with cmd//&#39; -x -y &quot;hello there&quot; xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#39;</span>
+<span class="c">!$!   call unit_check_start(&#39;get_command_argument&#39;,&#39;&amp;</span>
+<span class="c">!$!    &amp; -description &quot;overload GET_command_argument() to take allocatable string&quot; &amp;</span>
+<span class="c">!$!    &amp; -section 3                    &amp;</span>
+<span class="c">!$!    &amp; -library libGPF               &amp;</span>
+<span class="c">!$!    &amp; -filename `pwd`/M_overload.FF &amp;</span>
+<span class="c">!$!    &amp; -documentation y              &amp;</span>
+<span class="c">!$!    &amp;  -prep         y              &amp;</span>
+<span class="c">!$!    &amp;  -ccall        n              &amp;</span>
+<span class="c">!$!    &amp;  -archive      GPF.a          &amp;</span>
+<span class="c">!$!    &amp; &#39;)</span>
+<span class="c">!$!   </span>
+<span class="c">!$!   ! unallocated allocatable variable and realloc=.true.</span>
+<span class="c">!$!   allocate(integer :: istats(0),ilens(0))</span>
+<span class="c">!$!   arguments=&#39;&#39;</span>
+<span class="c">!$!   do i=1, command_argument_count()</span>
+<span class="c">!$!      call get_command_argument(i, argument, length=ilen, status=istat, realloc=.true.)</span>
+<span class="c">!$!      istats=[istats,istat]</span>
+<span class="c">!$!      ilens=[ilens,ilen]</span>
+<span class="c">!$!      arguments=arguments//argument//&#39; &#39;</span>
+<span class="c">!$!   enddo</span>
+<span class="c">!$!   write(*,*)&#39;ISTATS=&#39;,istats</span>
+<span class="c">!$!   write(*,*)&#39;ILENS=&#39;,ilens</span>
+<span class="c">!$!   write(*,*)&#39;ARGUMENTS=&#39;,arguments</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(istats.eq.0),&#39;check if all status returns are zero&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(ilens.eq.[2,2,11,36]),&#39;check lengths&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,arguments.eq.&#39;-x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#39;)</span>
+<span class="c">!$!</span>
+<span class="c">!$!   ! allocated allocatable variable and realloc=.true.</span>
+<span class="c">!$!   if(allocated(istats))deallocate(istats)</span>
+<span class="c">!$!   if(allocated(ilens))deallocate(ilens)</span>
+<span class="c">!$!   if(allocated(argument))deallocate(argument)</span>
+<span class="c">!$!   allocate(integer :: istats(0),ilens(0))</span>
+<span class="c">!$!   argument=&#39;12345678901234&#39;</span>
+<span class="c">!$!   arguments=&#39;&#39;</span>
+<span class="c">!$!   do i=1, command_argument_count()</span>
+<span class="c">!$!      call get_command_argument(i, argument, length=ilen, status=istat, realloc=.true.)</span>
+<span class="c">!$!      istats=[istats,istat]</span>
+<span class="c">!$!      ilens=[ilens,ilen]</span>
+<span class="c">!$!      arguments=arguments//argument//&#39; &#39;</span>
+<span class="c">!$!   enddo</span>
+<span class="c">!$!   write(*,*)&#39;ISTATS=&#39;,istats</span>
+<span class="c">!$!   write(*,*)&#39;ILENS=&#39;,ilens</span>
+<span class="c">!$!   write(*,*)&#39;ARGUMENTS=&#39;,arguments</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(istats.eq.0),&#39;check if all status returns are zero&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(ilens.eq.[2,2,11,36]),&#39;check lengths&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,arguments.eq.&#39;-x -y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&#39;)</span>
+<span class="c">!$!</span>
+<span class="c">!$!   ! allocatable variable already allocated and no realloc=.true.</span>
+<span class="c">!$!   deallocate(istats,ilens,argument)</span>
+<span class="c">!$!   allocate(integer :: istats(0),ilens(0))</span>
+<span class="c">!$!   arguments=&#39;&#39;</span>
+<span class="c">!$!   allocate(character(len=10) :: argument)</span>
+<span class="c">!$!   do i=1, command_argument_count()</span>
+<span class="c">!$!      call get_command_argument(i, argument, length=ilen, status=istat)</span>
+<span class="c">!$!      istats=[istats,istat]</span>
+<span class="c">!$!      ilens=[ilens,ilen]</span>
+<span class="c">!$!      arguments=arguments//argument//&#39; &#39;</span>
+<span class="c">!$!   enddo</span>
+<span class="c">!$!   write(*,*)&#39;ISTATS=&#39;,istats</span>
+<span class="c">!$!   write(*,*)&#39;ILENS=&#39;,ilens</span>
+<span class="c">!$!   write(*,*)&#39;ARGUMENTS=&#39;,arguments</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(istats.eq.[0,0,-1,-1]),&#39;check if get truncations as expected&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(ilens.eq.[2,2,11,36]),&#39;check lengths&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,arguments.eq.&#39;-x         -y         hello ther xxxxxxxxxx&#39;)</span>
+<span class="c">!$!</span>
+<span class="c">!$!   ! regular</span>
+<span class="c">!$!   deallocate(istats,ilens)</span>
+<span class="c">!$!   allocate(integer :: istats(0),ilens(0))</span>
+<span class="c">!$!   arguments=&#39;&#39;</span>
+<span class="c">!$!   do i=1, command_argument_count()</span>
+<span class="c">!$!      call get_command_argument(i, regular, length=ilen, status=istat)</span>
+<span class="c">!$!      istats=[istats,istat]</span>
+<span class="c">!$!      ilens=[ilens,ilen]</span>
+<span class="c">!$!      arguments=arguments//regular//&#39; &#39;</span>
+<span class="c">!$!   enddo</span>
+<span class="c">!$!   write(*,*)&#39;ISTATS=&#39;,istats</span>
+<span class="c">!$!   write(*,*)&#39;ILENS=&#39;,ilens</span>
+<span class="c">!$!   write(*,*)&#39;ARGUMENTS=&#39;,arguments</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(istats.eq.[0,0,-1,-1]),&#39;check if get truncations as expected&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,all(ilens.eq.[2,2,11,36]),&#39;check lengths&#39;)</span>
+<span class="c">!$!   call unit_check(&#39;get_command_argument&#39;,arguments.eq.&#39;-x         -y         hello ther xxxxxxxxxx&#39;)</span>
+<span class="c">!$!</span>
+<span class="c">!$!   call unit_check_done(&#39;get_command_argument&#39;,msg=&#39;&#39;)</span>
+<span class="c">!$!end subroutine test_get_command_argument</span>
+<span class="c">!===================================================================================================================================</span>
+<span class="k">end subroutine </span><span class="n">test_suite_M_overload</span>
+</pre></div>
+
+    </section>
+    <br>
+    
+    </div>
+  </div>
+
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              M_overload
+ was developed by John S. Urban<br>              &copy; 2024 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2024-04-30 00:03              </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+
+    <!-- MathJax JavaScript
+             ================================================== -->
+             <!-- Placed at the end of the document so the pages load faster -->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+          });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+          <script src="../tipuesearch/tipuesearch_content.js"></script>
+          <script src="../tipuesearch/tipuesearch_set.js"></script>
+          <script src="../tipuesearch/tipuesearch.js"></script>
+
+  </body>
+</html>
