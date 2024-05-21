@@ -72,19 +72,19 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title=" 2.9% of total for programs.">4 statements</a>
+                 title="20.0% of total for programs.">28 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/show_ffmt.f90"> Source File</a>
+              <a href="../src/extend_dble.f90"> Source File</a>
             </li>
         </ul>
       </div>
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-end mb-0">
-                <li class="breadcrumb-item"><a href='../sourcefile/show_ffmt.f90.html'>show_ffmt.f90</a></li>
+                <li class="breadcrumb-item"><a href='../sourcefile/extend_dble.f90.html'>extend_dble.f90</a></li>
             <li class="breadcrumb-item active" aria-current="page">testit</li>
           </ol>
         </nav>
@@ -104,28 +104,28 @@
       <div id="sidebar">
       <h3>Contents</h3>
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
       <div class="card mb-4">
-      <a data-bs-toggle="collapse" href="#vars-0"
-         aria-expanded="false" aria-controls="vars-0">
-         <h4 class="card-header bg-primary text-white">Variables</h4>
+      <a data-bs-toggle="collapse" href="#funcs-0"
+         aria-expanded="false" aria-controls="funcs-0">
+         <h4 class="card-header bg-primary text-white">Functions</h4>
       </a>
-      <div id="vars-0" class="collapse">
+      <div id="funcs-0" class="collapse">
         <div class="list-group list-group-flush">
-            <a class="list-group-item" href="../program/testit.html#variable-string">string</a>
+            <a class="list-group-item" href="../program/testit.html#proc-promote">promote</a>
         </div>
       </div>
     </div>
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   
   
@@ -153,7 +153,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <ul class="list-inline">
-                  <li class="list-inline-item"><a href='../module/m_overload.html'>m_overload</a></li>
+                  <li class="list-inline-item"><a href='../module/m_overload__extend.html'>M_overload__extend</a></li>
               </ul>
             </li>
         </ul>
@@ -163,44 +163,91 @@
     
 
 
+    
+    
+    
+
+    
+ 
     <section>
-    <h2>Variables</h2>
+    <h2>Functions</h2>
+      <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-promote"></span> <h3> function <a href='../proc/promote.html'>promote</a>(value1, value2, value3)  
+</h3></div>
+    <div class="card-body">
+          
+  
+
+  <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
         <th scope="col">Type</th>
-        <th scope="col">Attributes</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
         <th scope="col"></th>
         <th scope="col">Name</th>
-<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-string"></span>
-              character(len=:),
+              <span class="anchor" id="variable-value1"></span>
+              class(*),
             </td>
-            <td>
-              allocatable
+<td>intent(in)</td>
+              <td></td>            <td>
+              
             </td>
             <td>::</td>
-            <td><strong>string</strong></td>
-                <td></td>
-                <td></td>
+            <td><strong>value1</strong></td>
             <td>
-                
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-value2"></span>
+              class(*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>value2</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-value3"></span>
+              class(*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>value3</strong></td>
+            <td>
+
             </td>
         </tr>
     </tbody>
   </table>
 
-    </section>
-    <br>
-    
-    
+    <h4>
+    Return Value
+    <small>doubleprecision, allocatable</small>
+    </h4>
     
 
-    
+    </div>
+  </div>
+
+    </section>
+    <br>
 
 
     
@@ -208,14 +255,37 @@
     <section>
     <h2 id="src">Source Code</h2>
     <div class="hl codehilite"><pre><span></span><span class="k">program </span><span class="n">testit</span>
-<span class="k">use </span><span class="n">M_overload</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">operator</span><span class="p">(.</span><span class="n">fmt</span><span class="p">.)</span>
-<span class="c">!use M_intrinsics, only : operator(.fmt.)</span>
-<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">string</span>
-<span class="w">   </span><span class="c">!string=1234.fmt.&#39;&quot;[&quot;,i0,&quot;]&quot;&#39;</span>
-<span class="w">   </span><span class="c">!write(*,*)string</span>
-<span class="w">   </span><span class="c">! tests</span>
-<span class="w">   </span><span class="c">!write(*,*)1234.fmt.&#39;&quot;[&quot;,i0,&quot;]&quot;&#39; ! .eq. &#39;[1234]&#39; </span>
-<span class="w">   </span><span class="c">!write(*,*)&#39;1234&#39;.fmt.&#39;&quot;[&quot;,g0,&quot;]&quot;&#39; ! .eq. &#39;[1234]&#39; </span>
+<span class="w">   </span><span class="k">use </span><span class="n">M_overload__extend</span>
+<span class="w">   </span><span class="k">implicit none</span>
+<span class="w">   </span><span class="c">! make sure normal stuff still works</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;##CONVENTIONAL&#39;</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;INTEGER         &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;INTEGER ARRAY   &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">])</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;REAL            &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.20</span><span class="p">)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;DOUBLEPRECISION &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">(</span><span class="mi">10</span><span class="mf">0.20d0</span><span class="p">)</span>
+<span class="w">   </span><span class="c">! extensions</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;##EXTENSIONS&#39;</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;CHARACTER       &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">(</span><span class="s1">&#39;100.30&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;CHARACTER ARRAY &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">([</span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="s1">&#39;100.30&#39;</span><span class="p">,</span><span class="s1">&#39;400.500&#39;</span><span class="p">])</span>
+<span class="w">   </span><span class="c">! call a function with a metamorphic argument</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;METAMORPHIC     &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">promote</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0d0</span><span class="p">)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;METAMORPHIC     &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">promote</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,(</span><span class="mf">2.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">),.</span><span class="n">true</span><span class="p">.)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;METAMORPHIC     &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">promote</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;METAMORPHIC     &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">promote</span><span class="p">(.</span><span class="n">true</span><span class="p">.,.</span><span class="n">false</span><span class="p">.,.</span><span class="n">true</span><span class="p">.)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;METAMORPHIC     &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">promote</span><span class="p">((</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">4.0</span><span class="p">),</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">   </span><span class="c">! settle this once and for all</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;LOGICAL TRUE    &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">(.</span><span class="n">true</span><span class="p">.)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;LOGICAL FALSE   &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">(.</span><span class="n">false</span><span class="p">.)</span>
+<span class="w">   </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;LOGICAL ARRAY   &#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">dble</span><span class="p">([.</span><span class="n">false</span><span class="p">.,</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.,</span><span class="w"> </span><span class="p">.</span><span class="n">false</span><span class="p">.,</span><span class="w"> </span><span class="p">.</span><span class="n">true</span><span class="p">.])</span>
+<span class="k">contains</span>
+<span class="k">   function </span><span class="n">promote</span><span class="p">(</span><span class="n">value1</span><span class="p">,</span><span class="n">value2</span><span class="p">,</span><span class="n">value3</span><span class="p">)</span>
+<span class="w">      </span><span class="k">class</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">value1</span>
+<span class="w">      </span><span class="k">class</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">value2</span>
+<span class="w">      </span><span class="k">class</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">value3</span>
+<span class="w">      </span><span class="n">doubleprecision</span><span class="p">,</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">promote</span>
+<span class="w">      </span><span class="n">promote</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="nb">dble</span><span class="p">(</span><span class="n">value1</span><span class="p">),</span><span class="nb">dble</span><span class="p">(</span><span class="n">value2</span><span class="p">),</span><span class="nb">dble</span><span class="p">(</span><span class="n">value3</span><span class="p">)])</span>
+<span class="w">   </span><span class="k">end function </span><span class="n">promote</span>
+
 <span class="k">end program </span><span class="n">testit</span>
 </pre></div>
 
