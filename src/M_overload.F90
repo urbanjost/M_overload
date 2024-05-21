@@ -32,7 +32,9 @@
 !!
 !!  other operators
 !!
-!!    ! convert an intrinsic value to a CHARACTER variable
+!!    .fmt.    ! convert an intrinsic value to a CHARACTER variable
+!!    N.to.M   ! equivalent of [(integer :: i,i=N,M)], generates a range of
+!!             ! adjacent whole numbers
 !!
 !!  Related functions
 !!
@@ -137,7 +139,14 @@
 !!
 !!      ! // will allow any intrinsic type and convert it to a string
 !!      write(*,*)' The value is '//10//' which is less than '//20.2
-!!
+!!      block
+!!      character(len=:),allocatable :: fmt
+!!      integer :: i
+!!         i=24
+!!         ! build a format with a variable numeric value
+!!         fmt='("[",I'//i//',"]")'
+!!         write(*,fmt)20
+!!      endblock
 !!
 !!      ! logical values as numeric values
 !!      write(*,*) sum([int(.false.),int(.false.)])
@@ -154,7 +163,25 @@
 !!
 !!    end program demo_M_overload
 !!
-!!  Results:
+!! Results:
+!!
+!!  > [a    ]
+!!  > [bbbbb]
+!!  > [bbbbb],[ccccc]
+!!  >  int("STRING") works
+!!  >  real("STRING") works
+!!  >  dble("STRING") works
+!!  >  int works for .FALSE.
+!!  >  int works for .TRUE.
+!!  >                     1
+!!  >  == works like .eqv. for LOGICAL values
+!!  >  /= works like .neqv. for LOGICAL values
+!!  >   The value is 10 which is less than 20.2000008
+!!  > [                      20]
+!!  >                     2
+!!  >                     1                    0                    1
+!!  >                     2
+!!  >  sign works
 !!
 !!##AUTHOR
 !!    John S. Urban
@@ -166,11 +193,18 @@ implicit none
 ! ident_1="@(#) M_overload(3fm) overloads of standard operators and intrinsic procedures"
 private
 public lt, le, eq, ne, ge, gt, oz, zo
+public to
 public boolean_equal, boolean_notequal      !
 public operator(==)
 public operator(/=)
 public operator(//)
 public operator(.fmt.)
+public operator(.to.)
+
+interface operator(.to.)
+   module procedure to
+end interface
+
 interface operator ( .fmt. )
    module procedure ffmt
 end interface operator ( .fmt. )
@@ -729,7 +763,61 @@ end function anyscalar_to_real
 !===================================================================================================================================
 !>
 !!##NAME
-!!    M_overload(3fm) - [M_overload::LOGICAL] returns One if expression is TRUE, else returns Zero.
+!!    to(3f) - [M_overload::LOGICAL] return array of adjacent integers over specified range, inclusive
+!!    (LICENSE:PD)
+!!##SYNOPSIS
+!!
+!!
+!!    pure elemental integer function to(i,j)
+!!
+!!     integer,intent(in) :: i
+!!     integer,intent(in) :: j
+!!     integer,allocatable :: to
+!!
+!!##DESCRIPTION
+!!
+!!     A convenience for expressing [(integer :: i=N,M)]
+!!
+!!##OPTIONS
+!!    I  starting value
+!!    J  ending value
+!!
+!!##RETURNS
+!!
+!!    An array of adjacent whole numbers from I to J
+!!
+!!##EXAMPLES
+!!
+!!  Sample usage:
+!!
+!!    program demo_to
+!!    use M_overload, only: to, operator(.to.)
+!!    implicit none
+!!       print*,[11.to.16]
+!!       print*,2.5 * [1.to.4]
+!!       print*,2.5 * to(1,4)+10
+!!    end program demo_to
+!!
+!!##AUTHOR
+!!    John S. Urban, inspired by @beliavsky
+!!##LICENSE
+!!    Public Domain
+pure function to(i, j) result(vec)
+integer, intent(in) :: i, j
+integer             :: vec(j-i+1)
+integer             :: k
+if(i.le.j)then
+   vec = [(k, k=i,j)]
+else
+   vec = [(k, k=i,j,-1)]
+endif
+end function to
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!>
+!!##NAME
+!!    oz(3f) - [M_overload::LOGICAL] returns One if expression is TRUE, else returns Zero.
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!
@@ -782,7 +870,7 @@ end function oz
 
 !>
 !!##NAME
-!!    M_overload(3fm) - [M_overload::LOGICAL] returns Zero if expression is FALSE, else returns One.
+!!    zo(3f) - [M_overload::LOGICAL] returns Zero if expression is FALSE, else returns One.
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!

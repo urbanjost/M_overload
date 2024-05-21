@@ -51,7 +51,14 @@
 
        ! // will allow any intrinsic type and convert it to a string
        write(*,*)' The value is '//10//' which is less than '//20.2
-
+       block
+       character(len=:),allocatable :: fmt
+       integer :: i
+          i=24
+          ! build a format with a variable numeric value
+          fmt='("[",I'//i//',"]")'
+          write(*,fmt)20
+       endblock
 
        ! logical values as numeric values
        write(*,*) sum([int(.false.),int(.false.)])

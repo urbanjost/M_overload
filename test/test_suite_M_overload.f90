@@ -36,7 +36,8 @@ character(len=:),allocatable :: cmd
       call test_sign()
       call test_oz()
       call test_zo()
-      call test_ffmt()
+      call test_fmt()
+      call test_to()
 !$!      call get_command(cmd,realloc=.true.)
 !$!      cmd=cmd//' -x -y "hello there" xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 !$!      call execute_command_line(cmd)
@@ -47,9 +48,9 @@ character(len=:),allocatable :: cmd
 !! teardown
 contains
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-subroutine test_ffmt()
+subroutine test_fmt()
 !use M_overload,              only : operator(==)
-   call unit_check_start('ffmt',' &
+   call unit_check_start('fmt',' &
          & -description "convert intrinsic scalar value to a formatted string" &
          & -section 3  &
          & -library libGPF  &
@@ -60,10 +61,29 @@ subroutine test_ffmt()
          & -archive      GPF.a &
          & ')
    ! add 0+ to avoid gfortran-11 bug
-   !call unit_check( 'ffmt', 1234.fmt.'"[",i0,"]"' == '[1234]' )
-   !call unit_check( 'ffmt', '1234'.fmt.'"[",i0,"]"' == '[1234]' )
-   call unit_check_done('ffmt', msg='')
-end subroutine test_ffmt
+   !call unit_check( 'fmt', 1234.fmt.'"[",i0,"]"' == '[1234]' )
+   !call unit_check( 'fmt', '1234'.fmt.'"[",i0,"]"' == '[1234]' )
+   call unit_check_done('fmt', msg='')
+end subroutine test_fmt
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_to()
+!use M_overload,              only : operator(==)
+   call unit_check_start('to',' &
+         & -description "generate range of adjacent whole numbers over specified range" &
+         & -section 3  &
+         & -library libGPF  &
+         & -filename `pwd`/M_overload.FF &
+         & -documentation y &
+         & -prep         y &
+         & -ccall        n &
+         & -archive      GPF.a &
+         & ')
+   call unit_check( 'to', all([11.to.14] == [11,12,13,14]  ),'[11,12,13,14]')
+   call unit_check( 'to', all([-14.to.-11] == [-14,-13,-12,-11]),'[-14,-13,-12,-11]')
+   call unit_check( 'to', all(to(11,14) == [11,12,13,14]  ),'[11,12,13,14]')
+   call unit_check( 'to', all(to(-14,-11) == [-14,-13,-12,-11]),'[-14,-13,-12,-11]')
+   call unit_check_done('to', msg='')
+end subroutine test_to
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_oz()
 !use M_overload,              only : operator(==)
