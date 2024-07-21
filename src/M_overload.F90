@@ -490,7 +490,7 @@ intrinsic :: size ! make it clear just need to call the intrinsic, not an overlo
    isize=size(chars)
    allocate(ints_s2v(isize))
    do i=1,isize
-      ints_s2v(i)=int(s2v(chars(i)))
+      ints_s2v(i)=int(s2v(chars(i)),kind=kind(0))
    enddo
 end function ints_s2v
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -517,12 +517,6 @@ intrinsic :: size ! make it clear just need to call the intrinsic, not an overlo
       dbles_s2v(i)=s2v(chars(i))
    enddo
 end function dbles_s2v
-!===================================================================================================================================
-!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
-!===================================================================================================================================
-!===================================================================================================================================
-!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
-!===================================================================================================================================
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
@@ -844,23 +838,6 @@ end function s2v
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-function atleast(line,length,pattern) result(strout)
-
-!$@(#) M_overload::atleast(3f): return string padded to at least specified length
-
-character(len=*),intent(in)                :: line
-integer,intent(in)                         :: length
-character(len=*),intent(in),optional       :: pattern
-character(len=max(length,len(trim(line)))) :: strout
-if(present(pattern))then
-   strout=line//repeat(pattern,len(strout)/len(pattern)+1)
-else
-   strout=line
-endif
-end function atleast
-!===================================================================================================================================
-!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
-!===================================================================================================================================
 pure elemental function anyscalar_to_double(valuein) result(d_out)
 use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
@@ -870,7 +847,7 @@ intrinsic dble
 
 class(*),intent(in)       :: valuein
 doubleprecision           :: d_out
-doubleprecision,parameter :: big=huge(0.0d0)
+!x!doubleprecision,parameter :: big=huge(0.0d0)
    select type(valuein)
    type is (integer(kind=int8));   d_out=dble(valuein)
    type is (integer(kind=int16));  d_out=dble(valuein)
@@ -880,16 +857,16 @@ doubleprecision,parameter :: big=huge(0.0d0)
    type is (real(kind=real64));    d_out=dble(valuein)
 #ifdef HAS_REAL128
    type is (real(kind=real128))
-      !!if(valuein.gt.big)then
-      !!   write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
-      !!endif
+      !x!if(valuein.gt.big)then
+      !x!   write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
+      !x!endif
       d_out=dble(valuein)
 #endif
    type is (logical);              d_out=merge(0.0d0,1.0d0,valuein)
    type is (character(len=*));      read(valuein,*) d_out
    class default
      d_out=0.0d0
-     !!stop '*M_overload::anyscalar_to_double: unknown type'
+     !x!stop '*M_overload::anyscalar_to_double: unknown type'
    end select
 end function anyscalar_to_double
 !===================================================================================================================================
@@ -936,7 +913,7 @@ intrinsic real
 
 class(*),intent(in) :: valuein
 real                :: r_out
-real,parameter      :: big=huge(0.0)
+!x!real,parameter      :: big=huge(0.0)
    select type(valuein)
    type is (integer(kind=int8));   r_out=real(valuein)
    type is (integer(kind=int16));  r_out=real(valuein)
@@ -944,18 +921,18 @@ real,parameter      :: big=huge(0.0)
    type is (integer(kind=int64));  r_out=real(valuein)
    type is (real(kind=real32));    r_out=real(valuein)
    type is (real(kind=real64))
-      !!if(valuein.gt.big)then
-      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
-      !!endif
+      !x!if(valuein.gt.big)then
+      !x!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
+      !x!endif
       r_out=real(valuein)
 #ifdef HAS_REAL128
    type is (real(kind=real128))
-      !!if(valuein.gt.big)then
-      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
-      !!endif
+      !x!if(valuein.gt.big)then
+      !x!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
+      !x!endif
       r_out=real(valuein)
 #endif
-   type is (logical);              r_out=merge(0.0d0,1.0d0,valuein)
+   type is (logical);              r_out=merge(0.0,1.0,valuein)
    type is (character(len=*));     read(valuein,*) r_out
    end select
 end function anyscalar_to_real
