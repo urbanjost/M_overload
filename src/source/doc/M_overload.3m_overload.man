@@ -25,7 +25,7 @@ SYNOPSIS
 
  other operators
 
-   .fmt.    ! convert an intrinsic value to a CHARACTER variable
+   .fmt.    ! convert an intrinsic value to a CHARACTER variable using format
    N.to.M   ! equivalent of [(integer :: i,i=N,M)], generates a range of
             ! adjacent whole numbers
 

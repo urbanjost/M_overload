@@ -1,0 +1,26 @@
+      program demo_fmt
+      use :: M_overload, only : fmt
+      use :: M_overload, only : operator(.fmt.)
+      use :: M_overload, only : operator( // )
+      implicit none
+      character(len=:),allocatable :: output
+      character(len=:), allocatable :: string
+
+         !write(*,*)'result is ', fmt(10,"'[',i0,']'")
+
+         !write(*,*)'result is ', fmt(10.0/3.0,"'[',g0.5,']'")
+
+         !output=fmt(.true.,"'The final answer is [',g0,']'")
+         !write(*,*)'result is ',output
+         ! operator
+         !string=1234 .fmt. '"[",i0,"]"'
+         !write(*,*)string
+         ! tests
+         !write(*,*)'the value is ',fmt(1234.5679,'f0.3'),' or there-abouts'
+
+         !write(*,*)1234.0 .fmt. '"[",g0,"]"' ! .eq. '[1234]'
+
+         string=10//' is an integer and '//(11.00,22.00)//' is a complex'
+         write(*,*)string
+
+      end program demo_fmt

@@ -8,6 +8,12 @@ PROGFILES = \
  ../example/show_overload_sign.f90 \
  ../example/show_rename.f90 \
  ../example/show_string2number.f90 \
+ ../example/demo_fmt.f90 \
+ ../example/demo_oz.f90 \
+ ../example/demo_to.f90 \
+ ../example/demo_zo.f90 \
+ ../example/extend_dble.f90
+
 $(NULL)
 
 TESTFILES = \

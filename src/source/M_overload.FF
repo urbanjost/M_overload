@@ -33,13 +33,13 @@ SYNOPSIS
 
  other operators
 
-   .fmt.    ! convert an intrinsic value to a CHARACTER variable
+   .fmt.    ! convert an intrinsic value to a CHARACTER variable using format
    N.to.M   ! equivalent of [(integer :: i,i=N,M)], generates a range of
             ! adjacent whole numbers
 
  Related functions
 
-   ! logical functions that return integer values 
+   ! logical functions that return integer values
    use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge
 
 $! Allow unallocated allocatable variables or allocated variables to be reallocated for strings
@@ -218,9 +218,9 @@ Results:
  > [a    ]
  > [bbbbb]
  > [bbbbb],[ccccc]
- >  int("STRING") works 
- >  real("STRING") works 
- >  dble("STRING") works 
+ >  int("STRING") works
+ >  real("STRING") works
+ >  dble("STRING") works
  >  int works for .FALSE.
  >  int works for .TRUE.
  >                     1
@@ -241,6 +241,7 @@ $BLOCK END
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module m_overload
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
+use,intrinsic :: iso_fortran_env, only : stderr=>ERROR_UNIT
 implicit none
 $@(#) M_overload(3fm): overloads of standard operators and intrinsic procedures
 private
@@ -309,8 +310,10 @@ $!interface  get_command_argument;  module  procedure  get_command_argument_allo
 interface merge
    module procedure strmerge
 end interface
+
+public :: fmt
 !-----------------------------------------------------------------------------------------------------------------------------------
-! this allwos you to rename intrinsics, overload them, 
+! this allwos you to rename intrinsics, overload them,
 intrinsic :: abs,                   achar,                     acos,              acosh,             adjustl
 public    :: abs,                   achar,                     acos,              acosh,             adjustl
 intrinsic :: adjustr,               aimag,                     aint,              all,               allocated
@@ -400,9 +403,11 @@ character(len=:),allocatable :: string1
 character(len=:),allocatable :: string2
 character(len=:),allocatable :: string
    ! use this instead of str() so character variables are not trimmed and/or spaces are not added
-   !ifort_bug!string = ffmt(value1,'(g0)') // ffmt(value2,'(g0)')
-   string1 = ffmt(value1,'(g0)') 
-   string2 = ffmt(value2,'(g0)')
+   !ifort_bug!string = fmt(value1,'(g0)') // fmt(value2,'(g0)')
+   string1 = fmt(value1)
+   string2 = fmt(value2)
+   ! some compilers use the default operator some call recursively
+   !!string=string1//string2
    allocate(character(len=len(string1)+len(string2)) :: string)
    string(1:len(string1))=string1
    string(len(string1)+1:)=string2
@@ -416,11 +421,11 @@ end function g_g
 !x!class(*),intent(in)          :: value1, value2
 !x!character(len=:),allocatable :: string
 !x!   ! use this instead of str() so character variables are not trimmed and/or spaces are not added
-!x!   string = ffmt(value1,'(g0)') // ffmt(value2,'(g0)')
+!x!   string = fmt(value1,'(g0)') // fmt(value2,'(g0)')
 !x!end function g_g
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental function strmerge(str1,str2,expr) result(strout)
-!$@(#) M_strings::strmerge(3f): pads first and second arguments to MERGE(3f) to same length
+!$@(#) M_overload::strmerge(3f): pads first and second arguments to MERGE(3f) to same length
 character(len=*),intent(in)              :: str1
 character(len=*),intent(in)              :: str2
 logical,intent(in)                       :: expr
@@ -434,7 +439,7 @@ end function strmerge
 !-----------------------------------------------------------------------------------------------------------------------------------
 function adjustl_atleast(line,length) result(strout)
 
-$@(#) M_strings::adjustl_atleast(3f): return string padded on right to at least specified length 
+$@(#) M_overload::adjustl_atleast(3f): return string padded on right to at least specified length
 
 character(len=*),intent(in)                :: line
 integer,intent(in)                         :: length
@@ -444,7 +449,7 @@ end function adjustl_atleast
 !-----------------------------------------------------------------------------------------------------------------------------------
 function adjustr_atleast(line,length) result(strout)
 
-$@(#) M_overload::adjustr_atleast(3f): return string padded on left to at least specified length 
+$@(#) M_overload::adjustr_atleast(3f): return string padded on left to at least specified length
 
 character(len=*),intent(in)                :: line
 integer,intent(in)                         :: length
@@ -488,7 +493,7 @@ $POST SIGN
 logical function boolean_equal(logical_val1,logical_val2)
 logical, intent (in) :: logical_val1, logical_val2
 
-   boolean_equal = logical_val1 .eqv. logical_val2 
+   boolean_equal = logical_val1 .eqv. logical_val2
 
 end function boolean_equal
 !-----------------------------------------------------------------------------------------------------------------------------------
@@ -620,24 +625,105 @@ $!end subroutine get_command_argument_allocatable
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-function ffmt(generic,format) result (line)
+$BLOCK COMMENT --file fmt.3m_overload.man
+NAME
+   fmt(3f) - [M_overload] convert any intrinsic to a string using specified format
+   (LICENSE:PD)
+SYNOPSIS
+   function fmt(value,format) result(string)
+
+    class(*),intent(in),optional :: value
+    character(len=*),intent(in),optional :: format
+    character(len=:),allocatable :: string
+DESCRIPTION
+   FMT(3f) converts any standard intrinsic value to a string using the specified
+   format.
+OPTIONS
+   value    value to print the value of. May be of type INTEGER, LOGICAL,
+            REAL, DOUBLEPRECISION, COMPLEX, or CHARACTER.
+   format   format to use to print value. It is up to the user to use an
+            appropriate format. The format does not require being
+            surrounded by parenthesis. If not present a default is selected
+            similar to what would be produced with free format, with 
+            trailing zeros removed.
+RETURNS
+   string   A string value
+EXAMPLES
+  Sample program:
+
+    program demo_fmt
+    use :: M_overload, only : fmt
+    use :: M_overload, only : operator(.fmt.)
+    use :: M_overload, only : operator( // )
+    implicit none
+    character(len=:),allocatable :: output
+    character(len=:), allocatable :: string
+
+       write(*,*)'result is ', fmt(10,"'[',i0,']'")
+
+       write(*,*)'result is ', fmt(10.0/3.0,"'[',g0.5,']'")
+
+       output=fmt(.true.,"'The final answer is [',g0,']'")
+       write(*,*)'result is ',output
+       ! operator
+       string=1234.fmt.'"[",i0,"]"'
+       write(*,*)string
+       ! tests
+       write(*,*)'the value is ',fmt(1234.5679,'f0.3'),' or there-abouts'
+
+       write(*,*)1234.0 .fmt. '"[",g0,"]"' ! .eq. '[1234]' 
+
+       string=10//' is an integer and '//(11.00,22.00)//' is a complex'
+       write(*,*)string
+
+    end program demo_fmt
+
+  Results:
+
+ >  result is [10]
+ >  result is [3.3333]
+ >  result is The final answer is [T]
+ >  [1234]
+ >  the value is 1234.568 or there-abouts
+ >  [1234.00000]
+ >  10 is an integer and <ERROR>End of file is a complex
+================================================================================
+
+
+AUTHOR
+   John S. Urban
+
+LICENSE
+   Public Domain
+$BLOCK
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+! if recursive hits ifx bug, so redo complex values
+recursive function fmt(generic,format) result (line)
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
 
-$@(#) M_overload::ffmt(3f): convert any intrinsic to a string using specified format
+$@(#) M_overload::fmt(3f): convert any intrinsic to a string using specified format
 
 class(*),intent(in)          :: generic
-character(len=*),intent(in)  :: format
+character(len=*),intent(in),optional  :: format
 character(len=:),allocatable :: line
 character(len=:),allocatable :: fmt_local
-integer                      :: ios
-character(len=255)           :: msg
-character(len=1),parameter   :: nill=char(0)
+character(len=:),allocatable :: re,im
+integer                      :: iostat
+character(len=255)           :: iomsg
+character(len=1),parameter   :: null=char(0)
 integer                      :: ilen
-   fmt_local=format
+logical                      :: trimit
+   if(present(format))then
+      fmt_local=format
+      trimit=.false.
+   else
+      fmt_local=''
+      trimit=.true.
+   endif
    ! add ",a" and print null and use position of null to find length of output
    ! add cannot use SIZE= or POS= or ADVANCE='NO' on WRITE() on INTERNAL READ,
    ! and do not want to trim as trailing spaces can be significant
-   if(fmt_local.eq.'')then
+   if(fmt_local == '')then
       select type(generic)
          type is (integer(kind=int8));     fmt_local='(i0,a)'
          type is (integer(kind=int16));    fmt_local='(i0,a)'
@@ -645,7 +731,8 @@ integer                      :: ilen
          type is (integer(kind=int64));    fmt_local='(i0,a)'
          type is (real(kind=real32));      fmt_local='(1pg0,a)'
          type is (real(kind=real64));      fmt_local='(1pg0,a)'
-#ifdef HAS_REAL128
+#ifdef __NVCOMPILER
+#else
          type is (real(kind=real128));     fmt_local='(1pg0,a)'
 #endif
          type is (logical);                fmt_local='(l1,a)'
@@ -653,42 +740,156 @@ integer                      :: ilen
          type is (complex);                fmt_local='("(",1pg0,",",1pg0,")",a)'
       end select
    else
-      if(format(1:1).eq.'(')then
+      if(format(1:1) == '(')then
          fmt_local=format(:len_trim(format)-1)//',a)'
       else
          fmt_local='('//fmt_local//',a)'
       endif
    endif
-   allocate(character(len=256) :: line) ! cannot currently write into allocatable variable
-   ios=0
+   allocate(character(len=256) :: line) ! cannot currently write into unallocated allocatable variable
+   iostat=0
    select type(generic)
-      type is (integer(kind=int8));     write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-      type is (integer(kind=int16));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-      type is (integer(kind=int32));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-      type is (integer(kind=int64));    write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-      type is (real(kind=real32));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-      type is (real(kind=real64));      write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-#ifdef HAS_REAL128
-      type is (real(kind=real128));     write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (integer(kind=int8));     write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+      type is (integer(kind=int16));    write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+      type is (integer(kind=int32));    write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+      type is (integer(kind=int64));    write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+      type is (real(kind=real32));      write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+      type is (real(kind=real64));      write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+#ifdef __NVCOMPILER
+#else
+      type is (real(kind=real128));     write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
 #endif
-      type is (logical);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-      type is (character(len=*));       write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
-      type is (complex);                write(line,fmt_local,iostat=ios,iomsg=msg) generic,nill
+      type is (logical);                write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+      type is (character(len=*));       write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+      type is (complex);                
+              if(trimit)then
+                 re=fmt(generic%re)
+                 im=fmt(generic%im)
+                 call trimzeros_(re)
+                 call trimzeros_(im)
+                 fmt_local='("(",g0,",",g0,")",a)'
+                 write(line,fmt_local,iostat=iostat,iomsg=iomsg) trim(re),trim(im),null
+                 trimit=.false.
+              else
+                 write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+              endif
    end select
-   if(ios.ne.0)then
-      line='<ERROR>'//trim(msg)
+   if(iostat /= 0)then
+      line='<ERROR>'//trim(iomsg)
    else
-      ilen=index(line,nill,back=.true.)
-      if(ilen.eq.0)ilen=len(line)
+      ilen=index(line,null,back=.true.)
+      if(ilen == 0)ilen=len(line)
       line=line(:ilen-1)
    endif
+
+   if(index(line,'.') /= 0 .and. trimit) call trimzeros_(line)
+
+end function fmt
+!===================================================================================================================================
+function ffmt(generic,format) result (line)
+! Second argument of operator interface at (1) cannot be optional so call fmt
+
+$@(#) M_overload::ffmt(3f): convert any intrinsic to a string using required specified format
+
+class(*),intent(in)          :: generic
+character(len=*),intent(in)  :: format
+character(len=:),allocatable :: line
+   line=fmt(generic,format)
 end function ffmt
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
+!===================================================================================================================================
+$BLOCK COMMENT --file PRIVATE/trimzeros_.3m_overload.man
+NAME
+   trimzeros_(3fp) - [M_overload:TYPE] Delete trailing zeros from
+   numeric decimal string
+   (LICENSE:PD)
+
+SYNOPSIS
+   subroutine trimzeros_(str)
+
+    character(len=*)  :: str
+
+DESCRIPTION
+   TRIMZEROS_(3f) deletes trailing zeros from a string representing a
+   number. If the resulting string would end in a decimal point, one
+   trailing zero is added.
+
+OPTIONS
+   str   input string will be assumed to be a numeric value and have
+         trailing zeros removed
+EXAMPLES
+   Sample program:
+
+      program demo_trimzeros_
+      use M_overload, only : trimzeros_
+      character(len=:),allocatable :: string
+         string='123.450000000000';  call  printme()
+         string='12345';             call  printme()
+         string='12345.';            call  printme()
+         string='12345.00e3';        call  printme()
+      contains
+      subroutine printme()
+         call trimzeros_(string)
+         write(*,*)string
+      end subroutine printme
+      end program demo_trimzeros_
+
+AUTHOR
+   John S. Urban
+
+LICENSE
+   Public Domain
+$ENDBLOCK
+$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+subroutine trimzeros_(string)
+
+$@(#) M_overload::trimzeros_(3fp): Delete trailing zeros from numeric decimal string
+
+! if zero needs added at end assumes input string has room
+character(len=*)               :: string
+character(len=len(string) + 2) :: str
+character(len=len(string))     :: exp        ! the exponent string if present
+integer                        :: ipos       ! where exponent letter appears if present
+integer                        :: i, ii
+   str = string                              ! working copy of string
+   ipos = scan(str, 'eEdD')                  ! find end of real number if string uses exponent notation
+   if (ipos > 0) then                        ! letter was found
+      exp = str(ipos:)                       ! keep exponent string so it can be added back as a suffix
+      str = str(1:ipos - 1)                  ! just the real part, exponent removed will not have trailing zeros removed
+   endif
+   if (index(str, '.') == 0) then            ! if no decimal character in original string add one to end of string
+      ii = len_trim(str)
+      str(ii + 1:ii + 1) = '.'               ! add decimal to end of string
+   endif
+   do i = len_trim(str), 1, -1               ! scanning from end find a non-zero character
+      select case (str(i:i))
+      case ('0')                             ! found a trailing zero so keep trimming
+         cycle
+      case ('.')                             ! found a decimal character at end of remaining string
+         if (i <= 1) then
+            str = '0'
+         else
+            str = str(1:i - 1)
+         endif
+         exit
+      case default
+         str = str(1:i)                      ! found a non-zero character so trim string and exit
+         exit
+      end select
+   end do
+   if (ipos > 0) then                        ! if originally had an exponent place it back on
+      string = trim(str)//trim(exp)
+   else
+      string = str
+   endif
+end subroutine trimzeros_
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 subroutine sub_s2v(chars,valu,ierr,onerr)
 
-!$@(#) M_strings::sub_s2v(3fp): subroutine returns double value from string
+!$@(#) M_overload::sub_s2v(3fp): subroutine returns double value from string
 
 !     1989,2016 John S. Urban.
 !
@@ -736,8 +937,8 @@ end subroutine sub_s2v
 function s2v(string) result (value)
 character(len=*),intent(in) :: string
 doubleprecision             :: value
-integer                     :: ierr, onerr
-   call sub_s2v(string,value,ierr)! , ierr, onerr)
+integer                     :: ierr
+   call sub_s2v(string,value,ierr)
 end function s2v
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
@@ -964,8 +1165,8 @@ LICENSE
    Public Domain
 $BLOCK END
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-pure elemental integer function oz(expr) 
-$@(#) M_strings::oz(3f): logical to integer, TRUE results in 1, FALSE results in 0
+pure elemental integer function oz(expr)
+$@(#) M_overload::oz(3f): logical to integer, TRUE results in 1, FALSE results in 0
 logical, intent(in) :: expr
    oz = merge(1, 0, expr) ! One and Zero
 end function oz
@@ -1016,44 +1217,44 @@ LICENSE
    Public Domain
 $BLOCK END
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-pure elemental integer function zo(expr) 
-$@(#) M_strings::zo(3f): logical to integer, TRUE results in 0, FALSE results in 1
+pure elemental integer function zo(expr)
+$@(#) M_overload::zo(3f): logical to integer, TRUE results in 0, FALSE results in 1
 logical, intent(in) :: expr
    zo = merge(0, 1, expr) ! Zero and One
 end function zo
 
-pure elemental integer function ge(ia,ib) 
-$@(#) M_strings::ge(3f): logical to integer, TRUE results in 0, FALSE results in 1
+pure elemental integer function ge(ia,ib)
+$@(#) M_overload::ge(3f): logical to integer, TRUE results in 0, FALSE results in 1
 integer,intent(in)  :: ia, ib
    ge = merge(1, 0, ia .ge. ib )
 end function ge
 
-pure elemental integer function le(ia,ib) 
-$@(#) M_strings::le(3f): logical to integer, TRUE results in 0, FALSE results in 1
+pure elemental integer function le(ia,ib)
+$@(#) M_overload::le(3f): logical to integer, TRUE results in 0, FALSE results in 1
 integer,intent(in)  :: ia, ib
    le = merge(1, 0, ia .le. ib )
 end function le
 
-pure elemental integer function eq(ia,ib) 
-$@(#) M_strings::eq(3f): logical to integer, TRUE results in 0, FALSE results in 1
+pure elemental integer function eq(ia,ib)
+$@(#) M_overload::eq(3f): logical to integer, TRUE results in 0, FALSE results in 1
 integer,intent(in)  :: ia, ib
    eq = merge(1, 0, ia .eq. ib )
 end function eq
 
-pure elemental integer function lt(ia,ib) 
-$@(#) M_strings::lt(3f): logical to integer, TRUE results in 0, FALSE results in 1
+pure elemental integer function lt(ia,ib)
+$@(#) M_overload::lt(3f): logical to integer, TRUE results in 0, FALSE results in 1
 integer,intent(in)  :: ia, ib
    lt = merge(1, 0, ia .lt. ib )
 end function lt
 
-pure elemental integer function gt(ia,ib) 
-$@(#) M_strings::gt(3f): logical to integer, TRUE results in 0, FALSE results in 1
+pure elemental integer function gt(ia,ib)
+$@(#) M_overload::gt(3f): logical to integer, TRUE results in 0, FALSE results in 1
 integer,intent(in)  :: ia, ib
    gt = merge(1, 0, ia .lt. ib )
 end function gt
 
-pure elemental integer function ne(ia,ib) 
-$@(#) M_strings::ne(3f): logical to integer, TRUE results in 0, FALSE results in 1
+pure elemental integer function ne(ia,ib)
+$@(#) M_overload::ne(3f): logical to integer, TRUE results in 0, FALSE results in 1
 integer,intent(in)  :: ia, ib
    ne = merge(1, 0, ia .lt. ib )
 end function ne

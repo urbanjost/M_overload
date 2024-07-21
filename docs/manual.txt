@@ -1,161 +1,8 @@
+fmt (3m_overload)    - [M_overload] convert any intrinsic to a string using specified format (LICENSE:PD)
 M_overload (3m_overload) - [M_overload::INTRO] overloads of standard operators and intrinsic procedures (LICENSE:PD)
 oz (3m_overload)     - [M_overload::LOGICAL] returns One if expression is TRUE, else returns Zero. (LICENSE:PD)
 to (3m_overload)     - [M_overload::LOGICAL] return array of adjacent integers over specified range, inclusive (LICENSE:PD)
 zo (3m_overload)     - [M_overload::LOGICAL] returns Zero if expression is FALSE, else returns One. (LICENSE:PD)
-oz(3m_overload) 					       oz(3m_overload)
-
-
-
-NAME
-  oz(3f) - [M_overload::LOGICAL] returns One if expression is TRUE, else
-  returns Zero.  (LICENSE:PD)
-
-SYNOPSIS
-  pure elemental integer function oz(expr)
-
-      logical,intent(in) :: expr
-
-
-DESCRIPTION
-  Returns an integer given a logical expression.
-
-OPTIONS
-  expr
-    A logical expression
-
-RETURNS
-  The result is a default INTEGER value of 1 if the expression is TRUE, and a
-  0 otherwise.
-
-EXAMPLES
-  Sample usage:
-
-     program demo_oz
-     use M_overload, only: oz, zo, lt, le, eq, ne, gt, ge
-     implicit none
-	write (*, *) 'is 10 < 20 ?', oz(10 < 20)
-	write (*, *) 'elemental', oz([2 > 1, 3 == 4, 10 < 5, 100 > 50])
-	if (sum(oz([2 > 1, 3 == 4, 10 < 5, 100 > 50])) >= 2) then
-	   write (*, *) 'two or more are true'
-	endif
-     end program demo_oz
-
-  Results:
-
-      > is 10 < 20 ? 1
-      > elemental 1 0 0 1
-      > two or more are true
-
-
-AUTHOR
-  John S. Urban
-
-LICENSE
-  Public Domain
-
-
-
-				 May 20, 2024		       oz(3m_overload)
-zo(3m_overload) 					       zo(3m_overload)
-
-
-
-NAME
-  zo(3f) - [M_overload::LOGICAL] returns Zero if expression is FALSE, else
-  returns One.	(LICENSE:PD)
-
-SYNOPSIS
-  pure elemental integer function zo(expr)
-
-      logical,intent(in) :: expr
-
-
-DESCRIPTION
-  Returns an integer given a logical expression.
-
-OPTIONS
-  expr
-    A logical expression
-
-RETURNS
-  The result is a default INTEGER value of 0 if the expression is TRUE, and a
-  1 otherwise.
-
-EXAMPLES
-  Sample usage:
-
-     program demo_zo
-     use M_overload, only: zo, zo, lt, le, eq, ne, gt, ge
-     implicit none
-     write (*, *) zo(10 < 20)
-     if (sum(zo([1 > 2, 3 == 4, 10 < 5, 100 > 50])) > 2) then
-	write (*, *) 'two or more are not true'
-     endif
-     end program demo_zo
-
-  Results:
-
-     >		 0
-     >	two or more are not true
-
-
-AUTHOR
-  John S. Urban
-
-LICENSE
-  Public Domain
-
-
-
-				 May 20, 2024		       zo(3m_overload)
-to(3m_overload) 					       to(3m_overload)
-
-
-
-NAME
-  to(3f) - [M_overload::LOGICAL] return array of adjacent integers over
-  specified range, inclusive (LICENSE:PD)
-
-SYNOPSIS
-  pure elemental integer function to(i,j)
-
-      integer,intent(in) :: i
-      integer,intent(in) :: j
-      integer,allocatable :: to
-
-
-DESCRIPTION
-  A convenience for expressing [(integer :: i=N,M)]
-
-OPTIONS
-  I starting value
-
-  J ending value
-
-RETURNS
-  An array of adjacent whole numbers from I to J
-
-EXAMPLES
-  Sample usage:
-
-     program demo_to
-     use M_overload, only: to, operator(.to.)
-     implicit none
-	print*,[11.to.16]
-	print*,2.5 * [1.to.4]
-	print*,2.5 * to(1,4)+10
-     end program demo_to
-
-
-AUTHOR
-  John S. Urban, inspired by @beliavsky
-
-LICENSE
-  Public Domain
-
-
-
-				 May 20, 2024		       to(3m_overload)
 M_overload(3m_overload) 			       M_overload(3m_overload)
 
 
@@ -189,7 +36,7 @@ SYNOPSIS
 
   other operators
 
-     .fmt.    ! convert an intrinsic value to a CHARACTER variable
+     .fmt.    ! convert an intrinsic value to a CHARACTER variable using format
      N.to.M   ! equivalent of [(integer :: i,i=N,M)], generates a range of
 	      ! adjacent whole numbers
 
@@ -350,4 +197,248 @@ LICENSE
 
 
 
-				 May 20, 2024	       M_overload(3m_overload)
+				 July 21, 2024	       M_overload(3m_overload)
+to(3m_overload) 					       to(3m_overload)
+
+
+
+NAME
+  to(3f) - [M_overload::LOGICAL] return array of adjacent integers over
+  specified range, inclusive (LICENSE:PD)
+
+SYNOPSIS
+  pure elemental integer function to(i,j)
+
+      integer,intent(in) :: i
+      integer,intent(in) :: j
+      integer,allocatable :: to
+
+
+DESCRIPTION
+  A convenience for expressing [(integer :: i=N,M)]
+
+OPTIONS
+  I starting value
+
+  J ending value
+
+RETURNS
+  An array of adjacent whole numbers from I to J
+
+EXAMPLES
+  Sample usage:
+
+     program demo_to
+     use M_overload, only: to, operator(.to.)
+     implicit none
+	print*,[11.to.16]
+	print*,2.5 * [1.to.4]
+	print*,2.5 * to(1,4)+10
+     end program demo_to
+
+
+AUTHOR
+  John S. Urban, inspired by @beliavsky
+
+LICENSE
+  Public Domain
+
+
+
+				 July 21, 2024		       to(3m_overload)
+zo(3m_overload) 					       zo(3m_overload)
+
+
+
+NAME
+  zo(3f) - [M_overload::LOGICAL] returns Zero if expression is FALSE, else
+  returns One.	(LICENSE:PD)
+
+SYNOPSIS
+  pure elemental integer function zo(expr)
+
+      logical,intent(in) :: expr
+
+
+DESCRIPTION
+  Returns an integer given a logical expression.
+
+OPTIONS
+  expr
+    A logical expression
+
+RETURNS
+  The result is a default INTEGER value of 0 if the expression is TRUE, and a
+  1 otherwise.
+
+EXAMPLES
+  Sample usage:
+
+     program demo_zo
+     use M_overload, only: zo, zo, lt, le, eq, ne, gt, ge
+     implicit none
+     write (*, *) zo(10 < 20)
+     if (sum(zo([1 > 2, 3 == 4, 10 < 5, 100 > 50])) > 2) then
+	write (*, *) 'two or more are not true'
+     endif
+     end program demo_zo
+
+  Results:
+
+     >		 0
+     >	two or more are not true
+
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+				 July 21, 2024		       zo(3m_overload)
+oz(3m_overload) 					       oz(3m_overload)
+
+
+
+NAME
+  oz(3f) - [M_overload::LOGICAL] returns One if expression is TRUE, else
+  returns Zero.  (LICENSE:PD)
+
+SYNOPSIS
+  pure elemental integer function oz(expr)
+
+      logical,intent(in) :: expr
+
+
+DESCRIPTION
+  Returns an integer given a logical expression.
+
+OPTIONS
+  expr
+    A logical expression
+
+RETURNS
+  The result is a default INTEGER value of 1 if the expression is TRUE, and a
+  0 otherwise.
+
+EXAMPLES
+  Sample usage:
+
+     program demo_oz
+     use M_overload, only: oz, zo, lt, le, eq, ne, gt, ge
+     implicit none
+	write (*, *) 'is 10 < 20 ?', oz(10 < 20)
+	write (*, *) 'elemental', oz([2 > 1, 3 == 4, 10 < 5, 100 > 50])
+	if (sum(oz([2 > 1, 3 == 4, 10 < 5, 100 > 50])) >= 2) then
+	   write (*, *) 'two or more are true'
+	endif
+     end program demo_oz
+
+  Results:
+
+      > is 10 < 20 ? 1
+      > elemental 1 0 0 1
+      > two or more are true
+
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+				 July 21, 2024		       oz(3m_overload)
+fmt(3m_overload)					      fmt(3m_overload)
+
+
+
+NAME
+  fmt(3f) - [M_overload] convert any intrinsic to a string using specified
+  format (LICENSE:PD)
+
+SYNOPSIS
+  function fmt(value,format) result(string)
+
+      class(*),intent(in),optional :: value
+      character(len=*),intent(in),optional :: format
+      character(len=:),allocatable :: string
+
+DESCRIPTION
+  FMT(3f) converts any standard intrinsic value to a string using the
+  specified format.
+
+OPTIONS
+  value
+    value to print the value of. May be of type INTEGER, LOGICAL, REAL,
+    DOUBLEPRECISION, COMPLEX, or CHARACTER.
+
+  format
+    format to use to print value. It is up to the user to use an appropriate
+    format. The format does not require being surrounded by parenthesis. If
+    not present a default is selected similar to what would be produced with
+    free format, with trailing zeros removed.
+
+RETURNS
+  string
+    A string value
+
+EXAMPLES
+  Sample program:
+
+      program demo_fmt
+      use :: M_overload, only : fmt
+      use :: M_overload, only : operator(.fmt.)
+      use :: M_overload, only : operator( // )
+      implicit none
+      character(len=:),allocatable :: output
+      character(len=:), allocatable :: string
+
+	 write(*,*)'result is ', fmt(10,"'[',i0,']'")
+
+	 write(*,*)'result is ', fmt(10.0/3.0,"'[',g0.5,']'")
+
+	 output=fmt(.true.,"'The final answer is [',g0,']'")
+	 write(*,*)'result is ',output
+	 ! operator
+	 string=1234.fmt.'"[",i0,"]"'
+	 write(*,*)string
+	 ! tests
+	 write(*,*)'the value is ',fmt(1234.5679,'f0.3'),' or there-abouts'
+
+	 write(*,*)1234.0 .fmt. '"[",g0,"]"' ! .eq. '[1234]'
+
+	 string=10//' is an integer and '//(11.00,22.00)//' is a complex'
+	 write(*,*)string
+
+      end program demo_fmt
+
+  Results:
+
+  > result is [10]
+
+    > result is [3.3333]
+
+    > result is The final answer is [T]
+
+    > [1234]
+
+    > the value is 1234.568 or there-abouts
+
+    > [1234.00000]
+
+    > 10 is an integer and <ERROR>End of file is a complex
+      ================================================================================
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+				 July 21, 2024		      fmt(3m_overload)
