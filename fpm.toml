@@ -1,12 +1,12 @@
 # TOML file for fpm as described at https://fpm.fortran-lang.org/en/spec/manifest.html
 name = "M_overload"
 version = "1.0.0"
-license = "MIT, custom OpenSource license"
+license = "MIT"
 author = ["John S. Urban" ]
 maintainer = "urbanjost@comcast.com"
 copyright = "Copyright 2021, John S. Urban"
 description = "Common Fortran overloads of operators and intrinsics"
-categories = ["Universally Unique ID"]
+categories = ["overload"]
 keywords = ["fortran", "overload" ]
 homepage = "https://github.com/urbanjost/M_overload.git"
 
