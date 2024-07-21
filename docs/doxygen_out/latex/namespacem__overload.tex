@@ -1,0 +1,445 @@
+\hypertarget{namespacem__overload}{}\doxysection{m\+\_\+overload Module Reference}
+\label{namespacem__overload}\index{m\_overload@{m\_overload}}
+\doxysubsection*{Data Types}
+\begin{DoxyCompactItemize}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1adjustl}{adjustl}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1adjustr}{adjustr}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1dble}{dble}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1int}{int}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1merge}{merge}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1operator_07_8fmt_8_08}{operator(.\+fmt.)}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1operator_07_2_2_08}{operator(//)}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1operator_07_2_0a_08}{operator(/=)}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1operator_07_0a_0a_08}{operator(==)}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1real}{real}}
+\item 
+interface \mbox{\hyperlink{interfacem__overload_1_1sign}{sign}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions/\+Subroutines}
+\begin{DoxyCompactItemize}
+\item 
+character(len=\+:) function, allocatable \mbox{\hyperlink{namespacem__overload_a9bed050c6c6decb7dabcfb9788310005}{g\+\_\+g}} (value1, value2)
+\item 
+elemental character(len=max(len(str1), len(str2))) function \mbox{\hyperlink{namespacem__overload_a0c52690a3fa7b1cefe2991dccf6cf27a}{strmerge}} (str1, str2, expr)
+\item 
+function \mbox{\hyperlink{namespacem__overload_a5fd4be7269c6e87e41ee6c011bb0312b}{adjustl\+\_\+atleast}} (line, length)
+\item 
+function \mbox{\hyperlink{namespacem__overload_acfeb6770f4f28ff0fe8a149b88ff8fd4}{adjustr\+\_\+atleast}} (line, length)
+\item 
+elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real128) function \mbox{\hyperlink{namespacem__overload_a879f9902c6942e3e72fb11502574b633}{sign\+\_\+real128}} (value)
+\item 
+elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real64) function \mbox{\hyperlink{namespacem__overload_a0dc9425a247792e96dd19f3b6bc375f2}{sign\+\_\+real64}} (value)
+\item 
+elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real32) function \mbox{\hyperlink{namespacem__overload_a99c64ee596645245ccc0822a3fc5bf7f}{sign\+\_\+real32}} (value)
+\item 
+elemental integer(kind=int64) function \mbox{\hyperlink{namespacem__overload_a14eb40f394498e1691f44bca98da8ab0}{sign\+\_\+int64}} (value)
+\item 
+elemental integer(kind=int32) function \mbox{\hyperlink{namespacem__overload_a19665cec0cdb37864242fa0384d80124}{sign\+\_\+int32}} (value)
+\item 
+elemental integer(kind=int16) function \mbox{\hyperlink{namespacem__overload_acd080490d72682958bc762e5fab3f226}{sign\+\_\+int16}} (value)
+\item 
+elemental integer(kind=int8) function \mbox{\hyperlink{namespacem__overload_a886aea5362aede11fe9d8819338b13ad}{sign\+\_\+int8}} (value)
+\item 
+logical function, public \mbox{\hyperlink{namespacem__overload_a901c1a1e50ae71b6743b66a9f18ff4e5}{boolean\+\_\+equal}} (logical\+\_\+val1, logical\+\_\+val2)
+\item 
+logical function, public \mbox{\hyperlink{namespacem__overload_a39c2ef1e89c70a6d959935860b392151}{boolean\+\_\+notequal}} (logical\+\_\+val1, logical\+\_\+val2)
+\item 
+doubleprecision function \mbox{\hyperlink{namespacem__overload_ae14db74c7dfcc0b10be826ace135372c}{dble\+\_\+s2v}} (chars)
+\item 
+\mbox{\hyperlink{interfacem__overload_1_1real}{real}} function \mbox{\hyperlink{namespacem__overload_a065a842ae14e6b232d342afd48006f46}{real\+\_\+s2v}} (chars)
+\item 
+integer function \mbox{\hyperlink{namespacem__overload_a98ed72ed07b6f7e2deac0c0617c72919}{int\+\_\+s2v}} (chars)
+\item 
+integer function, dimension(\+:), allocatable \mbox{\hyperlink{namespacem__overload_a3ae5cced568b6459920648d1eae49fc5}{ints\+\_\+s2v}} (chars)
+\item 
+\mbox{\hyperlink{interfacem__overload_1_1real}{real}} function, dimension(\+:), allocatable \mbox{\hyperlink{namespacem__overload_a3e20f3930462632b05bd741357a815bc}{reals\+\_\+s2v}} (chars)
+\item 
+doubleprecision function, dimension(\+:), allocatable \mbox{\hyperlink{namespacem__overload_ada276598be00d66b67912937869c787f}{dbles\+\_\+s2v}} (chars)
+\item 
+character(len=\+:) function, allocatable \mbox{\hyperlink{namespacem__overload_a23a972351255255eb9b2c4ad0fde3421}{ffmt}} (generic, format)
+\item 
+subroutine \mbox{\hyperlink{namespacem__overload_ae2413c0d37d85984f568e8511e7d30da}{sub\+\_\+s2v}} (chars, valu, ierr, onerr)
+\item 
+doubleprecision function \mbox{\hyperlink{namespacem__overload_ad722ec11ab1ce247fda95272405c4b43}{s2v}} (string)
+\item 
+function \mbox{\hyperlink{namespacem__overload_a5046c5b54ae4e39ffb7d22b178560515}{atleast}} (line, length, pattern)
+\item 
+pure elemental doubleprecision function \mbox{\hyperlink{namespacem__overload_a7ec8bf34248393266139e3290b99b367}{anyscalar\+\_\+to\+\_\+double}} (valuein)
+\item 
+impure elemental integer(kind=int64) function \mbox{\hyperlink{namespacem__overload_ae69131706c917c816f2d3ab7015eb08f}{anyscalar\+\_\+to\+\_\+int64}} (valuein)
+\item 
+pure elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}} function \mbox{\hyperlink{namespacem__overload_aafa8f40d8d234c266dc253a24c7f0437}{anyscalar\+\_\+to\+\_\+real}} (valuein)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{namespacem__overload_autotoc_md0}{}\doxysubsubsection{N\+A\+ME}\label{namespacem__overload_autotoc_md0}
+M\+\_\+overload(3fm) -\/ \mbox{[}M\+\_\+overload\+::\+I\+N\+T\+RO\mbox{]} overloads of standard operators and intrinsic procedures (L\+I\+C\+E\+N\+SE\+:PD) \hypertarget{namespacem__overload_autotoc_md1}{}\doxysubsubsection{S\+Y\+N\+O\+P\+S\+IS}\label{namespacem__overload_autotoc_md1}
+overloads on L\+O\+G\+I\+C\+AL values
+
+! use == like .eqv.; ie. logical==logical use M\+\_\+overload, only \+: operator(==) ! use /= like .neqv.; ie. logical/=logical use M\+\_\+overload, only \+: operator(/=)
+
+overloads on I\+N\+T\+R\+I\+N\+S\+I\+CS to take strings, logicals, and metamorphic numeric intrinsic values
+
+use M\+\_\+overload, only \+: int, real, dble ! int(\textquotesingle{}string\textquotesingle{}) int(logical) int(class($\ast$)) ! real(\textquotesingle{}string\textquotesingle{}) real(logical) real(class($\ast$)) ! dble(\textquotesingle{}string\textquotesingle{}) dble(logical) dble(class($\ast$))
+
+overloads on operators
+
+use M\+\_\+overload, only \+: operator(==) ! I\+N\+T\+R\+I\+N\+S\+IC // I\+N\+T\+R\+I\+N\+S\+IC // I\+N\+T\+R\+I\+N\+S\+IC ...
+
+! When sign(3f) is given a single value, call sign(1,value); ie. sign(value) use M\+\_\+overload, only \+: sign
+
+Allow strings of different length in M\+E\+R\+GE \begin{DoxyVerb}use M_overload, only : merge
+str=merge('one','three',i.eq.10)
+\end{DoxyVerb}
+\hypertarget{namespacem__overload_autotoc_md2}{}\doxysubsubsection{O\+T\+H\+E\+R O\+P\+E\+R\+A\+T\+O\+RS}\label{namespacem__overload_autotoc_md2}
+\begin{DoxyVerb}intrinsic_value .fmt. ''   convert an intrinsic value to a CHARACTER variable
+\end{DoxyVerb}
+\hypertarget{namespacem__overload_autotoc_md3}{}\doxysubsubsection{D\+E\+S\+C\+R\+I\+P\+T\+I\+ON}\label{namespacem__overload_autotoc_md3}
+Operator and function overloads have a wide range of applications from allowing existing Fortran routines to be used with almost no source-\/code changes to produce versions using arbitrary precision or cumulative error bounds on floating-\/point calculations to adding intuitive syntax for standard Fortran operations.\hypertarget{namespacem__overload_autotoc_md4}{}\doxysubsubsection{O\+V\+E\+R\+L\+O\+A\+DS}\label{namespacem__overload_autotoc_md4}
+// overloads // to concatenate any two intrinsic types into a string
+
+==,/= Allow the syntax \char`\"{}\+L1 == L2\char`\"{} and \char`\"{}\+L1 /= L2\char`\"{} where L1 and L2 are type L\+O\+G\+I\+C\+AL as an alternative to the standard expressions \char`\"{}\+L1 .\+E\+Q\+V. L2\char`\"{} and \char`\"{}\+L1 .\+N\+E\+Q\+V. L2\char`\"{}.
+
+It should be pointed out that
+
+L1 == L2 !! should be L1 .eqv. L2
+
+and
+
+L1 /= L2 !! should be L1 .neqv. L2
+
+should N\+OT work by default; but often do (probably because the compiler silently converts L\+O\+G\+I\+C\+AL to I\+N\+T\+E\+G\+ER when a L\+O\+G\+I\+C\+AL appears where a numeric value is required). If your compiler supports this non-\/standard (but intuitive-\/looking) syntax you can use this module to allow the syntax in a portable manner with a standard method.
+
+int(), real(), dble() allow strings to be converted to numeric values using the standard intrinsic names
+
+sign(value) call sign(1,value)
+
+\begin{DoxyVerb}str=merge('little','big',a.eq.10)  allows for strings of different lengths
+\end{DoxyVerb}
+\hypertarget{namespacem__overload_autotoc_md5}{}\doxysubsubsection{E\+X\+A\+M\+P\+L\+ES}\label{namespacem__overload_autotoc_md5}
+Sample usage\+:
+
+program demo\+\_\+\+M\+\_\+overload
+
+use, intrinsic \+:: iso\+\_\+fortran\+\_\+env, only \+: \& \& integer\+\_\+kinds, int8, int16, int32, int64 use, intrinsic \+:: iso\+\_\+fortran\+\_\+env, only \+: \& \& real32, real64, real128
+
+! allow strings to be converted to integers use M\+\_\+overload, only \+: int ! allow strings to be converted to floating point use M\+\_\+overload, only \+: real,dble ! use == like .eqv. use M\+\_\+overload, only \+: operator(==) ! use /= like .neqv. use M\+\_\+overload, only \+: operator(/=) use M\+\_\+overload, only \+: operator(//) ! take a single argument use M\+\_\+overload, only \+: sign ! allow strings of different length on merge use M\+\_\+overload, only \+: merge implicit none character(len=\+:),allocatable \+:: cmd character(len=$\ast$), parameter \+:: gen=\textquotesingle{}($\ast$(\char`\"{}\mbox{[}\char`\"{},g0,\char`\"{}\mbox{]}\char`\"{}\+:,\char`\"{},\char`\"{}))\textquotesingle{}
+
+write($\ast$,gen)merge(\textquotesingle{}a\textquotesingle{},\textquotesingle{}bbbbb\textquotesingle{},1.\+eq.\+1) write($\ast$,gen)merge(\textquotesingle{}a\textquotesingle{},\textquotesingle{}bbbbb\textquotesingle{},1.\+eq.\+2) write($\ast$,gen)merge(\mbox{[}\textquotesingle{}a\textquotesingle{},\textquotesingle{}b\textquotesingle{}\mbox{]},\mbox{[}\textquotesingle{}bbbbb\textquotesingle{},\textquotesingle{}ccccc\textquotesingle{}\mbox{]},1.\+eq.\+2)
+
+if(int(\textquotesingle{}1234\textquotesingle{}) .eq.\+1234) \& \& write($\ast$,$\ast$)\textquotesingle{}int(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works \textquotesingle{} if(abs(real(\textquotesingle{}1234.\+56789\textquotesingle{}) -\/ 1234.\+56789).lt.\+2$\ast$epsilon(0.\+0)) \& \& write($\ast$,$\ast$)\textquotesingle{}real(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works \textquotesingle{} if(abs(dble(\textquotesingle{}1234.\+5678901234567\textquotesingle{})-\/ 1234.\+5678901234567d0).lt.\+epsilon(0.\+0d0)) \& \& write($\ast$,$\ast$)\textquotesingle{}dble(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works \textquotesingle{}
+
+write($\ast$,$\ast$) merge(\textquotesingle{}int works for .F\+A\+L\+SE.\textquotesingle{},\textquotesingle{}int fails for .F\+A\+L\+SE.\textquotesingle{},int(.F\+A\+L\+SE.).ne.\+0) write($\ast$,$\ast$) merge(\textquotesingle{}int works for .T\+R\+UE.\textquotesingle{},\textquotesingle{}int fails for .T\+R\+UE.\textquotesingle{},int(.T\+R\+UE.).eq.\+0)
+
+if (.true. == .true. ) \& \& write($\ast$,$\ast$)\textquotesingle{}== works like .eqv. for L\+O\+G\+I\+C\+AL values\textquotesingle{} if (.true. /= .false. ) \& \& write($\ast$,$\ast$)\textquotesingle{}/= works like .neqv. for L\+O\+G\+I\+C\+AL values\textquotesingle{}
+
+write($\ast$,$\ast$)\textquotesingle{} The value is \textquotesingle{}//10//\textquotesingle{} which is less than \textquotesingle{}//20.2
+
+\begin{DoxyVerb}  write(*,*) merge('sign works','sign fails',&
+   & sign(10_int8).eq.1 &
+   & .and. sign(-10_int8).eq.-1 )
+  write(*,*) merge('sign works','sign fails',&
+   & sign(10_int16).eq.1 &
+   & .and. sign(-10_int16).eq.-1 )
+  write(*,*) merge('sign works','sign fails',&
+   & sign(10_int32).eq.1 &
+   & .and. sign(-10_int32).eq.-1 )
+  write(*,*) merge('sign works','sign fails',&
+   & sign(10_int64).eq.1 &
+   & .and. sign(-10_int64).eq.-1 )
+  write(*,*) merge('sign works','sign fails',&
+   & sign(10.0_real32).eq.1.0 &
+   & .and. sign(-10.0_real32).eq.-1.0 )
+  write(*,*) merge('sign works','sign fails',&
+   & sign(10.0_real64).eq.1.0 &
+   & .and. sign(-10.0_real64).eq.-1.0 )
+  write(*,*) merge('sign works','sign fails',&
+   & sign(10.0_real128).eq.1.0&
+   & .and. sign(-10.0_real128).eq.-1.0 )
+contains
+
+end program demo_M_overload
+\end{DoxyVerb}
+
+
+Results\+: $>$ \mbox{[}a \mbox{]} $>$ \mbox{[}bbbbb\mbox{]} $>$ \mbox{[}bbbbb\mbox{]},\mbox{[}ccccc\mbox{]} $>$ int(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works $>$ real(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works $>$ dble(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works $>$ == works like .eqv. for L\+O\+G\+I\+C\+AL values $>$ /= works like .neqv. for L\+O\+G\+I\+C\+AL values $>$ 444 555 $>$ 444.\+444000 555.\+554993 $>$ 444.\+44400000000002 555.\+55500000000006 $>$ 555.\+44399999999996 666.\+66600000000005 777.\+77700000000004 $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ int(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works $>$ real(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works $>$ dble(\char`\"{}\+S\+T\+R\+I\+N\+G\char`\"{}) works $>$ == works like .eqv. for L\+O\+G\+I\+C\+AL values $>$ /= works like .neqv. for L\+O\+G\+I\+C\+AL values $>$ 444 555 $>$ 444.\+444000 555.\+554993 $>$ 444.\+44400000000002 555.\+55500000000006 $>$ 555.\+44399999999996 666.\+66600000000005 777.\+77700000000004 $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ sign works $>$ 57 xx -\/x -\/y hello there xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx $>$ 0 0 \mbox{[}xx\mbox{]} $>$ 1 0 \mbox{[}-\/x\mbox{]} $>$ 2 0 \mbox{[}-\/y\mbox{]} $>$ 3 0 \mbox{[}hello there\mbox{]} $>$ 4 0 \mbox{[}xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\mbox{]} $>$ 0 0 \mbox{[}xx \mbox{]} $>$ 1 0 \mbox{[}-\/x \mbox{]} $>$ 2 0 \mbox{[}-\/y \mbox{]} $>$ 3 -\/1 \mbox{[}hello ther\mbox{]} $>$ 4 -\/1 \mbox{[}xxxxxxxxxx\mbox{]} $>$ 0 0 \mbox{[}xx \mbox{]} $>$ 1 0 \mbox{[}-\/x \mbox{]} $>$ 2 0 \mbox{[}-\/y \mbox{]} $>$ 3 0 \mbox{[}hello there \mbox{]} $>$ 4 -\/1 \mbox{[}xxxxxxxxxxxxxxxxxxxx\mbox{]}\hypertarget{namespacem__overload_autotoc_md6}{}\doxysubsubsection{A\+U\+T\+H\+OR}\label{namespacem__overload_autotoc_md6}
+John S. Urban \hypertarget{namespacem__overload_autotoc_md7}{}\doxysubsubsection{L\+I\+C\+E\+N\+SE}\label{namespacem__overload_autotoc_md7}
+Public Domain 
+
+\doxysubsection{Function/\+Subroutine Documentation}
+\mbox{\Hypertarget{namespacem__overload_a5fd4be7269c6e87e41ee6c011bb0312b}\label{namespacem__overload_a5fd4be7269c6e87e41ee6c011bb0312b}} 
+\index{m\_overload@{m\_overload}!adjustl\_atleast@{adjustl\_atleast}}
+\index{adjustl\_atleast@{adjustl\_atleast}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{adjustl\_atleast()}{adjustl\_atleast()}}
+{\footnotesize\ttfamily function m\+\_\+overload\+::adjustl\+\_\+atleast (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{line,  }\item[{integer, intent(in)}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_acfeb6770f4f28ff0fe8a149b88ff8fd4}\label{namespacem__overload_acfeb6770f4f28ff0fe8a149b88ff8fd4}} 
+\index{m\_overload@{m\_overload}!adjustr\_atleast@{adjustr\_atleast}}
+\index{adjustr\_atleast@{adjustr\_atleast}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{adjustr\_atleast()}{adjustr\_atleast()}}
+{\footnotesize\ttfamily function m\+\_\+overload\+::adjustr\+\_\+atleast (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{line,  }\item[{integer, intent(in)}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a7ec8bf34248393266139e3290b99b367}\label{namespacem__overload_a7ec8bf34248393266139e3290b99b367}} 
+\index{m\_overload@{m\_overload}!anyscalar\_to\_double@{anyscalar\_to\_double}}
+\index{anyscalar\_to\_double@{anyscalar\_to\_double}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{anyscalar\_to\_double()}{anyscalar\_to\_double()}}
+{\footnotesize\ttfamily pure elemental doubleprecision function m\+\_\+overload\+::anyscalar\+\_\+to\+\_\+double (\begin{DoxyParamCaption}\item[{class($\ast$), intent(in)}]{valuein }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_ae69131706c917c816f2d3ab7015eb08f}\label{namespacem__overload_ae69131706c917c816f2d3ab7015eb08f}} 
+\index{m\_overload@{m\_overload}!anyscalar\_to\_int64@{anyscalar\_to\_int64}}
+\index{anyscalar\_to\_int64@{anyscalar\_to\_int64}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{anyscalar\_to\_int64()}{anyscalar\_to\_int64()}}
+{\footnotesize\ttfamily impure elemental integer(kind=int64) function m\+\_\+overload\+::anyscalar\+\_\+to\+\_\+int64 (\begin{DoxyParamCaption}\item[{class($\ast$), intent(in)}]{valuein }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_aafa8f40d8d234c266dc253a24c7f0437}\label{namespacem__overload_aafa8f40d8d234c266dc253a24c7f0437}} 
+\index{m\_overload@{m\_overload}!anyscalar\_to\_real@{anyscalar\_to\_real}}
+\index{anyscalar\_to\_real@{anyscalar\_to\_real}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{anyscalar\_to\_real()}{anyscalar\_to\_real()}}
+{\footnotesize\ttfamily pure elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}} function m\+\_\+overload\+::anyscalar\+\_\+to\+\_\+real (\begin{DoxyParamCaption}\item[{class($\ast$), intent(in)}]{valuein }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a5046c5b54ae4e39ffb7d22b178560515}\label{namespacem__overload_a5046c5b54ae4e39ffb7d22b178560515}} 
+\index{m\_overload@{m\_overload}!atleast@{atleast}}
+\index{atleast@{atleast}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{atleast()}{atleast()}}
+{\footnotesize\ttfamily function m\+\_\+overload\+::atleast (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{line,  }\item[{integer, intent(in)}]{length,  }\item[{character(len=$\ast$), intent(in), optional}]{pattern }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a901c1a1e50ae71b6743b66a9f18ff4e5}\label{namespacem__overload_a901c1a1e50ae71b6743b66a9f18ff4e5}} 
+\index{m\_overload@{m\_overload}!boolean\_equal@{boolean\_equal}}
+\index{boolean\_equal@{boolean\_equal}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{boolean\_equal()}{boolean\_equal()}}
+{\footnotesize\ttfamily logical function, public m\+\_\+overload\+::boolean\+\_\+equal (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{logical\+\_\+val1,  }\item[{logical, intent(in)}]{logical\+\_\+val2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacem__overload_a39c2ef1e89c70a6d959935860b392151}\label{namespacem__overload_a39c2ef1e89c70a6d959935860b392151}} 
+\index{m\_overload@{m\_overload}!boolean\_notequal@{boolean\_notequal}}
+\index{boolean\_notequal@{boolean\_notequal}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{boolean\_notequal()}{boolean\_notequal()}}
+{\footnotesize\ttfamily logical function, public m\+\_\+overload\+::boolean\+\_\+notequal (\begin{DoxyParamCaption}\item[{logical, intent(in)}]{logical\+\_\+val1,  }\item[{logical, intent(in)}]{logical\+\_\+val2 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespacem__overload_ae14db74c7dfcc0b10be826ace135372c}\label{namespacem__overload_ae14db74c7dfcc0b10be826ace135372c}} 
+\index{m\_overload@{m\_overload}!dble\_s2v@{dble\_s2v}}
+\index{dble\_s2v@{dble\_s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{dble\_s2v()}{dble\_s2v()}}
+{\footnotesize\ttfamily doubleprecision function m\+\_\+overload\+::dble\+\_\+s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{chars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References s2v().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__overload_ae14db74c7dfcc0b10be826ace135372c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_ada276598be00d66b67912937869c787f}\label{namespacem__overload_ada276598be00d66b67912937869c787f}} 
+\index{m\_overload@{m\_overload}!dbles\_s2v@{dbles\_s2v}}
+\index{dbles\_s2v@{dbles\_s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{dbles\_s2v()}{dbles\_s2v()}}
+{\footnotesize\ttfamily doubleprecision function, dimension(\+:), allocatable m\+\_\+overload\+::dbles\+\_\+s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), dimension(\+:), intent(in)}]{chars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References s2v().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__overload_ada276598be00d66b67912937869c787f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_a23a972351255255eb9b2c4ad0fde3421}\label{namespacem__overload_a23a972351255255eb9b2c4ad0fde3421}} 
+\index{m\_overload@{m\_overload}!ffmt@{ffmt}}
+\index{ffmt@{ffmt}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{ffmt()}{ffmt()}}
+{\footnotesize\ttfamily character(len=\+:) function, allocatable m\+\_\+overload\+::ffmt (\begin{DoxyParamCaption}\item[{class($\ast$), intent(in)}]{generic,  }\item[{character(len=$\ast$), intent(in)}]{format }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{namespacem__overload_a23a972351255255eb9b2c4ad0fde3421_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_a9bed050c6c6decb7dabcfb9788310005}\label{namespacem__overload_a9bed050c6c6decb7dabcfb9788310005}} 
+\index{m\_overload@{m\_overload}!g\_g@{g\_g}}
+\index{g\_g@{g\_g}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{g\_g()}{g\_g()}}
+{\footnotesize\ttfamily character(len=\+:) function, allocatable m\+\_\+overload\+::g\+\_\+g (\begin{DoxyParamCaption}\item[{class($\ast$), intent(in)}]{value1,  }\item[{class($\ast$), intent(in)}]{value2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References ffmt().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{namespacem__overload_a9bed050c6c6decb7dabcfb9788310005_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_a98ed72ed07b6f7e2deac0c0617c72919}\label{namespacem__overload_a98ed72ed07b6f7e2deac0c0617c72919}} 
+\index{m\_overload@{m\_overload}!int\_s2v@{int\_s2v}}
+\index{int\_s2v@{int\_s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{int\_s2v()}{int\_s2v()}}
+{\footnotesize\ttfamily integer function m\+\_\+overload\+::int\+\_\+s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{chars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References s2v().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__overload_a98ed72ed07b6f7e2deac0c0617c72919_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_a3ae5cced568b6459920648d1eae49fc5}\label{namespacem__overload_a3ae5cced568b6459920648d1eae49fc5}} 
+\index{m\_overload@{m\_overload}!ints\_s2v@{ints\_s2v}}
+\index{ints\_s2v@{ints\_s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{ints\_s2v()}{ints\_s2v()}}
+{\footnotesize\ttfamily integer function, dimension(\+:), allocatable m\+\_\+overload\+::ints\+\_\+s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), dimension(\+:), intent(in)}]{chars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References s2v().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__overload_a3ae5cced568b6459920648d1eae49fc5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_a065a842ae14e6b232d342afd48006f46}\label{namespacem__overload_a065a842ae14e6b232d342afd48006f46}} 
+\index{m\_overload@{m\_overload}!real\_s2v@{real\_s2v}}
+\index{real\_s2v@{real\_s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{real\_s2v()}{real\_s2v()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interfacem__overload_1_1real}{real}} function m\+\_\+overload\+::real\+\_\+s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{chars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References s2v().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__overload_a065a842ae14e6b232d342afd48006f46_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_a3e20f3930462632b05bd741357a815bc}\label{namespacem__overload_a3e20f3930462632b05bd741357a815bc}} 
+\index{m\_overload@{m\_overload}!reals\_s2v@{reals\_s2v}}
+\index{reals\_s2v@{reals\_s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{reals\_s2v()}{reals\_s2v()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{interfacem__overload_1_1real}{real}} function, dimension(\+:), allocatable m\+\_\+overload\+::reals\+\_\+s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), dimension(\+:), intent(in)}]{chars }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References s2v().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__overload_a3e20f3930462632b05bd741357a815bc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_ad722ec11ab1ce247fda95272405c4b43}\label{namespacem__overload_ad722ec11ab1ce247fda95272405c4b43}} 
+\index{m\_overload@{m\_overload}!s2v@{s2v}}
+\index{s2v@{s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{s2v()}{s2v()}}
+{\footnotesize\ttfamily doubleprecision function m\+\_\+overload\+::s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{string }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+References sub\+\_\+s2v().
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{namespacem__overload_ad722ec11ab1ce247fda95272405c4b43_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{namespacem__overload_ad722ec11ab1ce247fda95272405c4b43_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{namespacem__overload_acd080490d72682958bc762e5fab3f226}\label{namespacem__overload_acd080490d72682958bc762e5fab3f226}} 
+\index{m\_overload@{m\_overload}!sign\_int16@{sign\_int16}}
+\index{sign\_int16@{sign\_int16}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sign\_int16()}{sign\_int16()}}
+{\footnotesize\ttfamily elemental integer(kind=int16) function m\+\_\+overload\+::sign\+\_\+int16 (\begin{DoxyParamCaption}\item[{integer(kind=int16), intent(in)}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a19665cec0cdb37864242fa0384d80124}\label{namespacem__overload_a19665cec0cdb37864242fa0384d80124}} 
+\index{m\_overload@{m\_overload}!sign\_int32@{sign\_int32}}
+\index{sign\_int32@{sign\_int32}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sign\_int32()}{sign\_int32()}}
+{\footnotesize\ttfamily elemental integer(kind=int32) function m\+\_\+overload\+::sign\+\_\+int32 (\begin{DoxyParamCaption}\item[{integer(kind=int32), intent(in)}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a14eb40f394498e1691f44bca98da8ab0}\label{namespacem__overload_a14eb40f394498e1691f44bca98da8ab0}} 
+\index{m\_overload@{m\_overload}!sign\_int64@{sign\_int64}}
+\index{sign\_int64@{sign\_int64}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sign\_int64()}{sign\_int64()}}
+{\footnotesize\ttfamily elemental integer(kind=int64) function m\+\_\+overload\+::sign\+\_\+int64 (\begin{DoxyParamCaption}\item[{integer(kind=int64), intent(in)}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a886aea5362aede11fe9d8819338b13ad}\label{namespacem__overload_a886aea5362aede11fe9d8819338b13ad}} 
+\index{m\_overload@{m\_overload}!sign\_int8@{sign\_int8}}
+\index{sign\_int8@{sign\_int8}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sign\_int8()}{sign\_int8()}}
+{\footnotesize\ttfamily elemental integer(kind=int8) function m\+\_\+overload\+::sign\+\_\+int8 (\begin{DoxyParamCaption}\item[{integer(kind=int8), intent(in)}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a879f9902c6942e3e72fb11502574b633}\label{namespacem__overload_a879f9902c6942e3e72fb11502574b633}} 
+\index{m\_overload@{m\_overload}!sign\_real128@{sign\_real128}}
+\index{sign\_real128@{sign\_real128}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sign\_real128()}{sign\_real128()}}
+{\footnotesize\ttfamily elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real128) function m\+\_\+overload\+::sign\+\_\+real128 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real128), intent(in)}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a99c64ee596645245ccc0822a3fc5bf7f}\label{namespacem__overload_a99c64ee596645245ccc0822a3fc5bf7f}} 
+\index{m\_overload@{m\_overload}!sign\_real32@{sign\_real32}}
+\index{sign\_real32@{sign\_real32}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sign\_real32()}{sign\_real32()}}
+{\footnotesize\ttfamily elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real32) function m\+\_\+overload\+::sign\+\_\+real32 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real32), intent(in)}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a0dc9425a247792e96dd19f3b6bc375f2}\label{namespacem__overload_a0dc9425a247792e96dd19f3b6bc375f2}} 
+\index{m\_overload@{m\_overload}!sign\_real64@{sign\_real64}}
+\index{sign\_real64@{sign\_real64}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sign\_real64()}{sign\_real64()}}
+{\footnotesize\ttfamily elemental \mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real64) function m\+\_\+overload\+::sign\+\_\+real64 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interfacem__overload_1_1real}{real}}(kind=real64), intent(in)}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_a0c52690a3fa7b1cefe2991dccf6cf27a}\label{namespacem__overload_a0c52690a3fa7b1cefe2991dccf6cf27a}} 
+\index{m\_overload@{m\_overload}!strmerge@{strmerge}}
+\index{strmerge@{strmerge}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{strmerge()}{strmerge()}}
+{\footnotesize\ttfamily elemental character(len=max(len(str1), len(str2))) function m\+\_\+overload\+::strmerge (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{str1,  }\item[{character(len=$\ast$), intent(in)}]{str2,  }\item[{logical, intent(in)}]{expr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{namespacem__overload_ae2413c0d37d85984f568e8511e7d30da}\label{namespacem__overload_ae2413c0d37d85984f568e8511e7d30da}} 
+\index{m\_overload@{m\_overload}!sub\_s2v@{sub\_s2v}}
+\index{sub\_s2v@{sub\_s2v}!m\_overload@{m\_overload}}
+\doxysubsubsection{\texorpdfstring{sub\_s2v()}{sub\_s2v()}}
+{\footnotesize\ttfamily subroutine m\+\_\+overload\+::sub\+\_\+s2v (\begin{DoxyParamCaption}\item[{character(len=$\ast$), intent(in)}]{chars,  }\item[{doubleprecision, intent(out)}]{valu,  }\item[{integer, intent(out)}]{ierr,  }\item[{class($\ast$), intent(in), optional}]{onerr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{namespacem__overload_ae2413c0d37d85984f568e8511e7d30da_icgraph}
+\end{center}
+\end{figure}

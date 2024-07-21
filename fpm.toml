@@ -1,12 +1,12 @@
 # TOML file for fpm as described at https://fpm.fortran-lang.org/en/spec/manifest.html
 name = "M_overload"
 version = "1.0.0"
-license = "MIT"
+license = "MIT, custom OpenSource license"
 author = ["John S. Urban" ]
 maintainer = "urbanjost@comcast.com"
 copyright = "Copyright 2021, John S. Urban"
 description = "Common Fortran overloads of operators and intrinsics"
-categories = ["overload"]
+categories = ["Universally Unique ID"]
 keywords = ["fortran", "overload" ]
 homepage = "https://github.com/urbanjost/M_overload.git"
 
@@ -20,6 +20,9 @@ module-naming = true
 name = "demo_M_overload"
 source-dir = "example/"
 main = "demo_M_overload.f90"
+#[example.dependencies]
+#M_compare_float_numbers  = { git = "https://github.com/urbanjost/M_Compare_Float_Numbers.git" }
+#M_anything  = { git = "https://github.com/urbanjost/M_anything.git" }
 
 [[test]]
 name="test_suite_M_overload"

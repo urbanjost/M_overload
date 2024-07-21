@@ -17,7 +17,7 @@ PROGFILES = \
 $(NULL)
 
 TESTFILES = \
- ../test/test_suite_M_overload.f90 \
+ ../test/test_suite_M_overload.F90 \
 $(NULL)
 
 TPROG = ${TESTFILES:.f90=}

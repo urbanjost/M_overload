@@ -67,11 +67,11 @@ OVERLOADS
 
            It should be pointed out that
 
-              L1 == L2   ! should be L1 .eqv. L2
+              L1 == L2   !! should be L1 .eqv. L2
 
            and
 
-              L1 /= L2   ! should be L1 .neqv. L2
+              L1 /= L2   !! should be L1 .neqv. L2
 
            should NOT work by default; but often do (probably because
            the compiler silently converts LOGICAL to INTEGER when a
@@ -241,7 +241,7 @@ $BLOCK END
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 module m_overload
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
-use,intrinsic :: iso_fortran_env, only : stderr=>ERROR_UNIT, stdin=>input_unit, stdout=>output_unit
+use,intrinsic :: iso_fortran_env, only : stderr=>ERROR_UNIT
 implicit none
 $@(#) M_overload(3fm): overloads of standard operators and intrinsic procedures
 private
@@ -278,9 +278,9 @@ interface operator ( // )
 end interface operator ( // )
 
 ! extend intrinsics to accept CHARACTER values
-!x!interface int;     module procedure int_s2v;              end interface
-!x!interface real;    module procedure real_s2v;             end interface
-!x!interface dble;    module procedure dble_s2v;             end interface
+!!interface int;     module procedure int_s2v;              end interface
+!!interface real;    module procedure real_s2v;             end interface
+!!interface dble;    module procedure dble_s2v;             end interface
 interface int;     module procedure ints_s2v;             end interface
 interface real;    module procedure reals_s2v;            end interface
 interface dble;    module procedure dbles_s2v;            end interface
@@ -407,7 +407,7 @@ character(len=:),allocatable :: string
    string1 = fmt(value1)
    string2 = fmt(value2)
    ! some compilers use the default operator some call recursively
-   !x!string=string1//string2
+   !!string=string1//string2
    allocate(character(len=len(string1)+len(string2)) :: string)
    string(1:len(string1))=string1
    string(len(string1)+1:)=string2
@@ -563,6 +563,7 @@ end function dbles_s2v
 !===================================================================================================================================
 $!subroutine get_command_allocatable(command, length, status,realloc)
 $!implicit none
+$!!*!intrinsic get_command
 $!character(len=:), allocatable, intent(out) :: COMMAND   ! (Optional) shall be of type CHARACTER and of default kind.
 $!integer, intent(out), optional             :: LENGTH    ! (Optional) Shall be of type INTEGER and of default kind.
 $!integer, intent(out), optional             :: STATUS    ! (Optional) Shall be of type INTEGER and of default kind.
@@ -942,7 +943,25 @@ end function s2v
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
+function atleast(line,length,pattern) result(strout)
+
+!$@(#) M_overload::atleast(3f): return string padded to at least specified length
+
+character(len=*),intent(in)                :: line
+integer,intent(in)                         :: length
+character(len=*),intent(in),optional       :: pattern
+character(len=max(length,len(trim(line)))) :: strout
+if(present(pattern))then
+   strout=line//repeat(pattern,len(strout)/len(pattern)+1)
+else
+   strout=line
+endif
+end function atleast
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
 pure elemental function anyscalar_to_double(valuein) result(d_out)
+use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic dble
 
@@ -950,7 +969,7 @@ $@(#) M_overload::anyscalar_to_double(3f): convert integer or real parameter of 
 
 class(*),intent(in)       :: valuein
 doubleprecision           :: d_out
-!x!doubleprecision,parameter :: big=huge(0.0d0)
+doubleprecision,parameter :: big=huge(0.0d0)
    select type(valuein)
    type is (integer(kind=int8));   d_out=dble(valuein)
    type is (integer(kind=int16));  d_out=dble(valuein)
@@ -960,20 +979,21 @@ doubleprecision           :: d_out
    type is (real(kind=real64));    d_out=dble(valuein)
 #ifdef HAS_REAL128
    type is (real(kind=real128))
-      !x!if(valuein.gt.big)then
-      !x!   write(stderr,*)'*anyscalar_to_double* value too large ',valuein
-      !x!endif
+      !!if(valuein.gt.big)then
+      !!   write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
+      !!endif
       d_out=dble(valuein)
 #endif
    type is (logical);              d_out=merge(0.0d0,1.0d0,valuein)
    type is (character(len=*));      read(valuein,*) d_out
    class default
      d_out=0.0d0
-     !x!stop '*M_overload::anyscalar_to_double: unknown type'
+     !!stop '*M_overload::anyscalar_to_double: unknown type'
    end select
 end function anyscalar_to_double
 !===================================================================================================================================
 impure elemental function anyscalar_to_int64(valuein) result(ii38)
+use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic int
 
@@ -997,16 +1017,17 @@ class(*),intent(in)    :: valuein
    type is (character(len=*))   ;
       read(valuein,*,iostat=ios,iomsg=message)ii38
       if(ios.ne.0)then
-         write(stderr,*)'*anyscalar_to_int64* ERROR: '//trim(message)
+         write(error_unit,*)'*anyscalar_to_int64* ERROR: '//trim(message)
          stop 2
       endif
    class default
-      write(stderr,*)'*anyscalar_to_int64* ERROR: unknown integer type'
+      write(error_unit,*)'*anyscalar_to_int64* ERROR: unknown integer type'
       stop 3
    end select
 end function anyscalar_to_int64
 !===================================================================================================================================
 pure elemental function anyscalar_to_real(valuein) result(r_out)
+use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic real
 
@@ -1014,7 +1035,7 @@ $@(#) M_overload::anyscalar_to_real(3f): convert integer or real parameter of an
 
 class(*),intent(in) :: valuein
 real                :: r_out
-!x!real,parameter      :: big=huge(0.0)
+real,parameter      :: big=huge(0.0)
    select type(valuein)
    type is (integer(kind=int8));   r_out=real(valuein)
    type is (integer(kind=int16));  r_out=real(valuein)
@@ -1022,15 +1043,15 @@ real                :: r_out
    type is (integer(kind=int64));  r_out=real(valuein)
    type is (real(kind=real32));    r_out=real(valuein)
    type is (real(kind=real64))
-      !x!if(valuein.gt.big)then
-      !x!   write(stderr,*)'*anyscalar_to_real* value too large ',valuein
-      !x!endif
+      !!if(valuein.gt.big)then
+      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
+      !!endif
       r_out=real(valuein)
 #ifdef HAS_REAL128
    type is (real(kind=real128))
-      !x!if(valuein.gt.big)then
-      !x!   write(stderr,*)'*anyscalar_to_real* value too large ',valuein
-      !x!endif
+      !!if(valuein.gt.big)then
+      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
+      !!endif
       r_out=real(valuein)
 #endif
    type is (logical);              r_out=merge(0.0d0,1.0d0,valuein)
