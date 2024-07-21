@@ -41,6 +41,9 @@
 !!    ! logical functions that return integer values
 !!    use M_overload, only : oz, zo, lt, le, eq, ne, gt, ge
 !!
+!!    ! same operation as .fmt. accept directly using the function
+!!    use M_overload, only : fmt
+!!
 !!
 !!
 !!##DESCRIPTION
@@ -50,6 +53,9 @@
 !!   source-code changes to produce versions using arbitrary precision
 !!   or cumulative error bounds on floating-point calculations to adding
 !!   intuitive syntax for standard Fortran operations.
+!!
+!!   Herein are a few more basic examples of overloading and user-specified
+!!   operators that demonstrate the concepts of these Fortran features ...
 !!
 !!##OVERLOADS
 !!
@@ -118,8 +124,7 @@
 !!      write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
 !!
 !!      ! int() can take strings representing a number as input'
-!!      if(int('1234')               .eq.1234) &
-!!       & write(*,*)'int("STRING") works '
+!!      if(int('1234') .eq.1234) write(*,*)'int("STRING") works '
 !!      ! as can real() and dble()
 !!      if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
 !!       & write(*,*)'real("STRING") works '
@@ -140,12 +145,12 @@
 !!      ! // will allow any intrinsic type and convert it to a string
 !!      write(*,*)' The value is '//10//' which is less than '//20.2
 !!      block
-!!      character(len=:),allocatable :: fmt
+!!      character(len=:),allocatable :: myfmt
 !!      integer :: i
 !!         i=24
 !!         ! build a format with a variable numeric value
-!!         fmt='("[",I'//i//',"]")'
-!!         write(*,fmt)20
+!!         myfmt='("[",I'//i//',"]")'
+!!         write(*,fmt=myfmt)20
 !!      endblock
 !!
 !!      ! logical values as numeric values
@@ -189,7 +194,7 @@
 !!    Public Domain
 module m_overload
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
-use,intrinsic :: iso_fortran_env, only : stderr=>ERROR_UNIT
+use,intrinsic :: iso_fortran_env, only : stderr=>ERROR_UNIT,stdin=>INPUT_UNIT,stdout=>OUTPUT_UNIT
 implicit none
 ! ident_1="@(#) M_overload(3fm) overloads of standard operators and intrinsic procedures"
 private
@@ -346,26 +351,17 @@ character(len=:),allocatable :: string1
 character(len=:),allocatable :: string2
 character(len=:),allocatable :: string
    ! use this instead of str() so character variables are not trimmed and/or spaces are not added
-   !ifort_bug!string = fmt(value1,'(g0)') // fmt(value2,'(g0)')
+   !ifort_bug!string = fmt(value1) // fmt(value2)
    string1 = fmt(value1)
    string2 = fmt(value2)
-   ! some compilers use the default operator some call recursively
-   !!string=string1//string2
+   !x! some compilers use the default operator some call recursively
+   !x! uses // in module that redefines //. gfortran built it, ifort does not
+   !x!function g_g(value1,value2) result (string)
+   !x!string=string1//string2
    allocate(character(len=len(string1)+len(string2)) :: string)
    string(1:len(string1))=string1
    string(len(string1)+1:)=string2
 end function g_g
-!-----------------------------------------------------------------------------------------------------------------------------------
-!x! uses // in module that redefines //. gfortran built it, ifort does not
-!x!function g_g(value1,value2) result (string)
-!x!
-!x!$@(#) M_overload::g_g(3f): convert two single intrinsic values to a string
-!x!
-!x!class(*),intent(in)          :: value1, value2
-!x!character(len=:),allocatable :: string
-!x!   ! use this instead of str() so character variables are not trimmed and/or spaces are not added
-!x!   string = fmt(value1,'(g0)') // fmt(value2,'(g0)')
-!x!end function g_g
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental function strmerge(str1,str2,expr) result(strout)
 !$@(#) M_overload::strmerge(3f): pads first and second arguments to MERGE(3f) to same length
@@ -554,44 +550,64 @@ end function dbles_s2v
 !!
 !!   Sample program:
 !!
-!!     program demo_fmt
-!!     use :: M_overload, only : fmt
-!!     use :: M_overload, only : operator(.fmt.)
-!!     use :: M_overload, only : operator( // )
-!!     implicit none
-!!     character(len=:),allocatable :: output
-!!     character(len=:), allocatable :: string
+!!       program demo_fmt
+!!       use :: M_overload, only : f=>fmt
+!!       use :: M_overload, only : operator(.fmt.)
+!!       use :: M_overload, only : operator( // )
+!!       implicit none
+!!       character(len=:), allocatable :: output
+!!       character(len=:), allocatable :: string
+!!       ! some formats
+!!       character(len=*), parameter   :: bracket='"[",g0.5,"]"'
+!!       character(len=*), parameter   :: five='g0.5'
+!!       character(len=*), parameter   :: g0='g0'
+!!       ! for statements
+!!       character(len=*), parameter   :: gen='(*(g0:,1x))'
+!!       character(len=*), parameter   :: asis='(*(g0:))'
+!!       character(len=*), parameter   :: comma='(*(g0:,","))'
+!!       real :: x
+!!       integer :: i
+!!       real,allocatable :: arr(:)
 !!
-!!        write(*,*)'result is ', fmt(10,"'[',i0,']'")
+!!         ! print will do, just want to control format of a number
+!!          print gen,'result is',10,'and',f(10.0/3.0,'f0.3')
+!!         ! complex formats can be in nicely named strings, of course
+!!          write(*,*)'result is ', f(10.0/3.0,bracket)
+!!         ! you can build a string without using an internal write
+!!          output=f(.true.,"'The final answer is [',g0,']'")
+!!          write(*,*)'the string is now:',output
+!!          x=1234.5680088
+!!          i=543
+!!          ! operator style
+!!          string=1234.4567 .fmt.'g0.0'
+!!          write(*,*)string
+!!          ! function style
+!!          string=f(1234.4567, 'g0.0')
+!!          write(*,*)string
+!!          ! concatenation style
+!!          string=10//' is an integer and '//(11.00,22.00)//' is a complex'
+!!          write(*,*)string
+!!          ! list-directed I/O leaves column 1 blank and often prints more
+!!          ! digits than warranted for the precision of a value.
+!!          !
+!!          ! combined with a g0 format line "asis" you get something very
+!!          ! similar to list-directed I/O accept no unexpected line breaks
+!!          ! and starts in column 1 and lets you tweek float values and
+!!          ! not have to remember a space goes between values unless they
+!!          ! are adjacent strings, and you may or may not get while space
+!!          ! after numeric values to make them all the same length for a
+!!          ! particular type for nice tables or compact for use in composed text
+!!          !
+!!          ! this is nearly as simple as list-directed but more predictable:
+!!          print asis,'The value is ',f(x,'f0.3'),' or there-abouts'
 !!
-!!        write(*,*)'result is ', fmt(10.0/3.0,"'[',g0.5,']'")
+!!          ! and combine multiple formats for use in a single line without
+!!          ! using non-advancing I/O
+!!          write(*,comma)x,f(x),f(x,g0),f(x,five),f(x,bracket)
+!!          !
+!!          !not yet! write(*,asis)'['//f(arr,comma)//']'
 !!
-!!        output=fmt(.true.,"'The final answer is [',g0,']'")
-!!        write(*,*)'result is ',output
-!!        ! operator
-!!        string=1234.fmt.'"[",i0,"]"'
-!!        write(*,*)string
-!!        ! tests
-!!        write(*,*)'the value is ',fmt(1234.5679,'f0.3'),' or there-abouts'
-!!
-!!        write(*,*)1234.0 .fmt. '"[",g0,"]"' ! .eq. '[1234]'
-!!
-!!        string=10//' is an integer and '//(11.00,22.00)//' is a complex'
-!!        write(*,*)string
-!!
-!!     end program demo_fmt
-!!
-!!   Results:
-!!
-!!  >  result is [10]
-!!  >  result is [3.3333]
-!!  >  result is The final answer is [T]
-!!  >  [1234]
-!!  >  the value is 1234.568 or there-abouts
-!!  >  [1234.00000]
-!!  >  10 is an integer and <ERROR>End of file is a complex
-!! ================================================================================
-!!
+!!       end program demo_fmt
 !!
 !!##AUTHOR
 !!    John S. Urban
@@ -862,7 +878,6 @@ end function atleast
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 pure elemental function anyscalar_to_double(valuein) result(d_out)
-use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic dble
 
@@ -870,7 +885,7 @@ intrinsic dble
 
 class(*),intent(in)       :: valuein
 doubleprecision           :: d_out
-doubleprecision,parameter :: big=huge(0.0d0)
+!x!doubleprecision,parameter :: big=huge(0.0d0)
    select type(valuein)
    type is (integer(kind=int8));   d_out=dble(valuein)
    type is (integer(kind=int16));  d_out=dble(valuein)
@@ -880,21 +895,20 @@ doubleprecision,parameter :: big=huge(0.0d0)
    type is (real(kind=real64));    d_out=dble(valuein)
 #ifdef HAS_REAL128
    type is (real(kind=real128))
-      !!if(valuein.gt.big)then
-      !!   write(error_unit,*)'*anyscalar_to_double* value too large ',valuein
-      !!endif
+      !x!if(valuein.gt.big)then
+      !x!   write(stderr,*)'*anyscalar_to_double* value too large ',valuein
+      !x!endif
       d_out=dble(valuein)
 #endif
    type is (logical);              d_out=merge(0.0d0,1.0d0,valuein)
    type is (character(len=*));      read(valuein,*) d_out
    class default
      d_out=0.0d0
-     !!stop '*M_overload::anyscalar_to_double: unknown type'
+     !x!stop '*M_overload::anyscalar_to_double: unknown type'
    end select
 end function anyscalar_to_double
 !===================================================================================================================================
 impure elemental function anyscalar_to_int64(valuein) result(ii38)
-use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic int
 
@@ -918,17 +932,16 @@ class(*),intent(in)    :: valuein
    type is (character(len=*))   ;
       read(valuein,*,iostat=ios,iomsg=message)ii38
       if(ios.ne.0)then
-         write(error_unit,*)'*anyscalar_to_int64* ERROR: '//trim(message)
+         write(stderr,*)'*anyscalar_to_int64* ERROR: '//trim(message)
          stop 2
       endif
    class default
-      write(error_unit,*)'*anyscalar_to_int64* ERROR: unknown integer type'
+      write(stderr,*)'*anyscalar_to_int64* ERROR: unknown integer type'
       stop 3
    end select
 end function anyscalar_to_int64
 !===================================================================================================================================
 pure elemental function anyscalar_to_real(valuein) result(r_out)
-use, intrinsic :: iso_fortran_env, only : error_unit !! ,input_unit,output_unit
 implicit none
 intrinsic real
 
@@ -936,7 +949,7 @@ intrinsic real
 
 class(*),intent(in) :: valuein
 real                :: r_out
-real,parameter      :: big=huge(0.0)
+!x!real,parameter      :: big=huge(0.0)
    select type(valuein)
    type is (integer(kind=int8));   r_out=real(valuein)
    type is (integer(kind=int16));  r_out=real(valuein)
@@ -944,15 +957,15 @@ real,parameter      :: big=huge(0.0)
    type is (integer(kind=int64));  r_out=real(valuein)
    type is (real(kind=real32));    r_out=real(valuein)
    type is (real(kind=real64))
-      !!if(valuein.gt.big)then
-      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
-      !!endif
+      !x!if(valuein.gt.big)then
+      !x!   write(stderr,*)'*anyscalar_to_real* value too large ',valuein
+      !x!endif
       r_out=real(valuein)
 #ifdef HAS_REAL128
    type is (real(kind=real128))
-      !!if(valuein.gt.big)then
-      !!   write(error_unit,*)'*anyscalar_to_real* value too large ',valuein
-      !!endif
+      !x!if(valuein.gt.big)then
+      !x!   write(stderr,*)'*anyscalar_to_real* value too large ',valuein
+      !x!endif
       r_out=real(valuein)
 #endif
    type is (logical);              r_out=merge(0.0d0,1.0d0,valuein)

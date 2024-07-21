@@ -30,8 +30,7 @@
        write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
 
        ! int() can take strings representing a number as input'
-       if(int('1234')               .eq.1234) &
-        & write(*,*)'int("STRING") works '
+       if(int('1234') .eq.1234) write(*,*)'int("STRING") works '
        ! as can real() and dble()
        if(abs(real('1234.56789') - 1234.56789).lt.2*epsilon(0.0)) &
         & write(*,*)'real("STRING") works '
@@ -52,12 +51,12 @@
        ! // will allow any intrinsic type and convert it to a string
        write(*,*)' The value is '//10//' which is less than '//20.2
        block
-       character(len=:),allocatable :: fmt
+       character(len=:),allocatable :: myfmt
        integer :: i
           i=24
           ! build a format with a variable numeric value
-          fmt='("[",I'//i//',"]")'
-          write(*,fmt)20
+          myfmt='("[",I'//i//',"]")'
+          write(*,fmt=myfmt)20
        endblock
 
        ! logical values as numeric values
