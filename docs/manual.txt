@@ -1,8 +1,156 @@
+dble (3m_overload)   - [M_overload::TYPE] allow dble(3f), real(3f), int(3f) to take character arguments (LICENSE:PD)
 fmt (3m_overload)    - [M_overload] convert any intrinsic to a string using specified format (LICENSE:PD)
+intrinsics (3m_overload) - [M_overload::INTRINSICS] rename intrinsic functions (LICENSE:PD)
 M_overload (3m_overload) - [M_overload::INTRO] overloads of standard operators and intrinsic procedures (LICENSE:PD)
+merge (3m_overload)  - [M_overload:INTRINSIC] allow MERGE(3f) intrinsic to take strings of different length (LICENSE:PD)
 oz (3m_overload)     - [M_overload::LOGICAL] returns One if expression is TRUE, else returns Zero. (LICENSE:PD)
+sign (3m_overload)   - [M_overload::INTRINSIC] When sign(3f) is given a single value sign(value), call sign(1, value). (LICENSE:PD)
 to (3m_overload)     - [M_overload::LOGICAL] return array of adjacent integers over specified range, inclusive (LICENSE:PD)
 zo (3m_overload)     - [M_overload::LOGICAL] returns Zero if expression is FALSE, else returns One. (LICENSE:PD)
+fmt(3m_overload)					      fmt(3m_overload)
+
+
+
+NAME
+  fmt(3f) - [M_overload] convert any intrinsic to a string using specified
+  format (LICENSE:PD)
+
+SYNOPSIS
+  function fmt(value,format) result(string)
+
+      class(*),intent(in),optional :: value
+      character(len=*),intent(in),optional :: format
+      character(len=:),allocatable :: string
+
+DESCRIPTION
+  FMT(3f) converts any standard intrinsic value to a string using the
+  specified format.
+
+OPTIONS
+  value
+    value to print the value of. May be of type INTEGER, LOGICAL, REAL,
+    DOUBLEPRECISION, COMPLEX, or CHARACTER.
+
+  format
+    format to use to print value. It is up to the user to use an appropriate
+    format. The format does not require being surrounded by parenthesis. If
+    not present a default is selected similar to what would be produced with
+    free format, with trailing zeros removed.
+
+RETURNS
+  string
+    A string value
+
+EXAMPLES
+  Sample program:
+
+	program demo_fmt
+	use :: M_overload, only : f=>fmt
+	use :: M_overload, only : operator(.fmt.)
+	use :: M_overload, only : operator( // )
+	implicit none
+	character(len=:), allocatable :: output
+	character(len=:), allocatable :: string
+	! some formats
+	character(len=*), parameter   :: bracket='"[",g0.5,"]"'
+	character(len=*), parameter   :: five='g0.5'
+	character(len=*), parameter   :: g0='g0'
+	! for statements
+	character(len=*), parameter   :: gen='(*(g0:,1x))'
+	character(len=*), parameter   :: asis='(*(g0:))'
+	character(len=*), parameter   :: comma='(*(g0:,","))'
+	real :: x
+	integer :: i
+	real,allocatable :: arr(:)
+
+	  ! print will do, just want to control format of a number
+	   print gen,'result is',10,'and',f(10.0/3.0,'f0.3')
+	  ! complex formats can be in nicely named strings, of course
+	   write(*,*)'result is ', f(10.0/3.0,bracket)
+	  ! you can build a string without using an internal write
+	   output=f(.true.,"'The final answer is [',g0,']'")
+	   write(*,*)'the string is now:',output
+	   x=1234.5680088
+	   i=543
+	   ! operator style
+	   string=1234.4567 .fmt.'g0.0'
+	   write(*,*)string
+	   ! function style
+	   string=f(1234.4567, 'g0.0')
+	   write(*,*)string
+	   ! concatenation style
+	   string=10//' is an integer and '//(11.00,22.00)//' is a complex'
+	   write(*,*)string
+	   ! list-directed I/O leaves column 1 blank and often prints more
+	   ! digits than warranted for the precision of a value.
+	   !
+	   ! combined with a g0 format line "asis" you get something very
+	   ! similar to list-directed I/O accept no unexpected line breaks
+	   ! and starts in column 1 and lets you tweek float values and
+	   ! not have to remember a space goes between values unless they
+	   ! are adjacent strings, and you may or may not get while space
+	   ! after numeric values to make them all the same length for a
+	   ! particular type for nice tables or compact for use in composed text
+	   !
+	   ! this is nearly as simple as list-directed but more predictable:
+	   print asis,'The value is ',f(x,'f0.3'),' or there-abouts'
+
+	   ! and combine multiple formats for use in a single line without
+	   ! using non-advancing I/O
+	   write(*,comma)x,f(x),f(x,g0),f(x,five),f(x,bracket)
+
+
+	   ! A common extension in Fortran is a VFE
+	   ! VFE:
+	   ! A Variable FORMAT Expression (VFE) is a format statement which
+	   ! includes angle brackets enclosing a Fortran expression where the
+	   ! value of the variable enclosed in the <> brackets is substituted
+	   ! as a string into the format. So if N=3 this format
+	   ! "FORMAT(I<N>)" would become "FORMAT(I3)". GNU Fortran does not
+	   ! support this legacy extension. The effect of variable format
+	   ! expressions can be reproduced by using the more powerful
+	   ! (and standard) combination of internal output and string formats.
+	   ! but it is easier using the overloaded // operator:
+	   VFE: block
+	      integer,allocatable :: vector(:)
+	      integer :: neg, zero, pos
+	      integer :: left
+		 vector=[-1,-22,-300,0,0,0,0,8,9,10,11,12]
+		 neg=3
+		 zero=4
+		 pos=5
+		 write(*, "(1x,"//&
+		   &neg//"('N',i0:,1x),"//&
+		   &zero//"('@',i0:,1x),"//&
+		   &pos//"('P',i0:,1x))") vector
+	   endblock VFE
+	   !
+	   !not yet! write(*,asis)'['//f(arr,comma)//']'
+
+	end program demo_fmt
+
+  Results:
+
+	> result is 10 and 3.333
+	>  result is [3.3333]
+	>  the string is now:The final answer is [T]
+	>  1234.45667
+	>  1234.45667
+	>  10 is an integer and (11,22) is a complex
+	> The value is 1234.568 or there-abouts
+	> 1234.56799,1234.56799,1234.56799,1234.6,[1234.6]
+	>  N-1 N-22 N-300 @0 @0 @0 @0 P8 P9 P10 P11 P12
+
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+				 July 24, 2024		      fmt(3m_overload)
 M_overload(3m_overload) 			       M_overload(3m_overload)
 
 
@@ -89,7 +237,7 @@ OVERLOADS
     intrinsic names
 
     sign(value)
-      call sign(1,value)
+      When sign(3f) is given a single value sign(value), call sign(1,value).
 
     str=merge('little','big',a.eq.10)
       allows for strings of different lengths
@@ -202,55 +350,56 @@ LICENSE
 
 
 
-				 July 21, 2024	       M_overload(3m_overload)
-to(3m_overload) 					       to(3m_overload)
+				 July 24, 2024	       M_overload(3m_overload)
+merge(3m_overload)					    merge(3m_overload)
 
 
 
 NAME
-  to(3f) - [M_overload::LOGICAL] return array of adjacent integers over
-  specified range, inclusive (LICENSE:PD)
+  merge(3f) - [M_overload:INTRINSIC] allow MERGE(3f) intrinsic to take strings
+  of different length (LICENSE:PD)
+
 
 SYNOPSIS
-  pure elemental integer function to(i,j)
-
-      integer,intent(in) :: i
-      integer,intent(in) :: j
-      integer,allocatable :: to
-
+  result = merge(tsource, fsource, mask)
 
 DESCRIPTION
-  A convenience for expressing [(integer :: i=N,M)]
+  A convenience for allowing strings of different length in the MERGE(3f)
+  intrinsic.
 
-OPTIONS
-  I starting value
-
-  J ending value
-
-RETURNS
-  An array of adjacent whole numbers from I to J
+  All other behavior should be the same as the MERGE(3f) intrinsic.
 
 EXAMPLES
   Sample usage:
 
-     program demo_to
-     use M_overload, only: to, operator(.to.)
+     program demo_merge
+     ! allow strings of different length on merge
+     use M_overload, only : merge
      implicit none
-	print*,[11.to.16]
-	print*,2.5 * [1.to.4]
-	print*,2.5 * to(1,4)+10
-     end program demo_to
+     character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
+
+	write(*,gen)merge('a','bbbbb',1.eq.1)
+	write(*,gen)merge('a','bbbbb',1.eq.2)
+	write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
+
+     end program demo_merge
+
+  Results:
+
+	 > [a	 ]
+	 > [bbbbb]
+	 > [bbbbb],[ccccc]
 
 
 AUTHOR
-  John S. Urban, inspired by @beliavsky
+  John S. Urban
 
 LICENSE
   Public Domain
 
 
 
-				 July 21, 2024		       to(3m_overload)
+				 July 24, 2024		    merge(3m_overload)
 zo(3m_overload) 					       zo(3m_overload)
 
 
@@ -302,7 +451,7 @@ LICENSE
 
 
 
-				 July 21, 2024		       zo(3m_overload)
+				 July 24, 2024		       zo(3m_overload)
 oz(3m_overload) 					       oz(3m_overload)
 
 
@@ -356,102 +505,86 @@ LICENSE
 
 
 
-				 July 21, 2024		       oz(3m_overload)
-fmt(3m_overload)					      fmt(3m_overload)
+				 July 24, 2024		       oz(3m_overload)
+sign(3m_overload)					     sign(3m_overload)
 
 
 
 NAME
-  fmt(3f) - [M_overload] convert any intrinsic to a string using specified
-  format (LICENSE:PD)
+  sign(3f) - [M_overload::INTRINSIC] When sign(3f) is given a single value
+  sign(value), call sign(1,value).  (LICENSE:PD)
 
 SYNOPSIS
-  function fmt(value,format) result(string)
-
-      class(*),intent(in),optional :: value
-      character(len=*),intent(in),optional :: format
-      character(len=:),allocatable :: string
+  pure elemental class(*) function sign([magnitude],copysign)
 
 DESCRIPTION
-  FMT(3f) converts any standard intrinsic value to a string using the
-  specified format.
+  This is an overload of the SIGN(3f) intrinsic which assumes the magnitude is
+  1 if only one argument is supplied.
+
+  SIGN(3f) returns a value with the magnitude of MAGNITUDE but with the
+
+  sign of COPYSIGN.
+    All three must be of the same type, which may be INTEGER or REAL.
 
 OPTIONS
-  value
-    value to print the value of. May be of type INTEGER, LOGICAL, REAL,
-    DOUBLEPRECISION, COMPLEX, or CHARACTER.
+  magnitude
+    the return value will have the same magnitude as this value Optional. A 1
+    is assumed if not present.
 
-  format
-    format to use to print value. It is up to the user to use an appropriate
-    format. The format does not require being surrounded by parenthesis. If
-    not present a default is selected similar to what would be produced with
-    free format, with trailing zeros removed.
+  copysign
+    the return value will have the same sign as this value
 
 RETURNS
-  string
-    A string value
+  The result is a value with the magnitude of A and the sign of B
 
 EXAMPLES
-  Sample program:
+  Sample usage:
 
-	program demo_fmt
-	use :: M_overload, only : f=>fmt
-	use :: M_overload, only : operator(.fmt.)
-	use :: M_overload, only : operator( // )
-	implicit none
-	character(len=:), allocatable :: output
-	character(len=:), allocatable :: string
-	! some formats
-	character(len=*), parameter   :: bracket='"[",g0.5,"]"'
-	character(len=*), parameter   :: five='g0.5'
-	character(len=*), parameter   :: g0='g0'
-	! for statements
-	character(len=*), parameter   :: gen='(*(g0:,1x))'
-	character(len=*), parameter   :: asis='(*(g0:))'
-	character(len=*), parameter   :: comma='(*(g0:,","))'
-	real :: x
-	integer :: i
-	real,allocatable :: arr(:)
+     program demo_sign
+     use, intrinsic :: iso_fortran_env, only : &
+     & integer_kinds, int8, int16, int32, int64
+     use, intrinsic :: iso_fortran_env, only : &
+     & real32, real64, real128
+     ! overload can take a single argument
+     use M_overload, only: sign, lt, le, eq, ne, gt, ge
+     implicit none
+     ! basics
+     write(*,*) sign(1234), sign(-1234), sign(huge(0.0)), sign(-huge(0.0))
+     ! any type of integer or real
+     write(*,*) merge('sign works','sign fails', sign(10_int8).eq.1	    &
+     & .and. sign(-10_int8).eq.-1	 )
+     write(*,*) merge('sign works','sign fails', sign(10_int16).eq.1	    &
+     & .and. sign(-10_int16).eq.-1	 )
+     write(*,*) merge('sign works','sign fails', sign(10_int32).eq.1	    &
+     & .and. sign(-10_int32).eq.-1	 )
+     write(*,*) merge('sign works','sign fails', sign(10_int64).eq.1	    &
+     & .and. sign(-10_int64).eq.-1	 )
+     write(*,*) merge('sign works','sign fails', sign(10.0_real32).eq.1.0   &
+     & .and. sign(-10.0_real32).eq.-1.0  )
+     write(*,*) merge('sign works','sign fails', sign(10.0_real64).eq.1.0d0 &
+     & .and. sign(-10.0_real64).eq.-1.0d0 )
+     write(*,*) merge('sign works','sign fails', sign(10.0_real128).eq.1.0  &
+     & .and. sign(-10.0_real128).eq.-1.0 )
+     !
+     !write (*, *) sign(10 < 20)
+     !
+     !if (sum(sign([1 > 2, 3 == 4, 10 < 5, 100 > 50])) > 2) then
+     !	 write (*, *) 'two or more are not true'
+     !endif
+     !
+     end program demo_sign
 
-	  ! print will do, just want to control format of a number
-	   print gen,'result is',10,'and',f(10.0/3.0,'f0.3')
-	  ! complex formats can be in nicely named strings, of course
-	   write(*,*)'result is ', f(10.0/3.0,bracket)
-	  ! you can build a string without using an internal write
-	   output=f(.true.,"'The final answer is [',g0,']'")
-	   write(*,*)'the string is now:',output
-	   x=1234.5680088
-	   i=543
-	   ! operator style
-	   string=1234.4567 .fmt.'g0.0'
-	   write(*,*)string
-	   ! function style
-	   string=f(1234.4567, 'g0.0')
-	   write(*,*)string
-	   ! concatenation style
-	   string=10//' is an integer and '//(11.00,22.00)//' is a complex'
-	   write(*,*)string
-	   ! list-directed I/O leaves column 1 blank and often prints more
-	   ! digits than warranted for the precision of a value.
-	   !
-	   ! combined with a g0 format line "asis" you get something very
-	   ! similar to list-directed I/O accept no unexpected line breaks
-	   ! and starts in column 1 and lets you tweek float values and
-	   ! not have to remember a space goes between values unless they
-	   ! are adjacent strings, and you may or may not get while space
-	   ! after numeric values to make them all the same length for a
-	   ! particular type for nice tables or compact for use in composed text
-	   !
-	   ! this is nearly as simple as list-directed but more predictable:
-	   print asis,'The value is ',f(x,'f0.3'),' or there-abouts'
+  Results:
 
-	   ! and combine multiple formats for use in a single line without
-	   ! using non-advancing I/O
-	   write(*,comma)x,f(x),f(x,g0),f(x,five),f(x,bracket)
-	   !
-	   !not yet! write(*,asis)'['//f(arr,comma)//']'
-
-	end program demo_fmt
+      >  sign works
+      >  sign works
+      >  sign works
+      >  sign works
+      >  sign works
+      >  sign works
+      >  sign works
+      > 	  0
+      >  two or more are not true
 
 AUTHOR
   John S. Urban
@@ -461,4 +594,237 @@ LICENSE
 
 
 
-				 July 21, 2024		      fmt(3m_overload)
+				 July 24, 2024		     sign(3m_overload)
+to(3m_overload) 					       to(3m_overload)
+
+
+
+NAME
+  to(3f) - [M_overload::LOGICAL] return array of adjacent integers over
+  specified range, inclusive (LICENSE:PD)
+
+SYNOPSIS
+  pure elemental integer function to(i,j)
+
+      integer,intent(in) :: i
+      integer,intent(in) :: j
+      integer,allocatable :: to
+
+
+DESCRIPTION
+  A convenience for expressing [(integer :: i=N,M)]
+
+OPTIONS
+  I starting value
+
+  J ending value
+
+RETURNS
+  An array of adjacent whole numbers from I to J
+
+EXAMPLES
+  Sample usage:
+
+     program demo_to
+     use M_overload, only: to, operator(.to.)
+     implicit none
+     character(len=*),parameter :: gen='(*(g0,1x))'
+	print gen, [11.to.16]
+	print gen, 2.5 * [1.to.4]
+	print gen, 2.5 * to(1,4)+10
+     end program demo_to
+
+  Results:
+
+	> 11 12 13 14 15 16
+	> 2.50000000 5.00000000 7.50000000 10.0000000
+	> 12.5000000 15.0000000 17.5000000 20.0000000
+
+
+AUTHOR
+  John S. Urban, inspired by @beliavsky
+
+LICENSE
+  Public Domain
+
+
+
+				 July 24, 2024		       to(3m_overload)
+intrinsics(3m_overload) 			       intrinsics(3m_overload)
+
+
+
+NAME
+  rename_intrinsics(3f) - [M_overload::INTRINSICS] rename intrinsic functions
+  (LICENSE:PD)
+
+
+SYNOPSIS
+  use M_overload, only : LOCAL_NAME=>INTRINSIC_NAME
+
+DESCRIPTION
+  In order to be able to rename intrinsics they are all loaded in
+
+  the M_overload module.
+    That allows for them to be renamed via a USE statment.
+
+EXAMPLES
+  Sample usage:
+
+     program rename_intrinsics
+     ! rename intrinsics
+
+     ! shorter names
+     use M_overload, only : cmd=>execute_command_line
+     use M_overload, only : getenv=> get_environment_variable
+
+     ! longer names
+     use M_overload, only : cosine=>cos, sine=>sin, tangent=>tan
+
+     implicit none
+     character(len=4096) :: home
+
+	call cmd('echo Hello')
+
+	call getenv('HOME',home)
+	write(*,*)trim(home)
+
+	write(*,*)cosine(1.0),sine(1.0),tangent(1.0)
+
+     end program rename_intrinsics
+
+  Results:
+
+       > Hello
+       >  /home/urbanjs/venus/V600
+       >   0.540302277	    0.841470957       1.55740774
+
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+				 July 24, 2024	       intrinsics(3m_overload)
+dble(3m_overload)					     dble(3m_overload)
+
+
+
+NAME
+  dble(3f) - [M_overload::TYPE] allow dble(3f), real(3f), int(3f) to take
+  character arguments (LICENSE:PD)
+
+SYNOPSIS
+  dble(3f), real(3f), and int(3f) extension:
+
+	pure elemental doubleprecision function dble(value)
+	pure elemental real  function real(value)
+	pure elemental int function int(value)
+
+
+DESCRIPTION
+  All the intrinsics dble(3f), real(3f), and int(3f) to take a character
+  string as an argument, assuming it represents a numeric value; or a logical
+  value or expression.
+
+    •  .true. is 0
+
+    •  .false. is 1
+
+OPTIONS
+  value
+    string or logical expression or value to convert to a numeric value
+
+    If an error occurs zero is returned.
+
+RETURNS
+  A numeric value
+
+EXAMPLES
+  Sample usage:
+
+     program demo_dble
+
+     use, intrinsic :: iso_fortran_env, only : &
+	     & integer_kinds, int8, int16, int32, int64
+     use, intrinsic :: iso_fortran_env, only : &
+	     & real32, real64, real128
+
+     use M_overload, only : int, real, dble
+     use M_overload, only : merge
+     implicit none
+     character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
+	! basics
+	! note returns int64
+	write(*,gen) int('1234')*2
+	write(*,gen) real('1234.56789')*2
+	write(*,gen) dble('1234.5678901234567')*2
+	! tests
+	if(int('1234') .eq. 1234 ) &
+		& write(*,*)'int("STRING") works '
+	if(abs(real('1234.56789') - 1234.56789) .lt. 2*epsilon(0.0)) &
+		& write(*,*)'real("STRING") works '
+	if(abs(dble('1234.5678901234567') - 1234.5678901234567d0) .lt. &
+	& epsilon(0.0d0)) &
+		& write(*,*)'dble("STRING") works '
+	! logical arguments work as well
+	! so let us settle this once and for all
+	write(*,*)'.true. is',int(.true.)
+	write(*,*)'.false. is',int(.false.)
+	write(*,*)'LOGICAL ARRAY   ', dble([.false., .true., .false., .true.])
+	write(*,*) merge('int works for .FALSE.','int fails for .FALSE.', &
+		& int(.FALSE.).ne.0)
+	write(*,*) merge('int works for .TRUE.','int fails for .TRUE.', &
+		& int(.TRUE.).eq.0)
+	! and also note the argument can be metamorphic
+	! call a function with a metamorphic argument so values can be
+	! any values that represent a numeric value ...
+	write(*,*)'METAMORPHIC	   ', promote(1,1.0,1.0d0)
+	write(*,*)'METAMORPHIC	   ', promote('3',(2.0,0.0),.true.)
+	write(*,*)'METAMORPHIC	   ', promote('3','3','3')
+	write(*,*)'METAMORPHIC	   ', promote(.true.,.false.,.true.)
+	write(*,*)'METAMORPHIC	   ', promote((3.0,4.0),0.0,0)
+
+     contains
+     function promote(value1,value2,value3)
+	class(*),intent(in) :: value1
+	class(*),intent(in) :: value2
+	class(*),intent(in) :: value3
+	doubleprecision,allocatable :: promote
+	promote=sum([dble(value1),dble(value2),dble(value3)])
+     end function promote
+
+     end program demo_dble
+
+  Results:
+
+      > [2468]
+      > [2469.13574]
+      > [2469.1357802469133]
+      >  int("STRING") works
+      >  real("STRING") works
+      >  dble("STRING") works
+      >  .true. is		      0
+      >  .false. is		       1
+      >  LOGICAL ARRAY	    1.0000 0.0000  1.0000  0.0000
+      >  int works for .FALSE.
+      >  int works for .TRUE.
+      >  METAMORPHIC	    3.0000000000000000
+      >  METAMORPHIC	    3.0000000000000000
+      >  METAMORPHIC	    9.0000000000000000
+      >  METAMORPHIC	    1.0000000000000000
+      >  METAMORPHIC	    0.0000000000000000
+
+
+AUTHOR
+  John S. Urban
+
+LICENSE
+  Public Domain
+
+
+
+				 July 24, 2024		     dble(3m_overload)

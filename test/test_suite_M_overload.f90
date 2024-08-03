@@ -50,16 +50,7 @@ contains
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_fmt()
 !use M_overload,              only : operator(==)
-   call unit_check_start('fmt',' &
-         & -description "convert intrinsic scalar value to a formatted string" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         & -prep         y &
-         & -ccall        n &
-         & -archive      GPF.a &
-         & ')
+   call unit_check_start('fmt','convert intrinsic scalar value to a formatted string')
    ! add 0+ to avoid gfortran-11 bug
    !call unit_check( 'fmt', 1234.fmt.'"[",i0,"]"' == '[1234]' )
    !call unit_check( 'fmt', '1234'.fmt.'"[",i0,"]"' == '[1234]' )
@@ -68,16 +59,7 @@ end subroutine test_fmt
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_to()
 !use M_overload,              only : operator(==)
-   call unit_check_start('to',' &
-         & -description "generate range of adjacent whole numbers over specified range" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         & -prep         y &
-         & -ccall        n &
-         & -archive      GPF.a &
-         & ')
+   call unit_check_start('to','generate range of adjacent whole numbers over specified range')
    call unit_check( 'to', all([11.to.14] == [11,12,13,14]  ),'[11,12,13,14]')
    call unit_check( 'to', all([-14.to.-11] == [-14,-13,-12,-11]),'[-14,-13,-12,-11]')
    call unit_check( 'to', all(to(11,14) == [11,12,13,14]  ),'[11,12,13,14]')
@@ -87,16 +69,7 @@ end subroutine test_to
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_oz()
 !use M_overload,              only : operator(==)
-   call unit_check_start('oz',' &
-         & -description "convert logical expression to integer with 1 for TRUE" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         & -prep         y &
-         & -ccall        n &
-         & -archive      GPF.a &
-         & ')
+   call unit_check_start('oz','convert logical expression to integer with 1 for TRUE')
    ! add 0+ to avoid gfortran-11 bug
    call unit_check('oz',oz(10 > 5).eq.1.and.oz( 10 < 5).eq.0)
    call unit_check('oz',all(oz([10 > 5, 10 < 5, 5 == 5, 5 < 5]) == [1,0,1,0]) , oz(10 > 5)+0,oz(10 < 5)+0,oz(5 == 5)+0,oz(5 < 5)+0 )
@@ -105,16 +78,7 @@ end subroutine test_oz
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_zo()
 !use M_overload,              only : operator(==)
-   call unit_check_start('zo',' &
-         & -description "convert logical expression to integer with 1 for TRUE" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('zo','convert logical expression to integer with 0 for TRUE')
    ! add 0+ to avoid gfortran-11 bug
    call unit_check('zo',zo(10 > 5).eq.0.and.zo( 10 < 5).eq.1)
    call unit_check('zo',all(zo([10 > 5, 10 < 5, 5 == 5, 5 < 5]) == [0,1,0,1]), zo(10 > 5)+0,zo(10 < 5)+0,zo(5 == 5)+0, zo(5 < 5)+0 )
@@ -123,16 +87,7 @@ end subroutine test_zo
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_sign()
 !use M_overload,              only : operator(==)
-   call unit_check_start('sign',' &
-         & -description "overload SIGN to take a single argument" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('sign','overload SIGN to take a single argument')
    ! add 0+ to avoid gfortran-11 bug
    call unit_check('sign',sign(10_int8).eq.1.and.sign(-10_int8).eq.-1,'sign(+-10_int8)',0+sign(10_int8),0+sign(-10_int8))
    call unit_check('sign',sign(10_int16).eq.1.and.sign(-10_int16).eq.-1,'sign(+-10_int16)',0+sign(10_int16),0+sign(-10_int16))
@@ -149,48 +104,21 @@ end subroutine test_sign
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_boolean_equal()
 !use M_overload,              only : operator(==)
-   call unit_check_start('boolean_equal',' &
-         & -description "overload == to take LOGICAL arguments" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('boolean_equal','overload == to take LOGICAL arguments')
    call unit_check('boolean_equal',.true. == .true. ,'== works like .eqv. for LOGICAL values')
    call unit_check_done('boolean_equal',msg='')
 end subroutine test_boolean_equal
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_boolean_notequal()
 !use M_overload,              only : operator(/=)
-   call unit_check_start('boolean_notequal',' &
-         & -description "overload /= to take LOGICAL arguments" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('boolean_notequal','overload /= to take LOGICAL arguments')
    call unit_check('boolean_notequal', (.true. /= .false. ),'/= works like .neqv. for LOGICAL values')
    call unit_check_done('boolean_notequal',msg='')
 end subroutine test_boolean_notequal
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_dble_s2v()
 !use M_overload,              only : int, real, dble
-   call unit_check_start('dble_s2v',' &
-         & -description "overload dble() to take string arguments" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('dble_s2v','overload dble() to take string arguments')
    if(dble('0.3570726221234567').eq. 0.3570726221234567d0)then
       call unit_check_good('dble_s2v')                                             ! string passed to dble
 !   elseif(dble('0.3570726221234567') .EqualTo. 0.3570726221234567d0 )then
@@ -203,16 +131,7 @@ end subroutine test_dble_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_dbles_s2v()
 doubleprecision,allocatable :: vals(:)
-   call unit_check_start('dbles_s2v',' &
-         & -description "overload dble() to take string arguments" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('dbles_s2v','overload dble() to take string arguments')
 
    vals=dble(['10.0d0','20.0d0'])
    vals=vals-[10.0d0,20.0d0]
@@ -236,32 +155,14 @@ doubleprecision,allocatable :: vals(:)
 end subroutine test_dbles_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_int_s2v()
-   call unit_check_start('int_s2v',' &
-         & -description "overload INT() to take string arguments" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('int_s2v','overload INT() to take string arguments')
    call unit_check('int_s2v',int('1234').eq.1234,'string passed to int')
    call unit_check_done('int_s2v',msg='')
 end subroutine test_int_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_ints_s2v()
 integer,allocatable :: ibug(:)
-   call unit_check_start('ints_s2v',' &
-         & -description "overload INT() to take string arguments" &
-         & -section 3  &
-         & -library libGPF  &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y &
-         &  -prep         y &
-         &  -ccall        n &
-         &  -archive      GPF.a &
-         & ')
+   call unit_check_start('ints_s2v','overload INT() to take string arguments')
    !!if(all(int(['100','200']).eq. [100,200]))then
    ibug=int(['100','200'])
    if(all(ibug.eq. [100,200]))then
@@ -272,16 +173,7 @@ integer,allocatable :: ibug(:)
 end subroutine test_ints_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_real_s2v()
-   call unit_check_start('real_s2v','&
-         & -description "overload REAL() to take string arguments" &
-         & -section 3                    &
-         & -library libGPF               &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y              &
-         &  -prep         y              &
-         &  -ccall        n              &
-         &  -archive      GPF.a          &
-         & ')
+   call unit_check_start('real_s2v','overload REAL() to take string arguments')
    if(REAL('0.357072622').eq. 0.357072622)then
       call unit_check_good('real_s2v')
    elseif(almost(real('0.357072622'), 0.357072622,7.0) )then
@@ -293,16 +185,7 @@ end subroutine test_real_s2v
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_reals_s2v()
 real,allocatable :: rbug(:)
-   call unit_check_start('reals_s2v','&
-         & -description "overload REAL() to take string arguments" &
-         & -section 3                    &
-         & -library libGPF               &
-         & -filename `pwd`/M_overload.FF &
-         & -documentation y              &
-         &  -prep         y              &
-         &  -ccall        n              &
-         &  -archive      GPF.a          &
-         & ')
+   call unit_check_start('reals_s2v','overload REAL() to take string arguments')
    rbug=real(['0.357072622','200.0      '])
    if(all(rbug.eq. [0.357072622,200.0]))then
       call unit_check_good('reals_s2v')                                             ! string passed to int

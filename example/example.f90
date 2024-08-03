@@ -16,6 +16,8 @@
         real :: x
         integer :: i
         real,allocatable :: arr(:)
+           stop
+           !print asis,'array=[',f([10,20,30],comma),']'
 
           ! print will do, just want to control format of a number
            print gen,'result is',10,'and',f(10.0/3.0,'f0.3')
