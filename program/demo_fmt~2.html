@@ -72,19 +72,19 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="19.5% of total for programs.">41 statements</a>
+                 title="20.0% of total for programs.">42 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
               <i class="fa fa-code"></i>
-              <a href="../src/demo_fmt.f90"> Source File</a>
+              <a href="../src/example.f90"> Source File</a>
             </li>
         </ul>
       </div>
       <div class="col">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-end mb-0">
-                <li class="breadcrumb-item"><a href='../sourcefile/demo_fmt.f90.html'>demo_fmt.f90</a></li>
+                <li class="breadcrumb-item"><a href='../sourcefile/example.f90.html'>example.f90</a></li>
             <li class="breadcrumb-item active" aria-current="page">demo_fmt</li>
           </ol>
         </nav>
@@ -117,10 +117,10 @@
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-comma~2">comma</a>
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-five~2">five</a>
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-g0~2">g0</a>
-            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-gen~6">gen</a>
-            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-i~7">i</a>
+            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-gen~3">gen</a>
+            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-i~2">i</a>
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-output~2">output</a>
-            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-string~5">string</a>
+            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-string~2">string</a>
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-x~2">x</a>
         </div>
       </div>
@@ -283,7 +283,7 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-gen~6"></span>
+              <span class="anchor" id="variable-gen~3"></span>
               character(len=*),
             </td>
             <td>
@@ -299,7 +299,7 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-i~7"></span>
+              <span class="anchor" id="variable-i~2"></span>
               integer
             </td>
             <td>
@@ -331,7 +331,7 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-string~5"></span>
+              <span class="anchor" id="variable-string~2"></span>
               character(len=:),
             </td>
             <td>
@@ -395,6 +395,8 @@ parameter
 <span class="w">        </span><span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
 <span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
 <span class="w">        </span><span class="kt">real</span><span class="p">,</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">arr</span><span class="p">(:)</span>
+<span class="w">           </span><span class="k">stop</span>
+<span class="w">           </span><span class="c">!print asis,&#39;array=[&#39;,f([10,20,30],comma),&#39;]&#39;</span>
 
 <span class="w">          </span><span class="c">! print will do, just want to control format of a number</span>
 <span class="w">           </span><span class="k">print </span><span class="n">gen</span><span class="p">,</span><span class="s1">&#39;result is&#39;</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;and&#39;</span><span class="p">,</span><span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="mf">0.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">,</span><span class="s1">&#39;f0.3&#39;</span><span class="p">)</span>
