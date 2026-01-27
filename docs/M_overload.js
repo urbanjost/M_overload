@@ -1,5 +1,6 @@
 function loadthem(){
 append("M_overload.3m_overload.html");
+append("append.3m_overload.html");
 append("dble.3m_overload.html");
 append("fmt.3m_overload.html");
 append("intrinsics.3m_overload.html");

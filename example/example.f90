@@ -16,7 +16,6 @@
         real :: x
         integer :: i
         real,allocatable :: arr(:)
-           stop
            !print asis,'array=[',f([10,20,30],comma),']'
 
           ! print will do, just want to control format of a number
@@ -83,4 +82,6 @@
            !
            !not yet! write(*,asis)'['//f(arr,comma)//']'
 
+           string=10//20//3.14159265
+           write(*,*)string
         end program demo_fmt

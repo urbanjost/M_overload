@@ -53,7 +53,6 @@
            ! using non-advancing I/O
            write(*,comma)x,f(x),f(x,g0),f(x,five),f(x,bracket)
 
-
            ! A common extension in Fortran is a VFE
            ! VFE:
            ! A Variable FORMAT Expression (VFE) is a format statement which

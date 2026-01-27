@@ -1,8 +1,31 @@
-#ifdef __NVCOMPILER
-#undef HAS_REAL128
+!-----------------------------------------------------------------------------------------------------------------------------------
+#define  __INTEL_COMP        1
+#define  __GFORTRAN_COMP     2
+#define  __NVIDIA_COMP       3
+#define  __NAG_COMP          4
+#define  __LLVM_FLANG_COMP   5
+#define  __LFORTRAN_COMP     6
+#define  __UNKNOWN_COMP   9999
+
+#define FLOAT128
+
+#ifdef __INTEL_COMPILER
+#   define __COMPILER__ __INTEL_COMP
+#elif __GFORTRAN__ == 1
+#   define __COMPILER__ __GFORTRAN_COMP
+#elif __flang__
+#   undef FLOAT128
+#   define __COMPILER__ __LLVM_FLANG_COMP
+#elif __NVCOMPILER
+#   undef FLOAT128
+#   define __COMPILER__ __NVIDIA_COMP
+#elif __LFORTRAN__
+#   define __COMPILER__ __LFORTRAN_COMP
 #else
-#define HAS_REAL128
+#   define __COMPILER__ __UNKNOWN_COMP
+#   warning  NOTE: UNKNOWN COMPILER
 #endif
+!-----------------------------------------------------------------------------------------------------------------------------------
 !>
 !!##NAME
 !!    M_overload(3fm) - [M_overload::INTRO] overloads of standard operators and intrinsic procedures
@@ -16,7 +39,7 @@
 !!    ! use /= like .neqv.; ie. logical/=logical
 !!
 !!    use M_overload, only : operator(//)
-!!    ! convert intrinsics to strings and contatenate
+!!    ! convert intrinsics to strings and concatenate
 !!
 !!  overloads on INTRINSICS to take strings, logicals, and metamorphic numeric intrinsic values
 !!
@@ -26,9 +49,12 @@
 !!    ! dble('string')  dble(logical)  dble(class(*))
 !!
 !!    use M_overload, only : sign
-!!    ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
+!!    ! When sign(3f) is given a single value, call sign(1,value); ie. sign(value)
 !!    use M_overload, only : merge
 !!    ! Allow strings of different length in MERGE
+!!
+!!    use M_overload, only : operator(+)
+!!    ! use + to append elements into a character array
 !!
 !!  other operators
 !!
@@ -79,6 +105,8 @@
 !!            compiler supports this non-standard (but intuitive-looking)
 !!            syntax you can use this module to allow the syntax in a
 !!            portable manner with a standard method.
+!!
+!!  +         used to append strings to a string array
 !!
 !!    int(), real(), dble()  allow strings to be converted to numeric values
 !!                           using the standard intrinsic names
@@ -193,7 +221,7 @@
 !!    John S. Urban
 !!##LICENSE
 !!    Public Domain
-module m_overload
+module M_overload
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
 use,intrinsic :: iso_fortran_env, only : stderr=>ERROR_UNIT,stdin=>INPUT_UNIT,stdout=>OUTPUT_UNIT
 implicit none
@@ -207,6 +235,23 @@ public operator(/=)
 public operator(//)
 public operator(.fmt.)
 public operator(.to.)
+public :: operator(+)
+public :: operator(.append.)
+public :: append
+
+interface append
+   module procedure charray_scal_scal, charray_vect_scal, charray_scal_vect, charray_vector_vector
+end interface append
+
+interface operator (+)
+   !procedure append
+   module procedure charray_scal_scal, charray_vect_scal, charray_scal_vect, charray_vector_vector
+end interface
+
+interface operator (.append.)
+   !procedure append
+   module procedure charray_scal_scal, charray_vect_scal, charray_scal_vect, charray_vector_vector
+end interface
 
 interface operator(.to.)
    module procedure to
@@ -224,8 +269,17 @@ interface operator ( /= )
    module procedure boolean_notequal
 end interface operator ( /= )
 
-interface operator ( // )
+interface operator ( .cat. )
    module procedure g_g
+end interface operator ( .cat. )
+
+interface operator ( // )
+   module procedure  concat_i_g, concat_g_i
+   module procedure  concat_r_g, concat_g_r
+   module procedure  concat_d_g, concat_g_d
+   module procedure  concat_c_g, concat_g_c
+   module procedure  concat_l_g, concat_g_l
+   module procedure  concat_s_g, concat_g_s
 end interface operator ( // )
 
 ! already made all intrinsic names public,
@@ -249,7 +303,7 @@ interface sign;    module procedure sign_int32;           end interface
 interface sign;    module procedure sign_int64;           end interface
 interface sign;    module procedure sign_real32;          end interface
 interface sign;    module procedure sign_real64;          end interface
-#ifdef HAS_REAL128
+#ifdef FLOAT128
 interface sign;    module procedure sign_real128;         end interface
 #endif
 ! allow for minimum length option on adjustl and adjustr
@@ -261,6 +315,12 @@ interface merge
 end interface
 
 public :: fmt
+
+! aliases
+interface bool
+   module procedure oz
+end interface
+public bool
 !-----------------------------------------------------------------------------------------------------------------------------------
 !>
 !!##NAME
@@ -275,8 +335,8 @@ public :: fmt
 !!##DESCRIPTION
 !!
 !!    In order to be able to rename intrinsics they are all loaded in
-!!    the M_overload module.  That allows for them to be renamed via a
-!!    USE statment.
+!!    the M_overload module. That allows for them to be renamed via a
+!!    USE statement.
 !!
 !!##EXAMPLES
 !!
@@ -395,6 +455,12 @@ public    :: trim,                  ubound,                    unpack,          
 !-----------------------------------------------------------------------------------------------------------------------------------
 contains
 !-----------------------------------------------------------------------------------------------------------------------------------
+!===================================================================================================================================
+! worked fine with gfortran, ifx produced an error
+! ././src/M_unicode.F90(5530): error #9186: The dummy arguments of the
+! specific procedure defining a defined assignment or defined operator
+! cannot both be unlimited polymorphic. [G_G]
+!
 function g_g(value1,value2) result (string)
 
 ! ident_2="@(#) M_overload g_g(3f) convert two single intrinsic values to a string"
@@ -415,6 +481,140 @@ character(len=:),allocatable :: string
    string(1:len(string1))=string1
    string(len(string1)+1:)=string2
 end function g_g
+!===================================================================================================================================
+! maybe concat_g_g is non-standard, but intel compiler requires naming everything
+
+function concat_i_g(lhs,rhs) result (string)
+integer,intent(in)          :: lhs
+class(*),intent(in)         :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_i_g
+
+function concat_g_i(lhs,rhs) result (string)
+class(*),intent(in)         :: lhs
+integer,intent(in)          :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_g_i
+
+function concat_r_g(lhs,rhs) result (string)
+real,intent(in)             :: lhs
+class(*),intent(in)         :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_r_g
+
+function concat_g_r(lhs,rhs) result (string)
+class(*),intent(in)         :: lhs
+real,intent(in)             :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_g_r
+
+function concat_d_g(lhs,rhs) result (string)
+doubleprecision,intent(in)  :: lhs
+class(*),intent(in)         :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_d_g
+
+function concat_g_d(lhs,rhs) result (string)
+class(*),intent(in)         :: lhs
+doubleprecision,intent(in)  :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_g_d
+
+function concat_c_g(lhs,rhs) result (string)
+complex,intent(in)          :: lhs
+class(*),intent(in)         :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_c_g
+
+function concat_g_c(lhs,rhs) result (string)
+class(*),intent(in)         :: lhs
+complex,intent(in)          :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_g_c
+
+function concat_s_g(lhs,rhs) result (string)
+character(len=*),intent(in) :: lhs
+class(*),intent(in)         :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_s_g
+
+function concat_g_s(lhs,rhs) result (string)
+class(*),intent(in)         :: lhs
+character(len=*),intent(in) :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_g_s
+
+function concat_l_g(lhs,rhs) result (string)
+logical,intent(in)          :: lhs
+class(*),intent(in)         :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_l_g
+
+function concat_g_l(lhs,rhs) result (string)
+class(*),intent(in)         :: lhs
+logical,intent(in)          :: rhs
+character(len=:),allocatable          :: string1, string2, string
+   string1 = fmt(lhs)
+   string2 = fmt(rhs)
+   allocate(character(len=len(string1)+len(string2)) :: string)
+   string(1:len(string1))=string1
+   string(len(string1)+1:)=string2
+end function concat_g_l
 !>
 !!##NAME
 !!    merge(3f) - [M_overload:INTRINSIC] allow MERGE(3f) intrinsic to take
@@ -509,7 +709,7 @@ end function adjustr_atleast
 !!    magnitude is 1 if only one argument is supplied.
 !!
 !!    SIGN(3f) returns a value with the magnitude of MAGNITUDE but with the
-!!    sign of COPYSIGN.  All three must be of the same type, which may be
+!!    sign of COPYSIGN. All three must be of the same type, which may be
 !!    INTEGER or REAL.
 !!
 !!##OPTIONS
@@ -576,7 +776,7 @@ end function adjustr_atleast
 !!##LICENSE
 !!    Public Domain
 
-#ifdef HAS_REAL128
+#ifdef FLOAT128
 elemental function sign_real128(value)
 real(kind=real128),intent(in) :: value
 real(kind=real128)            :: sign_real128
@@ -816,6 +1016,120 @@ end function dbles_s2v
 !===================================================================================================================================
 !>
 !!##NAME
+!!    append(3f) - [M_overload] append sets of strings to one another
+!!    (LICENSE:PD)
+!!##SYNOPSIS
+!!
+!!    function append(set1,set2) result(array)
+!!
+!!     character(len=*),intent(in),optional :: set1, set2
+!!     character(len=:),allocatable :: array(:)
+!!
+!!##DESCRIPTION
+!!    append(3f) appends any standard intrinsic string or string array
+!!               to another, creating a new array containing all the elements
+!!               of both inputs.
+!!
+!!               It is also available as the .append. operator, or as an
+!!               overload of the plus operator (+).
+!!
+!!##OPTIONS
+!!    set1,set2  character strings or arrays to append to one another, adjusting
+!!               the width to accomodate the longest width.
+!!
+!!##RETURNS
+!!    array   A string array composed of all the elements from both input strings
+!!            or arrays.
+!!
+!!##EXAMPLES
+!!
+!!   Sample program:
+!!
+!!     program demo_append
+!!     use :: M_overload, only : append
+!!     use :: M_overload, only : operator(.append.)
+!!     use :: M_overload, only : operator( + )
+!!     implicit none
+!!     character(:), allocatable :: str(:)
+!!        !
+!!        ! plus (+) operator overload
+!!        str = "This" + "is" + "an" + "array" + "of" + "characters"
+!!        print "(('[',A,']'))", str
+!!        print '(*(g0))', 'size=',size(str), ',len=',len(str)
+!!        !
+!!        ! .append.
+!!        str = &
+!!        "This" .append. "is" &
+!!        .append. "an" .append. "array" &
+!!        .append. "of" .append. "characters"
+!!        print "(('[',A,']'))", str
+!!        !
+!!        ! append()
+!!        str = append("This","is") + &
+!!              append("an","array") + &
+!!              append("of","characters")
+!!        print "(('[',A,']'))", str
+!!
+!!     end program demo_append
+!!
+!!   Results:
+!!
+!!     > [This      ]
+!!     > [is        ]
+!!     > [an        ]
+!!     > [array     ]
+!!     > [of        ]
+!!     > [characters]
+!!     > size=6,len=10
+!!     > [This      ]
+!!     > [is        ]
+!!     > [an        ]
+!!     > [array     ]
+!!     > [of        ]
+!!     > [characters]
+!!     > [This      ]
+!!     > [is        ]
+!!     > [an        ]
+!!     > [array     ]
+!!     > [of        ]
+!!     > [characters]
+!!
+!!##AUTHOR
+!!    John S. Urban; Based on a Fortran Discourse example by PierU, May 15, 2025.
+!!
+!!##LICENSE
+!!    MIT
+
+function charray_scal_scal(x,y) result(z)
+character(*), intent(in)  :: x, y
+character(:), allocatable :: z(:)
+   z = charray_vector_vector([x],[y])
+end function charray_scal_scal
+
+function charray_vect_scal(x,y) result(z)
+character(*), intent(in)  :: x(:), y
+character(:), allocatable :: z(:)
+   z = charray_vector_vector(x,[y])
+end function charray_vect_scal
+
+function charray_scal_vect(x,y) result(z)
+character(*), intent(in)  :: x, y(:)
+character(:), allocatable :: z(:)
+   z = charray_vector_vector([x],y)
+end function charray_scal_vect
+
+function charray_vector_vector(x,y) result(z)
+character(*), intent(in)  :: x(:), y(:)
+character(:), allocatable :: z(:)
+   allocate( character(max(len(x),len(y))) :: z(size(x)+size(y)) )
+   z( :size(x))   = x
+   z(size(x)+1: ) = y
+end function charray_vector_vector
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!>
+!!##NAME
 !!    fmt(3f) - [M_overload] convert any intrinsic to a string using specified format
 !!    (LICENSE:PD)
 !!##SYNOPSIS
@@ -997,7 +1311,7 @@ logical                      :: trimit
       type is (real(kind=real64))
          if(fmt_local == '') fmt_local='(1pg0,a)'
          write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-#ifdef HAS_REAL128
+#ifdef FLOAT128
       type is (real(kind=real128))
          if(fmt_local == '') fmt_local='(1pg0,a)'
          write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
@@ -1224,7 +1538,7 @@ doubleprecision           :: d_out
    type is (integer(kind=int64));  d_out=dble(valuein)
    type is (real(kind=real32));    d_out=dble(valuein)
    type is (real(kind=real64));    d_out=dble(valuein)
-#ifdef HAS_REAL128
+#ifdef FLOAT128
    type is (real(kind=real128))
       !x!if(valuein.gt.big)then
       !x!   write(stderr,*)'*anyscalar_to_double* value too large ',valuein
@@ -1256,7 +1570,7 @@ class(*),intent(in)    :: valuein
    type is (integer(kind=int64));  ii38=valuein
    type is (real(kind=real32));    ii38=int(valuein,kind=int64)
    type is (real(kind=real64));    ii38=int(valuein,kind=int64)
-#ifdef HAS_REAL128
+#ifdef FLOAT128
    Type is (real(kind=real128));   ii38=int(valuein,kind=int64)
 #endif
    type is (logical);              ii38=merge(0_int64,1_int64,valuein)
@@ -1292,7 +1606,7 @@ real                :: r_out
       !x!   write(stderr,*)'*anyscalar_to_real* value too large ',valuein
       !x!endif
       r_out=real(valuein)
-#ifdef HAS_REAL128
+#ifdef FLOAT128
    type is (real(kind=real128))
       !x!if(valuein.gt.big)then
       !x!   write(stderr,*)'*anyscalar_to_real* value too large ',valuein
@@ -1380,7 +1694,7 @@ end function to
 !!
 !!##DESCRIPTION
 !!
-!!    Returns an integer given a logical expression.
+!!    oz(3f) returns an integer 1 given a true logical expression.
 !!
 !!##OPTIONS
 !!    expr  A logical expression
@@ -1419,10 +1733,9 @@ pure elemental integer function oz(expr)
 logical, intent(in) :: expr
    oz = merge(1, 0, expr) ! One and Zero
 end function oz
-
 !>
 !!##NAME
-!!    zo(3f) - [M_overload::LOGICAL] returns Zero if expression is FALSE, else returns One.
+!!    zo(3f) - [M_overload::LOGICAL] returns Zero if expression is TRUE, else returns One.
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!
@@ -1433,7 +1746,7 @@ end function oz
 !!
 !!##DESCRIPTION
 !!
-!!    Returns an integer given a logical expression.
+!!    zo(3f) returns an integer 0 given a true logical expression.
 !!
 !!##OPTIONS
 !!    expr  A logical expression

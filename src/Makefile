@@ -12,8 +12,7 @@ PROGFILES = \
  ../example/demo_oz.f90 \
  ../example/demo_to.f90 \
  ../example/demo_zo.f90 \
- ../example/extend_dble.f90
-
+ ../example/extend_dble.f90 \
 $(NULL)
 
 TESTFILES = \

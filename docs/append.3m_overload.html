@@ -48,7 +48,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 <div id="Container">
 <div id="Content">
 <CENTER>
-<H1><HR><I>Manual Reference Pages &nbsp;-&nbsp;</I><NOBR>oz (3m_overload)</NOBR><HR></H1>
+<H1><HR><I>Manual Reference Pages &nbsp;-&nbsp;</I><NOBR>append (3m_overload)</NOBR><HR></H1>
 </CENTER>
 <A name=0>
 
@@ -56,7 +56,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 
 </A>
 <BLOCKQUOTE>
-oz(3f) - [M_overload::LOGICAL] returns One if expression is TRUE, else returns Zero.
+append(3f) - [M_overload] append sets of strings to one another
 (LICENSE:PD)
 </BLOCKQUOTE>
 <A name=contents></A><H3>CONTENTS</H3></A>
@@ -75,11 +75,11 @@ oz(3f) - [M_overload::LOGICAL] returns One if expression is TRUE, else returns Z
 
 </A>
 <BLOCKQUOTE>
-<P>
-pure elemental integer function oz(expr)
+function append(set1,set2) result(array)
 <P>
 <PRE>
-    logical,intent(in) :: expr
+    character(len=*),intent(in),optional :: set1, set2
+    character(len=:),allocatable :: array(:)
 <P>
 </PRE>
 </BLOCKQUOTE>
@@ -89,8 +89,14 @@ pure elemental integer function oz(expr)
 
 </A>
 <BLOCKQUOTE>
+append(3f) appends any standard intrinsic string or string array
+to another, creating a new array containing all the elements
+of both inputs.
+<BLOCKQUOTE>
 <P>
-oz(3f) returns an integer 1 given a true logical expression.
+It is also available as the .append. operator, or as an
+overload of the plus operator (+).
+</BLOCKQUOTE>
 </BLOCKQUOTE>
 <A name=3>
 
@@ -99,9 +105,10 @@ oz(3f) returns an integer 1 given a true logical expression.
 </A>
 <BLOCKQUOTE>
 <TABLE cellpadding=3>
-<TR valign=top><TD width=6% nowrap>
-<B>expr</B> </TD><TD valign=bottom>
-A logical expression
+<TR valign=top><TD colspan=2>
+<B>set1,set2</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
+character strings or arrays to append to one another, adjusting
+the width to accomodate the longest width.
 </TD></TR>
 <TR></TR></TABLE></BLOCKQUOTE>
 <A name=4>
@@ -110,36 +117,72 @@ A logical expression
 
 </A>
 <BLOCKQUOTE>
-<P>
-The result is a default INTEGER value of 1 if the expression is TRUE,
-and a 0 otherwise.
-</BLOCKQUOTE>
+<TABLE cellpadding=3>
+<TR valign=top><TD width=6% nowrap>
+<B>array</B> </TD><TD valign=bottom>
+A string array composed of all the elements from both input strings
+or arrays.
+</TD></TR>
+<TR></TR></TABLE></BLOCKQUOTE>
 <A name=5>
 
      <H3>EXAMPLES</H3>
 
 </A>
 <BLOCKQUOTE>
-Sample usage:
+Sample program:
 <P>
 <PRE>
-   program demo_oz
-   use M_overload, only: oz, zo, lt, le, eq, ne, gt, ge
-   implicit none
-      write (*, *) &#146;is 10 &lt; 20 ?&#146;, oz(10 &lt; 20)
-      write (*, *) &#146;elemental&#146;, oz([2 &gt; 1, 3 == 4, 10 &lt; 5, 100 &gt; 50])
-      if (sum(oz([2 &gt; 1, 3 == 4, 10 &lt; 5, 100 &gt; 50])) &gt;= 2) then
-         write (*, *) &#146;two or more are true&#146;
-      endif
-   end program demo_oz
+    program demo_append
+    use :: M_overload, only : append
+    use :: M_overload, only : operator(.append.)
+    use :: M_overload, only : operator( + )
+    implicit none
+    character(:), allocatable :: str(:)
+       !
+       ! plus (+) operator overload
+       str = "This" + "is" + "an" + "array" + "of" + "characters"
+       print "((&#146;[&#146;,A,&#146;]&#146;))", str
+       print &#146;(*(g0))&#146;, &#146;size=&#146;,size(str), &#146;,len=&#146;,len(str)
+       !
+       ! .append.
+       str = &
+       "This" .append. "is" &
+       .append. "an" .append. "array" &
+       .append. "of" .append. "characters"
+       print "((&#146;[&#146;,A,&#146;]&#146;))", str
+       !
+       ! append()
+       str = append("This","is") + &
+             append("an","array") + &
+             append("of","characters")
+       print "((&#146;[&#146;,A,&#146;]&#146;))", str
+<P>
+    end program demo_append
 <P>
 </PRE>
 Results:
 <P>
 <PRE>
-    &gt; is 10 &lt; 20 ? 1
-    &gt; elemental 1 0 0 1
-    &gt; two or more are true
+    &gt; [This      ]
+    &gt; [is        ]
+    &gt; [an        ]
+    &gt; [array     ]
+    &gt; [of        ]
+    &gt; [characters]
+    &gt; size=6,len=10
+    &gt; [This      ]
+    &gt; [is        ]
+    &gt; [an        ]
+    &gt; [array     ]
+    &gt; [of        ]
+    &gt; [characters]
+    &gt; [This      ]
+    &gt; [is        ]
+    &gt; [an        ]
+    &gt; [array     ]
+    &gt; [of        ]
+    &gt; [characters]
 <P>
 </PRE>
 </BLOCKQUOTE>
@@ -149,7 +192,7 @@ Results:
 
 </A>
 <BLOCKQUOTE>
-John S. Urban
+John S. Urban; Based on a Fortran Discourse example by PierU, May 15, 2025.
 </BLOCKQUOTE>
 <A name=7>
 
@@ -157,10 +200,15 @@ John S. Urban
 
 </A>
 <BLOCKQUOTE>
-Public Domain
+</BLOCKQUOTE>
+<A name=>
+
+    <H4>&nbsp; &nbsp; MIT</H4>
+</A>
+<BLOCKQUOTE>
 </BLOCKQUOTE>
 <P><HR>
-<br><br><center><img src="images/oz.gif"></center>
+<br><br><center><img src="images/append.gif"></center>
 </div>
 </div>
 </body>
