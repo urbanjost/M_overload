@@ -12,14 +12,29 @@
 
     <title>demo_fmt &ndash; M_overload</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="../css/pygments.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
     <link href="../css/local.css" rel="stylesheet">
-      <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link href="../css/pygments.css" rel="stylesheet">
     <script src="../js/svg-pan-zoom.min.js"></script>
   </head>
 
@@ -72,7 +87,7 @@
 
             <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
               <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
-                 title="20.0% of total for programs.">42 statements</a>
+                 title="15.1% of total for programs.">43 statements</a>
             </li>
 
             <li class="list-inline-item" id="source-file">
@@ -92,9 +107,11 @@
     </div>
   </div>
   <script>
-    $(function () {
-    $('[data-bs-toggle="tooltip"]').tooltip()
-    })
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
   </script>
 
   </div>
@@ -117,11 +134,11 @@
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-comma~2">comma</a>
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-five~2">five</a>
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-g0~2">g0</a>
-            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-gen~3">gen</a>
-            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-i~2">i</a>
+            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-gen~6">gen</a>
+            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-i~7">i</a>
             <a class="list-group-item" href="../program/demo_fmt~2.html#variable-output~2">output</a>
-            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-string~2">string</a>
-            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-x~2">x</a>
+            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-string~17">string</a>
+            <a class="list-group-item" href="../program/demo_fmt~2.html#variable-x~6">x</a>
         </div>
       </div>
     </div>
@@ -163,7 +180,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <ul class="list-inline">
-                  <li class="list-inline-item"><a href='../module/m_overload.html'>m_overload</a></li>
+                  <li class="list-inline-item"><a href='../module/m_overload.html'>M_overload</a></li>
               </ul>
             </li>
         </ul>
@@ -283,7 +300,7 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-gen~3"></span>
+              <span class="anchor" id="variable-gen~6"></span>
               character(len=*),
             </td>
             <td>
@@ -299,7 +316,7 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-i~2"></span>
+              <span class="anchor" id="variable-i~7"></span>
               integer
             </td>
             <td>
@@ -331,7 +348,7 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-string~2"></span>
+              <span class="anchor" id="variable-string~17"></span>
               character(len=:),
             </td>
             <td>
@@ -347,7 +364,7 @@ parameter
         </tr>
         <tr>
             <td>
-              <span class="anchor" id="variable-x~2"></span>
+              <span class="anchor" id="variable-x~6"></span>
               real
             </td>
             <td>
@@ -395,7 +412,6 @@ parameter
 <span class="w">        </span><span class="kt">real</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">x</span>
 <span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
 <span class="w">        </span><span class="kt">real</span><span class="p">,</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">arr</span><span class="p">(:)</span>
-<span class="w">           </span><span class="k">stop</span>
 <span class="w">           </span><span class="c">!print asis,&#39;array=[&#39;,f([10,20,30],comma),&#39;]&#39;</span>
 
 <span class="w">          </span><span class="c">! print will do, just want to control format of a number</span>
@@ -462,6 +478,8 @@ parameter
 <span class="w">           </span><span class="c">!</span>
 <span class="w">           </span><span class="c">!not yet! write(*,asis)&#39;[&#39;//f(arr,comma)//&#39;]&#39;</span>
 
+<span class="w">           </span><span class="n">string</span><span class="o">=</span><span class="mi">10</span><span class="o">//</span><span class="mi">20</span><span class="o">//</span><span class="mf">3.14159265</span>
+<span class="w">           </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="n">string</span>
 <span class="w">        </span><span class="k">end program </span><span class="n">demo_fmt</span>
 </pre></div>
 
@@ -478,40 +496,18 @@ parameter
           <div class="col">
             <p>
               M_overload
- was developed by John S. Urban<br>              &copy; 2024 
+ was developed by John S. Urban<br>              &copy; 2026 
 </p>
           </div>
           <div class="col">
             <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2024-08-03 20:23              </p>
+ on 2026-01-27 07:42 +0000             </p>
           </div>
         </div>
         <br>
       </div> <!-- /container -->
     </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
-
-    <!-- MathJax JavaScript
-             ================================================== -->
-             <!-- Placed at the end of the document so the pages load faster -->
-        <script type="text/x-mathjax-config">
-          MathJax.Hub.Config({
-          TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
-          jax: ['input/TeX','input/MathML','output/HTML-CSS'],
-          extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
-          });
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-          <script src="../tipuesearch/tipuesearch_content.js"></script>
-          <script src="../tipuesearch/tipuesearch_set.js"></script>
-          <script src="../tipuesearch/tipuesearch.js"></script>
-
   </body>
 </html>
