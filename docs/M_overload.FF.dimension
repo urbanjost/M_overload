@@ -5,7 +5,6 @@ $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #define  __NVIDIA_COMP       3
 #define  __NAG_COMP          4
 #define  __LLVM_FLANG_COMP   5
-#define  __LFORTRAN_COMP     6
 #define  __UNKNOWN_COMP   9999
 
 #define FLOAT128
@@ -20,8 +19,6 @@ $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 #elif __NVCOMPILER
 #   undef FLOAT128
 #   define __COMPILER__ __NVIDIA_COMP
-#elif __LFORTRAN__
-#   define __COMPILER__ __LFORTRAN_COMP
 #else
 #   define __COMPILER__ __UNKNOWN_COMP
 #   warning  NOTE: UNKNOWN COMPILER
@@ -40,7 +37,7 @@ SYNOPSIS
    ! use /= like .neqv.; ie. logical/=logical
 
    use M_overload, only : operator(//)
-   ! convert intrinsics to strings and concatenate
+   ! convert intrinsics to strings and contatenate
 
  overloads on INTRINSICS to take strings, logicals, and metamorphic numeric intrinsic values
 
@@ -50,12 +47,9 @@ SYNOPSIS
    ! dble('string')  dble(logical)  dble(class(*))
 
    use M_overload, only : sign
-   ! When sign(3f) is given a single value, call sign(1,value); ie. sign(value)
+   ! When sign(3f) is given a single value, call sign(1,value); ie.  sign(value)
    use M_overload, only : merge
    ! Allow strings of different length in MERGE
-
-   use M_overload, only : operator(+)
-   ! use + to append elements into a character array
 
  other operators
 
@@ -111,8 +105,6 @@ OVERLOADS
            compiler supports this non-standard (but intuitive-looking)
            syntax you can use this module to allow the syntax in a
            portable manner with a standard method.
-
- +         used to append strings to a string array
 
    int(), real(), dble()  allow strings to be converted to numeric values
                           using the standard intrinsic names
@@ -271,9 +263,9 @@ AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-module M_overload
+module m_overload
 use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real64, real128
 use,intrinsic :: iso_fortran_env, only : stderr=>ERROR_UNIT,stdin=>INPUT_UNIT,stdout=>OUTPUT_UNIT
 implicit none
@@ -287,23 +279,6 @@ public operator(/=)
 public operator(//)
 public operator(.fmt.)
 public operator(.to.)
-public :: operator(+)
-public :: operator(.append.)
-public :: append
-
-interface append
-   module procedure charray_scal_scal, charray_vect_scal, charray_scal_vect, charray_vector_vector
-end interface append
-
-interface operator (+)
-   !procedure append
-   module procedure charray_scal_scal, charray_vect_scal, charray_scal_vect, charray_vector_vector
-end interface
-
-interface operator (.append.)
-   !procedure append
-   module procedure charray_scal_scal, charray_vect_scal, charray_scal_vect, charray_vector_vector
-end interface
 
 interface operator(.to.)
    module procedure to
@@ -321,20 +296,11 @@ interface operator ( /= )
    module procedure boolean_notequal
 end interface operator ( /= )
 
-interface operator ( .cat. )
-   module procedure g_g
-end interface operator ( .cat. )
-
 interface operator ( // )
-   module procedure  concat_i_g, concat_g_i 
-   module procedure  concat_r_g, concat_g_r
-   module procedure  concat_d_g, concat_g_d
-   module procedure  concat_c_g, concat_g_c
-   module procedure  concat_l_g, concat_g_l
-   module procedure  concat_s_g, concat_g_s
+   module procedure g_g
 end interface operator ( // )
 
-! already made all intrinsic names public,
+! already made all intrinsic names public, 
 ! but note extending int, real, dble, adjustl, adjustr, get_command, get_command_argument
 $!interface  get_command;           module  procedure  get_command_allocatable;           end  interface
 $!interface  get_command_argument;  module  procedure  get_command_argument_allocatable;  end  interface
@@ -369,12 +335,6 @@ interface merge
 end interface
 
 public :: fmt
-
-! aliases
-interface bool
-   module procedure oz
-end interface
-public bool
 !-----------------------------------------------------------------------------------------------------------------------------------
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file intrinsics.3m_overload.man
@@ -389,7 +349,7 @@ SYNOPSIS
 DESCRIPTION
 
    In order to be able to rename intrinsics they are all loaded in
-   the M_overload module. That allows for them to be renamed via a
+   the M_overload module.  That allows for them to be renamed via a
    USE statement.
 
 EXAMPLES
@@ -397,37 +357,37 @@ EXAMPLES
 
    program rename_intrinsics
    ! rename intrinsics
-
+   
    ! shorter names
    use M_overload, only : cmd=>execute_command_line
    use M_overload, only : getenv=> get_environment_variable
-
+   
    ! longer names
    use M_overload, only : cosine=>cos, sine=>sin, tangent=>tan
-
+   
    implicit none
    character(len=4096) :: home
-
+   
       call cmd('echo Hello')
 
       call getenv('HOME',home)
       write(*,*)trim(home)
 
       write(*,*)cosine(1.0),sine(1.0),tangent(1.0)
-
+   
    end program rename_intrinsics
 
   Results:
 
      > Hello
      >  /home/urbanjs/venus/V600
-     >   0.540302277      0.841470957       1.55740774
+     >   0.540302277      0.841470957       1.55740774    
 
 AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ! this allows you to rename intrinsics, overload them,
 intrinsic :: abs,                   achar,                     acos,              acosh,             adjustl
@@ -510,12 +470,6 @@ public    :: trim,                  ubound,                    unpack,          
 !-----------------------------------------------------------------------------------------------------------------------------------
 contains
 !-----------------------------------------------------------------------------------------------------------------------------------
-!===================================================================================================================================
-! worked fine with gfortran, ifx produced an error
-! ././src/M_unicode.F90(5530): error #9186: The dummy arguments of the
-! specific procedure defining a defined assignment or defined operator
-! cannot both be unlimited polymorphic. [G_G]
-!
 function g_g(value1,value2) result (string)
 
 $@(#) M_overload::g_g(3f): convert two single intrinsic values to a string
@@ -536,140 +490,6 @@ character(len=:),allocatable :: string
    string(1:len(string1))=string1
    string(len(string1)+1:)=string2
 end function g_g
-!===================================================================================================================================
-! maybe concat_g_g is non-standard, but intel compiler requires naming everything
-
-function concat_i_g(lhs,rhs) result (string)
-integer,intent(in)          :: lhs
-class(*),intent(in)         :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_i_g
-
-function concat_g_i(lhs,rhs) result (string)
-class(*),intent(in)         :: lhs
-integer,intent(in)          :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_g_i
-
-function concat_r_g(lhs,rhs) result (string)
-real,intent(in)             :: lhs
-class(*),intent(in)         :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_r_g
-
-function concat_g_r(lhs,rhs) result (string)
-class(*),intent(in)         :: lhs
-real,intent(in)             :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_g_r
-
-function concat_d_g(lhs,rhs) result (string)
-doubleprecision,intent(in)  :: lhs
-class(*),intent(in)         :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_d_g
-
-function concat_g_d(lhs,rhs) result (string)
-class(*),intent(in)         :: lhs
-doubleprecision,intent(in)  :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_g_d
-
-function concat_c_g(lhs,rhs) result (string)
-complex,intent(in)          :: lhs
-class(*),intent(in)         :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_c_g
-
-function concat_g_c(lhs,rhs) result (string)
-class(*),intent(in)         :: lhs
-complex,intent(in)          :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_g_c
-
-function concat_s_g(lhs,rhs) result (string)
-character(len=*),intent(in) :: lhs
-class(*),intent(in)         :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_s_g
-
-function concat_g_s(lhs,rhs) result (string)
-class(*),intent(in)         :: lhs
-character(len=*),intent(in) :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_g_s
-
-function concat_l_g(lhs,rhs) result (string)
-logical,intent(in)          :: lhs
-class(*),intent(in)         :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_l_g
-
-function concat_g_l(lhs,rhs) result (string)
-class(*),intent(in)         :: lhs
-logical,intent(in)          :: rhs
-character(len=:),allocatable          :: string1, string2, string
-   string1 = fmt(lhs)
-   string2 = fmt(rhs)
-   allocate(character(len=len(string1)+len(string2)) :: string)
-   string(1:len(string1))=string1
-   string(len(string1)+1:)=string2
-end function concat_g_l
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file merge.3m_overload.man
 NAME
@@ -695,11 +515,11 @@ EXAMPLES
    use M_overload, only : merge
    implicit none
    character(len=*), parameter :: gen='(*("[",g0,"]":,","))'
-
+   
       write(*,gen)merge('a','bbbbb',1.eq.1)
       write(*,gen)merge('a','bbbbb',1.eq.2)
       write(*,gen)merge(['a','b'],['bbbbb','ccccc'],1.eq.2)
-
+   
    end program demo_merge
 
   Results:
@@ -712,7 +532,7 @@ AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 !-----------------------------------------------------------------------------------------------------------------------------------
 elemental function strmerge(str1,str2,expr) result(strout)
@@ -764,16 +584,9 @@ DESCRIPTION
    This is an overload of the SIGN(3f) intrinsic which assumes the
    magnitude is 1 if only one argument is supplied.
 
-<<<<<<< HEAD
-   SIGN(MAGNITUDE,COPYSIGN) returns a value with the magnitude of
-   MAGNITUDE but with the sign of COPYSIGN. All three must be of the
-   same type, which may be INTEGER or REAL.
-
-=======
    SIGN(3f) returns a value with the magnitude of MAGNITUDE but with the
-   sign of COPYSIGN. All three must be of the same type, which may be
+   sign of COPYSIGN.  All three must be of the same type, which may be
    INTEGER or REAL.
->>>>>>> 35d98b208f01932d026340dc6f8bbab1a336a316
 
 OPTIONS
    magnitude  the return value will have the same magnitude as this value
@@ -822,7 +635,7 @@ EXAMPLES
    end program demo_sign
 
   Results:
-
+   
     >  sign works
     >  sign works
     >  sign works
@@ -837,7 +650,7 @@ AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $PARCEL SIGN
 elemental function sign_${KIND}(value)
@@ -901,7 +714,7 @@ dble(3f), real(3f), and int(3f) extension:
 
 DESCRIPTION
 
-    All the intrinsics dble(3f), real(3f), and int(3f) to
+    All the intrinsics dble(3f), real(3f), and int(3f) to 
     take a character string as an argument, assuming it
     represents a numeric value; or a logical value or
     expression.
@@ -927,7 +740,7 @@ EXAMPLES
            & integer_kinds, int8, int16, int32, int64
    use, intrinsic :: iso_fortran_env, only : &
            & real32, real64, real128
-
+   
    use M_overload, only : int, real, dble
    use M_overload, only : merge
    implicit none
@@ -937,7 +750,7 @@ EXAMPLES
       write(*,gen) int('1234')*2
       write(*,gen) real('1234.56789')*2
       write(*,gen) dble('1234.5678901234567')*2
-      ! tests
+      ! tests   
       if(int('1234') .eq. 1234 ) &
               & write(*,*)'int("STRING") works '
       if(abs(real('1234.56789') - 1234.56789) .lt. 2*epsilon(0.0)) &
@@ -979,25 +792,25 @@ EXAMPLES
     > [2468]
     > [2469.13574]
     > [2469.1357802469133]
-    >  int("STRING") works
-    >  real("STRING") works
-    >  dble("STRING") works
+    >  int("STRING") works 
+    >  real("STRING") works 
+    >  dble("STRING") works 
     >  .true. is                    0
     >  .false. is                    1
-    >  LOGICAL ARRAY      1.0000 0.0000  1.0000  0.0000
+    >  LOGICAL ARRAY      1.0000 0.0000  1.0000  0.0000      
     >  int works for .FALSE.
     >  int works for .TRUE.
-    >  METAMORPHIC        3.0000000000000000
-    >  METAMORPHIC        3.0000000000000000
-    >  METAMORPHIC        9.0000000000000000
-    >  METAMORPHIC        1.0000000000000000
-    >  METAMORPHIC        0.0000000000000000
+    >  METAMORPHIC        3.0000000000000000     
+    >  METAMORPHIC        3.0000000000000000     
+    >  METAMORPHIC        9.0000000000000000     
+    >  METAMORPHIC        1.0000000000000000     
+    >  METAMORPHIC        0.0000000000000000     
 
 AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 !===================================================================================================================================
 ! calls to s2v(3f) for extending intrinsics int(3f), real(3f), dble(3f)
@@ -1121,120 +934,6 @@ $!end subroutine get_command_argument_allocatable
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-$BLOCK COMMENT --file append.3m_overload.man
-NAME
-   append(3f) - [M_overload] append sets of strings to one another
-   (LICENSE:PD)
-SYNOPSIS
-   function append(set1,set2) result(array)
-
-    character(len=*),intent(in),optional :: set1, set2
-    character(len=:),allocatable :: array(:)
-
-DESCRIPTION
-   append(3f) appends any standard intrinsic string or string array
-              to another, creating a new array containing all the elements
-              of both inputs.
-
-              It is also available as the .append. operator, or as an
-              overload of the plus operator (+).
-
-OPTIONS
-   set1,set2  character strings or arrays to append to one another, adjusting
-              the width to accomodate the longest width.
-
-RETURNS
-   array   A string array composed of all the elements from both input strings
-           or arrays.
-
-EXAMPLES
-  Sample program:
-
-    program demo_append
-    use :: M_overload, only : append
-    use :: M_overload, only : operator(.append.)
-    use :: M_overload, only : operator( + )
-    implicit none
-    character(:), allocatable :: str(:)
-       !
-       ! plus (+) operator overload
-       str = "This" + "is" + "an" + "array" + "of" + "characters"
-       print "(('[',A,']'))", str
-       print '(*(g0))', 'size=',size(str), ',len=',len(str)
-       !
-       ! .append.
-       str = &
-       "This" .append. "is" &
-       .append. "an" .append. "array" &
-       .append. "of" .append. "characters"
-       print "(('[',A,']'))", str
-       !
-       ! append()
-       str = append("This","is") + &
-             append("an","array") + &
-             append("of","characters")
-       print "(('[',A,']'))", str
-
-    end program demo_append
-
-  Results:
-
-    > [This      ]
-    > [is        ]
-    > [an        ]
-    > [array     ]
-    > [of        ]
-    > [characters]
-    > size=6,len=10
-    > [This      ]
-    > [is        ]
-    > [an        ]
-    > [array     ]
-    > [of        ]
-    > [characters]
-    > [This      ]
-    > [is        ]
-    > [an        ]
-    > [array     ]
-    > [of        ]
-    > [characters]
-
-AUTHOR
-   John S. Urban; Based on a Fortran Discourse example by PierU, May 15, 2025.
-
-LICENSE
-   MIT
-$BLOCK
-$!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-function charray_scal_scal(x,y) result(z)
-character(*), intent(in)  :: x, y
-character(:), allocatable :: z(:)
-   z = charray_vector_vector([x],[y])
-end function charray_scal_scal
-
-function charray_vect_scal(x,y) result(z)
-character(*), intent(in)  :: x(:), y
-character(:), allocatable :: z(:)
-   z = charray_vector_vector(x,[y])
-end function charray_vect_scal
-
-function charray_scal_vect(x,y) result(z)
-character(*), intent(in)  :: x, y(:)
-character(:), allocatable :: z(:)
-   z = charray_vector_vector([x],y)
-end function charray_scal_vect
-
-function charray_vector_vector(x,y) result(z)
-character(*), intent(in)  :: x(:), y(:)
-character(:), allocatable :: z(:)
-   allocate( character(max(len(x),len(y))) :: z(size(x)+size(y)) )
-   z( :size(x))   = x
-   z(size(x)+1: ) = y
-end function charray_vector_vector
-!===================================================================================================================================
-!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
-!===================================================================================================================================
 $BLOCK COMMENT --file fmt.3m_overload.man
 NAME
    fmt(3f) - [M_overload] convert any intrinsic to a string using specified format
@@ -1242,7 +941,7 @@ NAME
 SYNOPSIS
    function fmt(value,format) result(string)
 
-    class(*),intent(in),optional :: value
+    class(*),intent(in),optional :: value(..)
     character(len=*),intent(in),optional :: format
     character(len=:),allocatable :: string
 DESCRIPTION
@@ -1250,11 +949,12 @@ DESCRIPTION
    format.
 OPTIONS
    value    value to print the value of. May be of type INTEGER, LOGICAL,
-            REAL, DOUBLEPRECISION, COMPLEX, or CHARACTER.
+            REAL, DOUBLEPRECISION, COMPLEX, or CHARACTER. May be a scalar
+            or a vector or a matrix
    format   format to use to print value. It is up to the user to use an
             appropriate format. The format does not require being
             surrounded by parenthesis. If not present a default is selected
-            similar to what would be produced with free format, with
+            similar to what would be produced with free format, with 
             trailing zeros removed.
 RETURNS
    string   A string value
@@ -1303,7 +1003,7 @@ EXAMPLES
          !
          ! combined with a g0 format line "asis" you get something very
          ! similar to list-directed I/O accept no unexpected line breaks
-         ! and starts in column 1 and lets you tweek float values and
+         ! and starts in column 1 and lets you tweek float values and 
          ! not have to remember a space goes between values unless they
          ! are adjacent strings, and you may or may not get while space
          ! after numeric values to make them all the same length for a
@@ -1323,14 +1023,15 @@ EXAMPLES
          ! includes angle brackets enclosing a Fortran expression where the
          ! value of the variable enclosed in the <> brackets is substituted
          ! as a string into the format. So if N=3 this format
-         ! "FORMAT(I<N>)" would become "FORMAT(I3)". GNU Fortran does not
-         ! support this legacy extension. The effect of variable format
-         ! expressions can be reproduced by using the more powerful
+         ! "FORMAT(I<N>)" would become "FORMAT(I3)". GNU Fortran does not 
+         ! support this legacy extension. The effect of variable format 
+         ! expressions can be reproduced by using the more powerful 
          ! (and standard) combination of internal output and string formats.
          ! but it is easier using the overloaded // operator:
          VFE: block
             integer,allocatable :: vector(:)
             integer :: neg, zero, pos
+            integer :: left
                vector=[-1,-22,-300,0,0,0,0,8,9,10,11,12]
                neg=3
                zero=4
@@ -1340,7 +1041,7 @@ EXAMPLES
                  &zero//"('@',i0:,1x),"//&
                  &pos//"('P',i0:,1x))") vector
          endblock VFE
-         !
+         ! 
          !not yet! write(*,asis)'['//f(arr,comma)//']'
 
       end program demo_fmt
@@ -1369,7 +1070,7 @@ use,intrinsic :: iso_fortran_env, only : int8, int16, int32, int64, real32, real
 
 $@(#) M_overload::fmt(3f): convert any intrinsic to a string using specified format
 
-class(*),intent(in)          :: generic
+class(*),intent(in)          :: generic(..)
 character(len=*),intent(in),optional  :: format
 character(len=:),allocatable :: line
 character(len=:),allocatable :: fmt_local
@@ -1379,80 +1080,87 @@ character(len=255)           :: iomsg
 character(len=1),parameter   :: null=char(0)
 integer                      :: ilen
 logical                      :: trimit
-   allocate(character(len=256) :: line) ! cannot currently write into unallocated allocatable variable
+integer,parameter            :: ic=256
+   allocate(character(len=ic) :: line) ! cannot currently write into unallocated allocatable variable
    iostat=0
    if(present(format))then
       fmt_local=adjustl(trim(format))
+      if(fmt_local /= '')then
+         i=len_trim(fmt_local)
+         fmt_local='(256("//null//"),'//fmt_local//',a)'
+      endif
       trimit=.false.
    else
       fmt_local=''
       trimit=.true.
    endif
-   if(fmt_local.ne.'')then
-      if(fmt_local(1:1) == '(')then
-         fmt_local=fmt_local(:len_trim(fmt_local)-1)//',a)'
-      else
-         fmt_local='('//fmt_local//',a)'
-      endif
-   endif
-   ! add ",a" and print null and use position of null to find length of output
-   ! add cannot use SIZE= or POS= or ADVANCE='NO' on WRITE() on INTERNAL READ,
-   ! and do not want to trim as trailing spaces can be significant
-   select type(generic)
-      type is (integer(kind=int8))
-         if(fmt_local == '') fmt_local='(i0,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-      type is (integer(kind=int16))
-         if(fmt_local == '') fmt_local='(i0,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-      type is (integer(kind=int32))
-         if(fmt_local == '') fmt_local='(i0,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-      type is (integer(kind=int64))
-         if(fmt_local == '') fmt_local='(i0,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-      type is (real(kind=real32))
-         if(fmt_local == '') fmt_local='(1pg0,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-      type is (real(kind=real64))
-         if(fmt_local == '') fmt_local='(1pg0,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-#ifdef FLOAT128
-      type is (real(kind=real128))
-         if(fmt_local == '') fmt_local='(1pg0,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-#endif
-      type is (logical)
-         if(fmt_local == '') fmt_local='(l1,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-      type is (character(len=*))
-         if(fmt_local == '') fmt_local='(a,a)'
-         write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-      type is (complex)
-         if(trimit)then
-            re=fmt(generic%re)
-            im=fmt(generic%im)
-            call trimzeros_(re)
-            call trimzeros_(im)
-            fmt_local='("(",g0,",",g0,")",a)'
-            write(line,fmt_local,iostat=iostat,iomsg=iomsg) trim(re),trim(im),null
-            trimit=.false.
-         else
-            if(fmt_local == '') fmt_local='("(",1pg0,",",1pg0,")",a)'
-            write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
-         endif
+   ! fill with nulls and position back to column 1 with TL1 or add null at end because trailing spaces might be significant
+   ! add cannot use SIZE= or POS= or ADVANCE='NO' on INTERNAL WRITE() 
+
+   select rank(a)
+   rank (0); line=ffmt([a] ! a scalar
+   rank (1); ! a vector
+      select type(generic)
+       type is (integer(kind=int8)); line=fmt
+          if(fmt_local == '' ) fmt_local='(*(i0:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+       type is (integer(kind=int16))
+          if(fmt_local == '' ) fmt_local='(*(i0:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+       type is (integer(kind=int32))
+          if(fmt_local == '' ) fmt_local='(*(i0:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+       type is (integer(kind=int64))
+          if(fmt_local == '' ) fmt_local='(*(i0:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+       type is (real(kind=real32))
+          if(fmt_local == '' ) fmt_local='(*(1pg0:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+       type is (real(kind=real64))
+          if(fmt_local == '' ) fmt_local='(*(1pg0:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+   #ifndef __NVCOMPILER
+       type is (real(kind=real128))
+          if(fmt_local == '' ) fmt_local='(*(1pg0:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+   #endif
+       type is (logical)
+          if(fmt_local == '' ) fmt_local='(*(l1:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+       type is (character(len=*))
+          if(fmt_local == '' ) fmt_local='(*(a:,","))'
+          write(line,fmt_local,iostat=iostat,iomsg=iomsg) [generic],null
+       type is (complex)                
+          if(fmt_local == '' ) fmt_local='(*("(",1pg0,",",1pg0,")",","))'
+            if(trimit)then
+               re=fmt(generic%re)
+               im=fmt(generic%im)
+               call trimzeros_(re)
+               call trimzeros_(im)
+               fmt_local='(*("(",g0,",",g0,")",","))'
+               write(line,fmt_local,iostat=iostat,iomsg=iomsg) trim(re),trim(im),null
+               trimit=.false.
+            else
+               write(line,fmt_local,iostat=iostat,iomsg=iomsg) generic,null
+            endif
+      end select
+   rank (2); line=ffmt([a])! a matrix
+   rank (3); line=ffmt([a])
+   rank (4); line=ffmt([a])
+   rank default; stop '*printi* unexpected rank'
    end select
    if(iostat /= 0)then
       line='<ERROR>'//trim(iomsg)
    else
       ilen=index(line,null,back=.true.)
-      if(ilen == 0)ilen=len(line)
+      if(ilen == 0) ilen=len_trim(line)+1
       line=line(:ilen-1)
    endif
 
    if(index(line,'.') /= 0 .and. trimit) call trimzeros_(line)
 
 end function fmt
+!===================================================================================================================================
 !===================================================================================================================================
 function ffmt(generic,format) result (line)
 ! Second argument of operator interface at (1) cannot be optional so call fmt
@@ -1764,7 +1472,7 @@ EXAMPLES
    end program demo_to
 
   Results:
-
+   
       > 11 12 13 14 15 16
       > 2.50000000 5.00000000 7.50000000 10.0000000
       > 12.5000000 15.0000000 17.5000000 20.0000000
@@ -1773,7 +1481,7 @@ AUTHOR
    John S. Urban, inspired by @beliavsky
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 pure function to(i, j) result(vec)
 integer, intent(in) :: i, j
@@ -1802,7 +1510,7 @@ SYNOPSIS
 
 DESCRIPTION
 
-   oz(3f) returns an integer 1 given a true logical expression.
+   Returns an integer given a logical expression.
 
 OPTIONS
    expr  A logical expression
@@ -1835,17 +1543,18 @@ AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 pure elemental integer function oz(expr)
 $@(#) M_overload::oz(3f): logical to integer, TRUE results in 1, FALSE results in 0
 logical, intent(in) :: expr
    oz = merge(1, 0, expr) ! One and Zero
 end function oz
+
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK COMMENT --file zo.3m_overload.man
 NAME
-   zo(3f) - [M_overload::LOGICAL] returns Zero if expression is TRUE, else returns One.
+   zo(3f) - [M_overload::LOGICAL] returns Zero if expression is FALSE, else returns One.
    (LICENSE:PD)
 SYNOPSIS
 
@@ -1855,7 +1564,7 @@ SYNOPSIS
 
 DESCRIPTION
 
-   zo(3f) returns an integer 0 given a true logical expression.
+   Returns an integer given a logical expression.
 
 OPTIONS
    expr  A logical expression
@@ -1886,7 +1595,7 @@ AUTHOR
    John S. Urban
 LICENSE
    Public Domain
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 pure elemental integer function zo(expr)
 $@(#) M_overload::zo(3f): logical to integer, TRUE results in 0, FALSE results in 1
@@ -1947,7 +1656,7 @@ $BLOCK NULL
 ! This says to me that the code as given was nonconforming because the
 ! name FOO was used to identify the module procedure SUBROUTINE FOO
 ! from MODULE M1 as well as the module procedure SUBROUTINE FOO from
-! MODULE M2. The case of generic names says to me that any number of
+! MODULE M2.  The case of generic names says to me that any number of
 ! generic identifiers may have the same name as one module procedure
 ! provided any possible generic procedure reference is unambiguous
 ! (section 14.1.2.3).
@@ -2033,5 +1742,14 @@ program p
    call foo2(10.0d0,9.0d0,2,3)
 
 end program p
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+$BLOCK NULL
+! ! find how many characters to use for integers
+! write(row,'(i0)')ceiling(log10(max(1.0,real(maxval(abs(b))))))+2
+! ! use this format to write a row
+! row='(" > [",*(i'//trim(row)//':,","))'
+! write(*,fmt=row,advance='no')b
+! write(*,*)']'
+$ENDBLOCK
+!===================================================================================================================================

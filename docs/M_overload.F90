@@ -708,16 +708,10 @@ end function adjustr_atleast
 !!    This is an overload of the SIGN(3f) intrinsic which assumes the
 !!    magnitude is 1 if only one argument is supplied.
 !!
-<<<<<<< HEAD
 !!    SIGN(MAGNITUDE,COPYSIGN) returns a value with the magnitude of
 !!    MAGNITUDE but with the sign of COPYSIGN. All three must be of the
 !!    same type, which may be INTEGER or REAL.
 !!
-=======
-!!    SIGN(3f) returns a value with the magnitude of MAGNITUDE but with the
-!!    sign of COPYSIGN. All three must be of the same type, which may be
-!!    INTEGER or REAL.
->>>>>>> 35d98b208f01932d026340dc6f8bbab1a336a316
 !!
 !!##OPTIONS
 !!    magnitude  the return value will have the same magnitude as this value
