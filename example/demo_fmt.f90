@@ -53,7 +53,6 @@
            ! using non-advancing I/O
            write(*,comma)x,f(x),f(x,g0),f(x,five),f(x,bracket)
 
-
            ! A common extension in Fortran is a VFE
            ! VFE:
            ! A Variable FORMAT Expression (VFE) is a format statement which
@@ -68,7 +67,6 @@
            VFE: block
               integer,allocatable :: vector(:)
               integer :: neg, zero, pos
-              integer :: left
                  vector=[-1,-22,-300,0,0,0,0,8,9,10,11,12]
                  neg=3
                  zero=4

@@ -48,7 +48,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 <div id="Container">
 <div id="Content">
 <CENTER>
-<H1><HR><I>Manual Reference Pages &nbsp;-&nbsp;</I><NOBR>sign (3m_overload)</NOBR><HR></H1>
+<H1><HR><I>Manual Reference Pages &nbsp;-&nbsp;</I><NOBR>append (3m_overload)</NOBR><HR></H1>
 </CENTER>
 <A name=0>
 
@@ -56,8 +56,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 
 </A>
 <BLOCKQUOTE>
-sign(3f) - [M_overload::INTRINSIC] When sign(3f) is given a single
-value sign(value), call sign(1,value).
+append(3f) - [M_overload] append sets of strings to one another
 (LICENSE:PD)
 </BLOCKQUOTE>
 <A name=contents></A><H3>CONTENTS</H3></A>
@@ -76,8 +75,13 @@ value sign(value), call sign(1,value).
 
 </A>
 <BLOCKQUOTE>
+function append(set1,set2) result(array)
 <P>
-pure elemental class(*) function sign([magnitude],copysign)
+<PRE>
+    character(len=*),intent(in),optional :: set1, set2
+    character(len=:),allocatable :: array(:)
+<P>
+</PRE>
 </BLOCKQUOTE>
 <A name=2>
 
@@ -85,13 +89,14 @@ pure elemental class(*) function sign([magnitude],copysign)
 
 </A>
 <BLOCKQUOTE>
+append(3f) appends any standard intrinsic string or string array
+to another, creating a new array containing all the elements
+of both inputs.
+<BLOCKQUOTE>
 <P>
-This is an overload of the SIGN(3f) intrinsic which assumes the
-magnitude is 1 if only one argument is supplied.
-<P>
-SIGN(MAGNITUDE,COPYSIGN) returns a value with the magnitude of
-MAGNITUDE but with the sign of COPYSIGN. All three must be of the
-same type, which may be INTEGER or REAL.
+It is also available as the .append. operator, or as an
+overload of the plus operator (+).
+</BLOCKQUOTE>
 </BLOCKQUOTE>
 <A name=3>
 
@@ -101,13 +106,9 @@ same type, which may be INTEGER or REAL.
 <BLOCKQUOTE>
 <TABLE cellpadding=3>
 <TR valign=top><TD colspan=2>
-<B>magnitude</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
-the return value will have the same magnitude as this value
-Optional. A 1 is assumed if not present.
-</TD></TR>
-<TR valign=top><TD colspan=2>
-<B>copysign</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
-the return value will have the same sign as this value
+<B>set1,set2</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
+character strings or arrays to append to one another, adjusting
+the width to accomodate the longest width.
 </TD></TR>
 <TR></TR></TABLE></BLOCKQUOTE>
 <A name=4>
@@ -116,65 +117,72 @@ the return value will have the same sign as this value
 
 </A>
 <BLOCKQUOTE>
-<P>
-The result is a value with the magnitude of A and the sign of B
-</BLOCKQUOTE>
+<TABLE cellpadding=3>
+<TR valign=top><TD width=6% nowrap>
+<B>array</B> </TD><TD valign=bottom>
+A string array composed of all the elements from both input strings
+or arrays.
+</TD></TR>
+<TR></TR></TABLE></BLOCKQUOTE>
 <A name=5>
 
      <H3>EXAMPLES</H3>
 
 </A>
 <BLOCKQUOTE>
-Sample usage:
+Sample program:
 <P>
 <PRE>
-   program demo_sign
-   use, intrinsic :: iso_fortran_env, only : &
-   & integer_kinds, int8, int16, int32, int64
-   use, intrinsic :: iso_fortran_env, only : &
-   & real32, real64, real128
-   ! overload can take a single argument
-   use M_overload, only: sign, lt, le, eq, ne, gt, ge
-   implicit none
-   ! basics
-   write(*,*) sign(1234), sign(-1234), sign(huge(0.0)), sign(-huge(0.0))
-   ! any type of integer or real
-   write(*,*) merge(&#146;sign works&#146;,&#146;sign fails&#146;, sign(10_int8).eq.1         &
-   & .and. sign(-10_int8).eq.-1        )
-   write(*,*) merge(&#146;sign works&#146;,&#146;sign fails&#146;, sign(10_int16).eq.1        &
-   & .and. sign(-10_int16).eq.-1       )
-   write(*,*) merge(&#146;sign works&#146;,&#146;sign fails&#146;, sign(10_int32).eq.1        &
-   & .and. sign(-10_int32).eq.-1       )
-   write(*,*) merge(&#146;sign works&#146;,&#146;sign fails&#146;, sign(10_int64).eq.1        &
-   & .and. sign(-10_int64).eq.-1       )
-   write(*,*) merge(&#146;sign works&#146;,&#146;sign fails&#146;, sign(10.0_real32).eq.1.0   &
-   & .and. sign(-10.0_real32).eq.-1.0  )
-   write(*,*) merge(&#146;sign works&#146;,&#146;sign fails&#146;, sign(10.0_real64).eq.1.0d0 &
-   & .and. sign(-10.0_real64).eq.-1.0d0 )
-   write(*,*) merge(&#146;sign works&#146;,&#146;sign fails&#146;, sign(10.0_real128).eq.1.0  &
-   & .and. sign(-10.0_real128).eq.-1.0 )
-   !
-   !write (*, *) sign(10 &lt; 20)
-   !
-   !if (sum(sign([1 &gt; 2, 3 == 4, 10 &lt; 5, 100 &gt; 50])) &gt; 2) then
-   !   write (*, *) &#146;two or more are not true&#146;
-   !endif
-   !
-   end program demo_sign
+    program demo_append
+    use :: M_overload, only : append
+    use :: M_overload, only : operator(.append.)
+    use :: M_overload, only : operator( + )
+    implicit none
+    character(:), allocatable :: str(:)
+       !
+       ! plus (+) operator overload
+       str = "This" + "is" + "an" + "array" + "of" + "characters"
+       print "((&#146;[&#146;,A,&#146;]&#146;))", str
+       print &#146;(*(g0))&#146;, &#146;size=&#146;,size(str), &#146;,len=&#146;,len(str)
+       !
+       ! .append.
+       str = &
+       "This" .append. "is" &
+       .append. "an" .append. "array" &
+       .append. "of" .append. "characters"
+       print "((&#146;[&#146;,A,&#146;]&#146;))", str
+       !
+       ! append()
+       str = append("This","is") + &
+             append("an","array") + &
+             append("of","characters")
+       print "((&#146;[&#146;,A,&#146;]&#146;))", str
+<P>
+    end program demo_append
 <P>
 </PRE>
 Results:
 <P>
 <PRE>
-    &gt;  sign works
-    &gt;  sign works
-    &gt;  sign works
-    &gt;  sign works
-    &gt;  sign works
-    &gt;  sign works
-    &gt;  sign works
-    &gt;           0
-    &gt;  two or more are not true
+    &gt; [This      ]
+    &gt; [is        ]
+    &gt; [an        ]
+    &gt; [array     ]
+    &gt; [of        ]
+    &gt; [characters]
+    &gt; size=6,len=10
+    &gt; [This      ]
+    &gt; [is        ]
+    &gt; [an        ]
+    &gt; [array     ]
+    &gt; [of        ]
+    &gt; [characters]
+    &gt; [This      ]
+    &gt; [is        ]
+    &gt; [an        ]
+    &gt; [array     ]
+    &gt; [of        ]
+    &gt; [characters]
 <P>
 </PRE>
 </BLOCKQUOTE>
@@ -184,7 +192,7 @@ Results:
 
 </A>
 <BLOCKQUOTE>
-John S. Urban
+John S. Urban; Based on a Fortran Discourse example by PierU, May 15, 2025.
 </BLOCKQUOTE>
 <A name=7>
 
@@ -192,10 +200,15 @@ John S. Urban
 
 </A>
 <BLOCKQUOTE>
-Public Domain
+</BLOCKQUOTE>
+<A name=>
+
+    <H4>&nbsp; &nbsp; MIT</H4>
+</A>
+<BLOCKQUOTE>
 </BLOCKQUOTE>
 <P><HR>
-<br><br><center><img src="images/sign.gif"></center>
+<br><br><center><img src="images/append.gif"></center>
 </div>
 </div>
 </body>

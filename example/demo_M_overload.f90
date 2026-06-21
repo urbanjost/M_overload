@@ -64,7 +64,6 @@
        write(*,*) int([.false.,.true.,.false.])
        write(*,*) sum(int([.false.,.true.,.false.]))
 
-
        ! and sign() assumes the second argument is 1
        write(*,*) merge('sign works','sign fails',&
         & sign(10_int8).eq.1 &
